@@ -26,6 +26,13 @@ class ChainingRules
 			if(word.start_with?("//"))
 				break
 			end
+
+			#check if we have comment without spaces
+			if(word.include?("//"))
+				commentStarted = true
+				word = word.split("//").first
+			end
+
 			if(word.length > 1)
 				@errorLine = index
 				@errorString = "Rule argument larger than 1 symbol"
@@ -39,21 +46,28 @@ class ChainingRules
 				r.req << word
 				acceptable = true
 			end
+
+			if commentStarted
+				break
+			end
 		end
 
-		if(!acceptable && first_word == false)
+
+		if(acceptable)
+			@rules << r
+
+		elsif(!acceptable && first_word == false)
 			@errorLine = index
 			@errorString = "Not enough data to form a rule"
 			return :parseError
 		end
 
-		@rules << r
 		return :ok
 	end
 
 	def parse(text)
-		text.lines[1..-1].each_with_index do |line, index|
-			res = parse_line(line, index + 2)
+		text.lines.each_with_index do |line, index|
+			res = parse_line(line, index + 1)
 			if(res != :ok)
 				return res
 			end

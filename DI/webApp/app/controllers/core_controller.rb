@@ -38,6 +38,14 @@ class CoreController < ActionController::Base
 
 	def chaining
 		if !request.post?
+			@ruletext = "//Sample data has been filled for you :)\r\n" +
+				"//Please press submit, if you want to see results\r\n" +
+				"Z F B // F, B -> Z\r\n" +
+				"F C D // C, D -> F\r\n\r\n" + 
+				"//Empty lines - no problem\r\n" +
+				"D A//Shorter rule without space between comment"
+			@facttext = "A B C"
+			@goaltext = "Z"
 			return
 		end
 
