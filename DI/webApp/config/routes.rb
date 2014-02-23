@@ -1,9 +1,13 @@
 WebApp::Application.routes.draw do
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'core#index'
+
+  get '/chaining', to: 'core#chaining'
+  post '/chaining', to: 'core#chaining'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

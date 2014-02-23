@@ -1,0 +1,44 @@
+<h1>Chaining algorithm</h1>
+
+<% if flash[:error] %>
+  <p class="error"><font color="red">*<%= flash[:error] %></font></p>
+<% end %>
+
+<form name="input" method="post">
+Rules<br>
+<textarea name="rules" cols="75" rows="10"><%= @ruletext %></textarea>
+<br>
+Facts: <input type="text" name="facts" value="<%= @facttext %>">
+<br>
+Goal:  <input type="Text" name="goal" value="<%= @goaltext %>">
+<br>
+<input type="submit" value="Submit">
+</form>
+
+<hr>
+
+<% if @data_exists %>
+	<p> Rule Count: <%= @rules_cnt %> </p>
+	<ul>
+	<% @rules.each_with_index do |rule, index| %>
+	<li>    R<%=index + 1%>: <%=rule.to_s%></li>
+	<% end %>
+	</ul>
+
+	<p> Facts: </p>
+	<ul>
+	<% @facts.each_with_index do |fact, index| %>
+	<li>    F<%=index + 1%>: <%=fact%></li>
+	<% end %>
+	</ul>
+
+	<p> Goal: </p>
+	<ul>
+	<li>    G1: <%= @goal %> </li>
+	</ul>
+
+
+<% end %>
+
+
+
