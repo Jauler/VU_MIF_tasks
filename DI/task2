@@ -1,0 +1,16 @@
+Input data:
+Komentarai butini, formatas tikslus
+
+TAISYKLĖS
+Jono Jonaičio išvedimo duomenys (konsp kažkur)
+Z F B  // R1: F, B -> Z
+F C D  // R2: C, D -> F
+D A
+
+FAKTAI
+A B C
+
+TISKLAS
+Z
+
+juliuschainingexample.appspot.com << online pavyzdys plius ouptuto formtas 
