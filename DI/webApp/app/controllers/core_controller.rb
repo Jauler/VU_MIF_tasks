@@ -93,5 +93,6 @@ class CoreController < ActionController::Base
 		@success = fs.solve(r.rules, otherFacts, @goal)
 		@solving_progress = fs.resultText
 		@path = fs.path
+		@tmpFacts = fs.tmpFacts
 	end
 end

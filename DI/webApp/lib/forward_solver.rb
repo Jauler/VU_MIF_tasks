@@ -3,12 +3,15 @@ load 'chaining_rules.rb'
 class Forward_solver
 	@resultText
 	@path
+	@tmpFacts
 	attr_accessor :resultText
 	attr_accessor :path
+	attr_accessor :tmpFacts
 
 	def initialize()
 		@resultText = Array.new
 		@path = Array.new
+		@tmpFacts = Array.new
 	end
 
 	def rule_can_apply(rule, facts)
@@ -18,13 +21,23 @@ class Forward_solver
 			return false
 		end
 
+		use = true
+		missingFacts = Array.new
 		rule.req.each do |req|
-			exists = facts.include? req
 			if not(facts.include? req)
-				@resultText[-1] << 'Not using rule ' + rule.to_s +
-						' because of missing fact ' + req
-				return false
+				use = false
+				missingFacts << req
 			end
+		end
+
+		if not(use)
+			@resultText[-1] << 'Not using rule ' + rule.to_s +
+					' because of missing fact(s) '
+			missingFacts.each do |misFact|
+				@resultText[-1][-1] += misFact + ' '
+			end
+			return false
+		
 		end
 
 		@resultText[-1] << 'Rule ' + rule.to_s + ' applied'
@@ -33,6 +46,12 @@ class Forward_solver
 
 	def recursive_solver(rules, facts, goal)
 		@resultText << Array.new
+		@tmpFacts << Array.new
+
+		#put initial iteration facts
+		facts.each do |fact|
+			@tmpFacts[-1] << fact
+		end
 
 		#check for goal
 		if(facts.include? goal)
@@ -63,6 +82,7 @@ class Forward_solver
 	def solve(rules, facts, goal)
 		@resultText.clear
 		@path.clear
+		@tmpFacts.clear
 		return recursive_solver(rules, facts, goal)
 
 	end

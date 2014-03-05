@@ -39,12 +39,16 @@ Goal:  <input type="Text" name="goal" value="<%= @goaltext %>">
 
 	<p> <%= @dbgText %> </p>
 
+<% if @solving_progress.length > 1 %>
 <hr>
 
 <p>Algorithm Trace:</p>
 <ul>
 <% @solving_progress.each_with_index do |iter, i| %>
-	<li> Iteration <%= i + 1 %>
+	<li> Iteration <%= i + 1 %><br><i>Initial Facts:
+				<% @tmpFacts[i].each_with_index do |fact, j| %>
+				<%= fact %><%if j < @tmpFacts[i].length - 1 %>, <%end%>
+				<% end %></i>
 	<ul>
 	<% iter.each do |line| %>
 		<li><%= line %></li>
@@ -53,15 +57,19 @@ Goal:  <input type="Text" name="goal" value="<%= @goaltext %>">
 	</li>
 <% end %>
 </ul>
+<% end %>
 
 <hr>
 <p>Results:</p>
 <% if @success %>
 <p><b>Goal reached successfully</b></p>
+
+<% if @path.length > 0 %>
 <p>Path: <% @path.each_with_index do |pathTurn, i| %>
-R<%= pathTurn + 1 %><% if i < @path.length - 1 %>,<% end %>
+R<%= pathTurn + 1 %><% if i < @path.length - 1 %>, <% end %>
 <% end %>
 </p>
+<% end %>
 
 <% else %>
 <p><b>Goal Could not be reached</b></p>
