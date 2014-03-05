@@ -59,7 +59,7 @@ Goal:  <input type="Text" name="goal" value="<%= @goaltext %>">
 <% if @success %>
 <p><b>Goal reached successfully</b></p>
 <p>Path: <% @path.each_with_index do |pathTurn, i| %>
-R<%= pathTurn %><% if i < @path.length - 1 %>,<% end %>
+R<%= pathTurn + 1 %><% if i < @path.length - 1 %>,<% end %>
 <% end %>
 </p>
 
