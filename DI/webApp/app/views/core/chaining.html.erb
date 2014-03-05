@@ -37,8 +37,40 @@ Goal:  <input type="Text" name="goal" value="<%= @goaltext %>">
 	<li>    G1: <%= @goal %> </li>
 	</ul>
 
+	<p> <%= @dbgText %> </p>
+
+<hr>
+
+<p>Algorithm Trace:</p>
+<ul>
+<% @solving_progress.each_with_index do |iter, i| %>
+	<li> Iteration <%= i + 1 %>
+	<ul>
+	<% iter.each do |line| %>
+		<li><%= line %></li>
+	<% end %>
+	</ul>
+	</li>
+<% end %>
+</ul>
+
+<hr>
+<p>Results:</p>
+<% if @success %>
+<p><b>Goal reached successfully</b></p>
+<p>Path: <% @path.each_with_index do |pathTurn, i| %>
+R<%= pathTurn %><% if i < @path.length - 1 %>,<% end %>
+<% end %>
+</p>
+
+<% else %>
+<p><b>Goal Could not be reached</b></p>
+<% end %>
 
 <% end %>
 
+<br>
+<br>
+<br>
 
 

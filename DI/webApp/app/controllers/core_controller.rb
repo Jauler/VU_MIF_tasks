@@ -1,4 +1,5 @@
 load 'chaining_rules.rb'
+load 'forward_solver.rb'
 
 class CoreController < ActionController::Base
 
@@ -85,5 +86,12 @@ class CoreController < ActionController::Base
 		@data_exists = true
 		@rules_cnt = r.rules.size
 		@rules = r.rules
+
+		fs = Forward_solver.new
+
+		otherFacts = Array.new(@facts)
+		@success = fs.solve(r.rules, otherFacts, @goal)
+		@solving_progress = fs.resultText
+		@path = fs.path
 	end
 end

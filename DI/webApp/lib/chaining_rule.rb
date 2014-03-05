@@ -1,12 +1,15 @@
 class ChainingRule
 	@req
 	@result
+	@used
 	attr_accessor :req
 	attr_accessor :result
+	attr_accessor :used
 
 	def initialize()
 		@req = Array.new
 		@result = ""
+		@used = false
 	end
 
 	def to_s()
