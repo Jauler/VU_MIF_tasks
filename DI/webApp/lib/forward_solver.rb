@@ -55,7 +55,7 @@ class Forward_solver
 
 		#check for goal
 		if(facts.include? goal)
-			@resultText[-1] << 'Goal ' + goal + ' Reached'
+			@resultText[-1] << 'Goal ' + goal + ' Reached. Terminating.'
 			return true
 		end
 
@@ -79,7 +79,7 @@ class Forward_solver
 		end
 
 		if not(rulesApplied)
-			@resultText[-1] << 'All rules applied, goal not reached. Terminating'
+			@resultText[-1] << 'All rules applied, goal not reached. Terminating.'
 			return false
 		end
 
