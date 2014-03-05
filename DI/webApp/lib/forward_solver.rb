@@ -62,6 +62,13 @@ class Forward_solver
 		#iterate through rules
 		rulesApplied = false
 		rules.each_with_index do |rule, i|
+			if(facts.include? rule.result)
+				@resultText[-1] << 'Not using rule ' + rule.to_s +
+						' because its result ' + rule.result +
+						' is already in facts'
+				next
+			end
+
 			if(rule_can_apply(rule, facts))
 				facts.append(rule.result)
 				rule.used = true
