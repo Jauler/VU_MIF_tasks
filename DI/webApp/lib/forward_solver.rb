@@ -15,12 +15,7 @@ class Forward_solver
 	end
 
 	def rule_can_apply(rule, facts)
-		if(rule.used)
-			@resultText[-1] << 'Not using rule ' + rule.to_s +
-							' because already used'
-			return false
-		end
-
+		#scan each rule requirement and check if it is in facts
 		use = true
 		missingFacts = Array.new
 		rule.req.each do |req|
@@ -30,6 +25,7 @@ class Forward_solver
 			end
 		end
 
+		#take care of printing messages on invalid rule
 		if not(use)
 			@resultText[-1] << 'Not using rule ' + rule.to_s +
 					' because of missing fact(s) '
@@ -40,6 +36,7 @@ class Forward_solver
 		
 		end
 
+		#take care of printing messages on valid rule
 		@resultText[-1] << 'Rule ' + rule.to_s + ' applied'
 		return true
 	end
@@ -60,36 +57,45 @@ class Forward_solver
 		end
 
 		#iterate through rules
-		rulesApplied = false
 		rules.each_with_index do |rule, i|
-			if(facts.include? rule.result)
+			#check if rule is used
+			if(rule.used)
 				@resultText[-1] << 'Not using rule ' + rule.to_s +
-						' because its result ' + rule.result +
-						' is already in facts'
+							' because already used. FLAG1.'
 				next
 			end
 
+			#check if we have result in our facts
+			if(facts.include? rule.result)
+				@resultText[-1] << 'Not using rule ' + rule.to_s +
+						' because its result ' + rule.result +
+						' is already in facts. FLAG2.'
+				next
+			end
+
+			#see if we can apply the rule
 			if(rule_can_apply(rule, facts))
 				facts.append(rule.result)
 				rule.used = true
-				rulesApplied = true
 				@path << i
+				#go recursively to next iteration
+				return recursive_solver(rules, facts, goal)
 				break
 			end
 		end
 
-		if not(rulesApplied)
-			@resultText[-1] << 'All rules applied, goal not reached. Terminating.'
-			return false
-		end
-
-		recursive_solver(rules, facts, goal)
+		#If we are here - it means, that we have not applied any rule
+		@resultText[-1] << 'All rules applied, goal not reached. Terminating.'
+		return false
 	end
 
 	def solve(rules, facts, goal)
+		#initialize
 		@resultText.clear
 		@path.clear
 		@tmpFacts.clear
+
+		#solve recursively
 		return recursive_solver(rules, facts, goal)
 
 	end
