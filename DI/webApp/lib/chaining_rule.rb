@@ -24,4 +24,13 @@ class ChainingRule
 		str += " -> " + @result
 		return str
 	end
+
+	def reqs_to_s()
+		str = ""
+		@req.each do |req|
+			str += req + " "
+		end
+
+		return str
+	end
 end
