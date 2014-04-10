@@ -1,5 +1,6 @@
 load 'chaining_rules.rb'
 load 'forward_solver.rb'
+load 'backward_solver.rb'
 
 class CoreController < ActionController::Base
 
@@ -47,9 +48,11 @@ class CoreController < ActionController::Base
 				"D A//Shorter rule without space between comment"
 			@facttext = "A B C"
 			@goaltext = "Z"
+			@selectedAlg = 'forward'
 			return
 		end
 
+		@selectedAlg = params['alg']
 		@ruletext = params['rules']
 		@facttext = params['facts']
 		@goaltext = params['goal']
@@ -87,7 +90,11 @@ class CoreController < ActionController::Base
 		@rules_cnt = r.rules.size
 		@rules = r.rules
 
-		fs = Forward_solver.new
+		if(@selectedAlg == 'forward')
+			fs = Forward_solver.new
+		else
+			fs = Backward_solver.new
+		end
 
 		otherFacts = Array.new(@facts)
 		@success = fs.solve(r.rules, otherFacts, @goal)
