@@ -1,0 +1,63 @@
+<html>
+<h1>Rytis Karpuška A* example</h1>
+
+Dimensions of the map
+
+<input id="x" type="number" min="2" max="30" value="15"/>
+<input id="y" type="number" min="2" max="30" value="15"/>
+<button type="button" onclick="drawBoard();">Apply</button>
+
+<br>
+<br>
+<script>
+
+var canvas = $('<canvas/>').attr({width: 1000, height: 500}).appendTo('body');
+var context = canvas.get(0).getContext("2d");
+canvas.addEventListener("click", gridOnClick, false);
+
+function drawBoard(){
+    var bw = document.getElementById("x").value * 15;
+    var bh = document.getElementById("y").value * 15;
+    context.clearRect(0, 0, 1000, 500);
+    context.beginPath();
+
+
+    for (var x = 0; x <= bw; x += 15) {
+        context.moveTo(0.5 + x, 0);
+        context.lineTo(0.5 + x, bh);
+    }
+
+
+    for (var x = 0; x <= bh; x += 15) {
+        context.moveTo(0, 0.5 + x);
+        context.lineTo(bw, 0.5 + x);
+    }
+
+    context.strokeStyle = "black";
+    context.stroke();
+}
+
+function gridOnClick(e) {
+    var x;
+    var y;
+    if (e.pageX || e.pageY) {
+      x = e.pageX;
+      y = e.pageY;
+    } else {
+      x = e.clientX + document.body.scrollLeft +
+           document.documentElement.scrollLeft;
+      y = e.clientY + document.body.scrollTop +
+           document.documentElement.scrollTop;
+    }
+
+    //TODO: add walls and stuff
+}
+
+drawBoard();
+
+</script>
+
+
+
+
+</html>
