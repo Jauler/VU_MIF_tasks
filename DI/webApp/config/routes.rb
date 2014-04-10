@@ -8,6 +8,8 @@ WebApp::Application.routes.draw do
 
   get '/chaining', to: 'core#chaining'
   post '/chaining', to: 'core#chaining'
+  get '/AStar', to: 'core#AStar'
+  post '/AStar', to: 'core#AStar'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

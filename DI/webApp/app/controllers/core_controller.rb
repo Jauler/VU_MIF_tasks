@@ -102,4 +102,8 @@ class CoreController < ActionController::Base
 		@path = fs.path
 		@tmpFacts = fs.tmpFacts
 	end
+
+	def AStar
+
+	end
 end
