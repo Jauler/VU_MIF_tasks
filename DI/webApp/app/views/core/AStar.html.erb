@@ -1,59 +1,244 @@
 <html>
 <h1>Rytis Karpuška A* example</h1>
 
-Dimensions of the map
-
+<p>Dimensions of the map</p>
 <input id="x" type="number" min="2" max="30" value="15"/>
 <input id="y" type="number" min="2" max="30" value="15"/>
-<button type="button" onclick="drawBoard();">Apply</button>
+<button type="button" onclick="drawBoard();">Draw board</button>
+<br>
+<p>Click on the map creates:
+<input type="radio" name="clickFunc" value="empty">Empty
+<input type="radio" name="clickFunc" value="wall" checked="checked">Wall
+<input type="radio" name="clickFunc" value="start">Start
+<input type="radio" name="clickFunc" value="end">End
+</p>
+
+<button type="button" onClick="startRequest();">Start</button>
+<button type="stop" onClick="stopRequest();">Stop</button>
+<br><br>
+<canvas id="myCanvas" width=1000 height=1000" onclick="gridOnClick(event);">
+This browser does not support canvas
+</canvas>
 
 <br>
 <br>
 <script>
 
-var canvas = $('<canvas/>').attr({width: 1000, height: 500}).appendTo('body');
-var context = canvas.get(0).getContext("2d");
-canvas.addEventListener("click", gridOnClick, false);
+var running = 0;
+var stopRequestActive = 0;
+
+//constants
+var INVALID = -1;
+var EMPTY = 0;
+var WALL = 1;
+var START = 2;
+var END = 3;
+
+//Our map
+var map = new Array;
+
+//Map size
+var xSize = 0;
+var ySize = 0;
+
+//Start coordinates
+var xStart = INVALID;
+var yStart = INVALID;
+
+//End coordinates
+var xEnd = INVALID;
+var yEnd = INVALID;
+
+//The size of the square
+var tileSize = 20;
 
 function drawBoard(){
-    var bw = document.getElementById("x").value * 15;
-    var bh = document.getElementById("y").value * 15;
+    var canvas =  document.getElementById("myCanvas");
+    var context = canvas.getContext("2d");
+
+    //Get dimensions of the map
+    var bw = document.getElementById("x").value;
+    var bh = document.getElementById("y").value;
+
+    //validate size
+    if(bw < 2){
+        alert("Tile world width should be more than 1");
+        return;
+    }
+    if(bw > 40){
+        alert("Maximum allowed tile world width is 40");
+        return;
+    }
+    if(bh < 2){
+        alert("Tile world width should be more than 1");
+        return;
+    }
+    if(bw > 40){
+        alert("Maximum allowed tile world width is 40");
+    }
+
+    //Create an array to work in
+    map = new Array(bw);
+    for(var i = 0; i < bw; i++){
+        map[i] = new Array(bh);
+    }
+
+    //clear whatever was in hear
     context.clearRect(0, 0, 1000, 500);
     context.beginPath();
 
-
-    for (var x = 0; x <= bw; x += 15) {
+    for (var x = 0; x <= bw * tileSize; x += tileSize) {
         context.moveTo(0.5 + x, 0);
-        context.lineTo(0.5 + x, bh);
+        context.lineTo(0.5 + x, bh * tileSize);
     }
 
 
-    for (var x = 0; x <= bh; x += 15) {
+    for (var x = 0; x <= bh * tileSize; x += tileSize) {
         context.moveTo(0, 0.5 + x);
-        context.lineTo(bw, 0.5 + x);
+        context.lineTo(bw * tileSize, 0.5 + x);
     }
 
     context.strokeStyle = "black";
     context.stroke();
+
+    xSize = bw;
+    ySize = bh;
+}
+function clearBoard(){
+    //Get dimensions of the map
+    document.getElementById("x").value = xSize;
+    document.getElementById("y").value = ySize;
+
+    drawBoard();
 }
 
-function gridOnClick(e) {
-    var x;
-    var y;
-    if (e.pageX || e.pageY) {
-      x = e.pageX;
-      y = e.pageY;
-    } else {
-      x = e.clientX + document.body.scrollLeft +
-           document.documentElement.scrollLeft;
-      y = e.clientY + document.body.scrollTop +
-           document.documentElement.scrollTop;
+function getCheckedRadioId(name) {
+    var elements = document.getElementsByName(name);
+
+    for (var i=0, len=elements.length; i<len; ++i)
+        if (elements[i].checked) return elements[i].value;
+}
+
+function colorTile(x, y, type)
+{
+    var canvas = document.getElementById('myCanvas').getContext("2d");
+    switch(type){
+    case EMPTY:
+        canvas.fillStyle="#FFFFFF";
+        break;
+    case WALL:
+        canvas.fillStyle="#0000AA";
+        break;
+    case START:
+        canvas.fillStyle="#00AA00";
+        break;
+    case END:
+        canvas.fillStyle="#AA0000";
+        break;
     }
 
-    //TODO: add walls and stuff
+    canvas.fillRect(x * tileSize + 1, y * tileSize + 1, tileSize - 1, tileSize - 1);
+
+    return;
 }
 
-drawBoard();
+
+function gridOnClick(event) {
+    event = event || window.event;
+
+    var canvas = document.getElementById('myCanvas');
+    x = event.pageX - canvas.offsetLeft;
+    y = event.pageY - canvas.offsetTop;
+
+    tileX = Math.floor(x / tileSize);
+    tileY = Math.floor(y / tileSize);
+
+    if(tileX >= xSize || tileY >= ySize)
+        return;
+
+    switch(getCheckedRadioId("clickFunc")){
+    case "empty":
+        if(xStart == tileX && ySize == tileY){
+            xStart = INVALID;
+            yStart = INVALID;
+        } else if(xEnd == tileX && yEnd == tileY){
+            xEnd = INVALID;
+            yEnd = INVALID;
+        }
+
+        map[tileX][tileY] = EMPTY;
+        colorTile(tileX, tileY, EMPTY);
+
+        break;
+    case "wall":
+        if(xStart == tileX && ySize == tileY){
+            xStart = INVALID;
+            yStart = INVALID;
+        } else if(xEnd == tileX && yEnd == tileY){
+            xEnd = INVALID;
+            yEnd = INVALID;
+        }
+
+        map[tileX][tileY] = WALL;
+        colorTile(tileX, tileY, WALL);
+
+        break;
+
+    case "start":
+        if(xStart != INVALID && yStart != INVALID){
+            map[xStart][yStart] = EMPTY;
+            colorTile(xStart, yStart, EMPTY);
+        }
+        if(xEnd == tileX && yEnd == tileY){
+            xEnd = INVALID;
+            yEnd = INVALID;
+        }
+
+        map[tileX][tileY] = START;
+        xStart = tileX;
+        yStart = tileY;
+        colorTile(tileX, tileY, START);
+
+        break;
+
+    case "end":
+        if(xEnd != INVALID && yEnd != INVALID){
+            map[xEnd][yEnd] = EMPTY;
+            colorTile(xEnd, yEnd, EMPTY);
+        }
+        if(xStart == tileX && ySize == tileY){
+            xStart = INVALID;
+            yStart = INVALID;
+        }
+
+        map[tileX][tileY] = END;
+        xEnd = tileX;
+        yEnd = tileY;
+        colorTile(tileX, tileY, END);
+
+        break;
+    }
+
+}
+
+function searchPath()
+
+
+
+
+
+function stopRequest(){
+    if(running){
+        stopRequestActive = 1;
+    }
+
+    return;
+}
+
+function startRequest(){
+
+}
+
 
 </script>
 
