@@ -71,14 +71,44 @@ var end = new Point;
 var tileSize = 20;
 
 
+function clearVariables()
+{
+    //Get dimensions of the map
+    var bw = xSize;
+    var bh = ySize;
+
+    openset = new Array;
+    closedset = new Array;
+
+    //Array for g_scores
+    g_score = new Array(bw);
+    for(var i = 0; i < bw; i++)
+        g_score[i] = new Array(bh);
+
+    //Array for f_scores
+    f_score = new Array(bw);
+    for(var i = 0; i < bw; i++)
+        f_score[i] = new Array(bh);
+
+    //Array to trace back our path
+    come_from = new Array(bw);
+    for(var i = 0; i < bw; i++){
+        come_from[i] = new Array(bh);
+        for(var j = 0; j < bh; j++){
+            come_from[i][j] = new Point;
+            come_from[i][j].x = INVALID;
+            come_from[i][j].y = INVALID;
+        }
+    }
+
+}
+
 function drawBoard(){
     start.x = INVALID;
     start.y = INVALID;
     end.x = INVALID;
     end.y = INVALID;
     runned = 0;
-    openset = new Array;
-    closedset = new Array;
 
     var canvas =  document.getElementById("myCanvas");
     var context = canvas.getContext("2d");
@@ -108,26 +138,6 @@ function drawBoard(){
     map = new Array(bw);
     for(var i = 0; i < bw; i++)
         map[i] = new Array(bh);
-
-    //Array for g_scores
-    g_score = new Array(bw);
-    for(var i = 0; i < bw; i++)
-        g_score[i] = new Array(bh);
-
-    //Array for f_scores
-    f_score = new Array(bw);
-    for(var i = 0; i < bw; i++)
-        f_score[i] = new Array(bh);
-
-    come_from = new Array(bw);
-    for(var i = 0; i < bw; i++){
-        come_from[i] = new Array(bh);
-        for(var j = 0; j < bh; j++){
-            come_from[i][j] = new Point;
-            come_from[i][j].x = INVALID;
-            come_from[i][j].y = INVALID;
-        }
-    }
 
     //clear whatever was in hear
     context.clearRect(0, 0, 1000, 500);
@@ -445,6 +455,8 @@ function stopRequest(){
 }
 
 function startRequest(){
+	clearVariables();
+
 	if(start.x == INVALID || start.y == INVALID){
 		alert("Please select the start node");
 		return;
