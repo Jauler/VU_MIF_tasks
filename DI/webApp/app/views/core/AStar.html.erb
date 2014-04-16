@@ -301,6 +301,15 @@ function myIndexOf(arr, obj)
 
 function searchPath()
 {
+	//Check for stop request
+	if(stopRequestActive){
+		running = 0;
+		stopRequestActive = 0;
+		return;
+	} else {
+		setTimeout(searchPath, 100);
+	}
+
 	//check if our openset has anything
 	if(openset.length <= 0){
 		stopRequestActive = 1;
@@ -358,14 +367,6 @@ function searchPath()
 
 		}
 
-	}
-
-	//Check for stop request
-	if(stopRequestActive){
-		stopRequestActive = 0;
-		return;
-	} else {
-		setTimeout(searchPath, 100);
 	}
 
 	return;
