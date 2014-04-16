@@ -247,7 +247,7 @@ function gridOnClick(event) {
 
         break;
     case "wall":
-        if(start.x == tile.x && ySize == tilei.y){
+        if(start.x == tile.x && ySize == tile.y){
             start.x = INVALID;
             start.y = INVALID;
         } else if(end.x == tile.x && end.y == tile.y){
