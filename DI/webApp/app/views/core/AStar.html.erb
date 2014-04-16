@@ -30,13 +30,14 @@ function Point(){
 	var y = INVALID;
 }
 
+var runned = 0;
 var running = 0;
 var stopRequestActive = 0;
 var openset;
 var closedset = new Array;
 var f_score = new Array;
 var g_score = new Array;
-var come_from;
+var come_from = new Array;
 
 
 //constants
@@ -47,6 +48,7 @@ var START = 2;
 var END = 3;
 var OPENSET = 4;
 var CLOSEDSET = 5;
+var PATH = 6;
 
 //TODO: review
 var neighbor = [{x: 0, y: 1}, {x:1, y:0}, {x:0, y:-1}, {x:-1, y:0},
@@ -74,6 +76,7 @@ function drawBoard(){
     start.y = INVALID;
     end.x = INVALID;
     end.y = INVALID;
+    runned = 0;
     openset = new Array;
     closedset = new Array;
 
@@ -103,18 +106,27 @@ function drawBoard(){
 
     //Create an array to work in
     map = new Array(bw);
-    for(var i = 0; i < bw; i++){
+    for(var i = 0; i < bw; i++)
         map[i] = new Array(bh);
-    }
+
     //Array for g_scores
     g_score = new Array(bw);
-    for(var i = 0; i < bw; i++){
+    for(var i = 0; i < bw; i++)
         g_score[i] = new Array(bh);
-    }
+
     //Array for f_scores
     f_score = new Array(bw);
-    for(var i = 0; i < bw; i++){
+    for(var i = 0; i < bw; i++)
         f_score[i] = new Array(bh);
+
+    come_from = new Array(bw);
+    for(var i = 0; i < bw; i++){
+        come_from[i] = new Array(bh);
+        for(var j = 0; j < bh; j++){
+            come_from[i][j] = new Point;
+            come_from[i][j].x = INVALID;
+            come_from[i][j].y = INVALID;
+        }
     }
 
     //clear whatever was in hear
@@ -158,23 +170,25 @@ function colorTile(x, y, type)
     var canvas = document.getElementById('myCanvas').getContext("2d");
     switch(type){
     case EMPTY:
-        canvas.fillStyle="#FFFFFF";
+        canvas.fillStyle="#FFFFFF";  //White
         break;
     case WALL:
-        canvas.fillStyle="#0000AA";
+        canvas.fillStyle="#0000AA";  //Blue
         break;
     case START:
-        canvas.fillStyle="#00AA00";
+        canvas.fillStyle="#00AA00";  //Green
         break;
     case END:
-        canvas.fillStyle="#AA0000";
+        canvas.fillStyle="#AA0000";  //Red
         break;
     case OPENSET:
-        canvas.fillStyle="#AAAA00";
+        canvas.fillStyle="#AAAA00"; //Yellow
         break;
     case CLOSEDSET:
-        canvas.fillStyle="#888888";
+        canvas.fillStyle="#888888"; //grey
         break;
+    case PATH:
+        canvas.fillStyle="#333333" //dark grey
     }
 
     canvas.fillRect(x * tileSize + 1, y * tileSize + 1, tileSize - 1, tileSize - 1);
@@ -182,10 +196,27 @@ function colorTile(x, y, type)
     return;
 }
 
+function clearOldAlgorithm(){
+	for(var i = 0; i < xSize; i++)
+		for(var j = 0; j < ySize; j++){
+			if(map[i][j] == OPENSET ||
+					map[i][j] == CLOSEDSET ||
+					map[i][j] == PATH){
+				map[i][j] = EMPTY;
+				colorTile(i, j, EMPTY);
+			}
+		}
+}
+
 
 function gridOnClick(event) {
     if(running)
         return;//Do not let edit map while running
+
+    if(runned){
+        clearOldAlgorithm();
+        runned = 0;
+    }
 
     event = event || window.event;
 
@@ -299,12 +330,34 @@ function myIndexOf(arr, obj)
 	return -1;
 }
 
+function reconstruct_path(current_node)
+{
+	if( (current_node.x != start.x || current_node.y != start.y) &&
+			(current_node.x != end.x || current_node.y != end.y)){
+		colorTile(current_node.x, current_node.y, PATH);
+		map[current_node.x][current_node.y] = PATH;
+	}
+
+	if(come_from[current_node.x][current_node.y].x == INVALID ||
+		come_from[current_node.x][current_node.y].y == INVALID){
+		return;
+	} else {
+		tmpPoint = new Point;
+		tmpPoint.x = come_from[current_node.x][current_node.y].x
+		tmpPoint.y = come_from[current_node.x][current_node.y].y;
+		reconstruct_path(tmpPoint);
+		return;
+	}
+
+}
+
 function searchPath()
 {
 	//Check for stop request
 	if(stopRequestActive){
 		running = 0;
 		stopRequestActive = 0;
+		runned = 1;
 		return;
 	} else {
 		setTimeout(searchPath, 100);
@@ -323,6 +376,7 @@ function searchPath()
 	//check if this is not the goal node
 	if(current.point.x == end.x && current.point.y == end.y){
 		stopRequestActive = 1;
+		reconstruct_path(end);
 		alert("goal Reached");
 		return;
 	}
@@ -330,8 +384,10 @@ function searchPath()
 	//Removing current from openset and adding to the closedset
 	openset.splice(current.idx, 1);
 	closedset.push(current.point);
-	if(current.point.x != start.x || current.point.y != start.y)
+	if(current.point.x != start.x || current.point.y != start.y){
 		colorTile(current.point.x, current.point.y, CLOSEDSET);
+		map[current.point.x][current.point.y] = CLOSEDSET;
+	}
 
 	for(var i = 0; i < neighbor.length; i++){
 		myPoint = new Point;
@@ -355,14 +411,17 @@ function searchPath()
 
 		if(myIndexOf(openset, myPoint) < 0 ||
 				tent_g_score < g_score[myPoint.x][myPoint.y]){
+			come_from[myPoint.x][myPoint.y] = current.point;
 			g_score[myPoint.x][myPoint.y] = tent_g_score;
 			f_score[myPoint.x][myPoint.y] = g_score[myPoint.x][myPoint.y] + 
 						dist(myPoint.x, myPoint.y, end.x, end.y);
 
 			if(myIndexOf(openset, myPoint) < 0){
 				openset.push(myPoint);
-				if(myPoint.x != end.x || myPoint.y != end.y)
+				if(myPoint.x != end.x || myPoint.y != end.y){
 					colorTile(myPoint.x, myPoint.y, OPENSET);
+					map[myPoint.x][myPoint.y] = OPENSET;
+				}
 			}
 
 		}
