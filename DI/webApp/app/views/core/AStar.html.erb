@@ -24,8 +24,20 @@ This browser does not support canvas
 <br>
 <script>
 
+//declare point type
+function Point(){
+	var x = INVALID;
+	var y = INVALID;
+}
+
 var running = 0;
 var stopRequestActive = 0;
+var openset;
+var closedset = new Array;
+var f_score = new Array;
+var g_score = new Array;
+var come_from;
+
 
 //constants
 var INVALID = -1;
@@ -33,6 +45,12 @@ var EMPTY = 0;
 var WALL = 1;
 var START = 2;
 var END = 3;
+var OPENSET = 4;
+var CLOSEDSET = 5;
+
+//TODO: review
+var neighbor = [{x: 0, y: 1}, {x:1, y:0}, {x:0, y:-1}, {x:-1, y:0},
+		{x: -1, y: -1}, {x: 1, y:1}, {x: -1, y: 1}, {x:1, y:-1}]
 
 //Our map
 var map = new Array;
@@ -42,17 +60,23 @@ var xSize = 0;
 var ySize = 0;
 
 //Start coordinates
-var xStart = INVALID;
-var yStart = INVALID;
+var start = new Point;
 
 //End coordinates
-var xEnd = INVALID;
-var yEnd = INVALID;
+var end = new Point;
 
 //The size of the square
 var tileSize = 20;
 
+
 function drawBoard(){
+    start.x = INVALID;
+    start.y = INVALID;
+    end.x = INVALID;
+    end.y = INVALID;
+    openset = new Array;
+    closedset = new Array;
+
     var canvas =  document.getElementById("myCanvas");
     var context = canvas.getContext("2d");
 
@@ -81,6 +105,16 @@ function drawBoard(){
     map = new Array(bw);
     for(var i = 0; i < bw; i++){
         map[i] = new Array(bh);
+    }
+    //Array for g_scores
+    g_score = new Array(bw);
+    for(var i = 0; i < bw; i++){
+        g_score[i] = new Array(bh);
+    }
+    //Array for f_scores
+    f_score = new Array(bw);
+    for(var i = 0; i < bw; i++){
+        f_score[i] = new Array(bh);
     }
 
     //clear whatever was in hear
@@ -135,6 +169,12 @@ function colorTile(x, y, type)
     case END:
         canvas.fillStyle="#AA0000";
         break;
+    case OPENSET:
+        canvas.fillStyle="#AAAA00";
+        break;
+    case CLOSEDSET:
+        canvas.fillStyle="#888888";
+        break;
     }
 
     canvas.fillRect(x * tileSize + 1, y * tileSize + 1, tileSize - 1, tileSize - 1);
@@ -144,99 +184,226 @@ function colorTile(x, y, type)
 
 
 function gridOnClick(event) {
+    if(running)
+        return;//Do not let edit map while running
+
     event = event || window.event;
 
     var canvas = document.getElementById('myCanvas');
     x = event.pageX - canvas.offsetLeft;
     y = event.pageY - canvas.offsetTop;
 
-    tileX = Math.floor(x / tileSize);
-    tileY = Math.floor(y / tileSize);
+    tile = new Point();
 
-    if(tileX >= xSize || tileY >= ySize)
+    tile.x = Math.floor(x / tileSize);
+    tile.y = Math.floor(y / tileSize);
+
+    if(tile.x >= xSize || tile.y >= ySize)
         return;
 
     switch(getCheckedRadioId("clickFunc")){
     case "empty":
-        if(xStart == tileX && ySize == tileY){
-            xStart = INVALID;
-            yStart = INVALID;
-        } else if(xEnd == tileX && yEnd == tileY){
-            xEnd = INVALID;
-            yEnd = INVALID;
+        if(start.x == tile.x && start.y == tile.y){
+            start.x = INVALID;
+            start.y = INVALID;
+        } else if(end.x == tile.x && end.y == tile.y){
+            end.x = INVALID;
+            end.y = INVALID;
         }
 
-        map[tileX][tileY] = EMPTY;
-        colorTile(tileX, tileY, EMPTY);
+        map[tile.x][tile.y] = EMPTY;
+        colorTile(tile.x, tile.y, EMPTY);
 
         break;
     case "wall":
-        if(xStart == tileX && ySize == tileY){
-            xStart = INVALID;
-            yStart = INVALID;
-        } else if(xEnd == tileX && yEnd == tileY){
-            xEnd = INVALID;
-            yEnd = INVALID;
+        if(start.x == tile.x && ySize == tilei.y){
+            start.x = INVALID;
+            start.y = INVALID;
+        } else if(end.x == tile.x && end.y == tile.y){
+            end.x = INVALID;
+            end.y = INVALID;
         }
 
-        map[tileX][tileY] = WALL;
-        colorTile(tileX, tileY, WALL);
+        map[tile.x][tile.y] = WALL;
+        colorTile(tile.x, tile.y, WALL);
 
         break;
 
     case "start":
-        if(xStart != INVALID && yStart != INVALID){
-            map[xStart][yStart] = EMPTY;
-            colorTile(xStart, yStart, EMPTY);
+        if(start.x != INVALID && start.y != INVALID){
+            map[start.x][start.y] = EMPTY;
+            colorTile(start.x, start.y, EMPTY);
         }
-        if(xEnd == tileX && yEnd == tileY){
-            xEnd = INVALID;
-            yEnd = INVALID;
+        if(end.x == tile.x && end.y == tile.y){
+            end.x = INVALID;
+            end.y = INVALID;
         }
 
-        map[tileX][tileY] = START;
-        xStart = tileX;
-        yStart = tileY;
-        colorTile(tileX, tileY, START);
+        map[tile.x][tile.y] = START;
+        start.x = tile.x;
+        start.y = tile.y;
+        colorTile(tile.x, tile.y, START);
 
         break;
 
     case "end":
-        if(xEnd != INVALID && yEnd != INVALID){
-            map[xEnd][yEnd] = EMPTY;
-            colorTile(xEnd, yEnd, EMPTY);
+        if(end.x != INVALID && end.y != INVALID){
+            map[end.x][end.y] = EMPTY;
+            colorTile(end.x, end.y, EMPTY);
         }
-        if(xStart == tileX && ySize == tileY){
-            xStart = INVALID;
-            yStart = INVALID;
+        if(start.x == tile.x && ySize == tile.y){
+            start.x = INVALID;
+            start.y = INVALID;
         }
 
-        map[tileX][tileY] = END;
-        xEnd = tileX;
-        yEnd = tileY;
-        colorTile(tileX, tileY, END);
+        map[tile.x][tile.y] = END;
+        end.x = tile.x;
+        end.y = tile.y;
+        colorTile(tile.x, tile.y, END);
 
         break;
     }
 
 }
 
+function dist(x1, y1, x2, y2)
+{
+	return Math.sqrt( (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) );
+}
+
+function lowestFScore(openset)
+{
+	//Search lowest
+	var lowestCoord = new Point;
+	lowestCoord = openset[0];
+	var lowestValue = f_score[openset[0].x][openset[0].y];
+	var idx = 0;
+	for(var i = 1; i < openset.length; i++){
+		if(f_score[openset[i].x][openset[i].y] < lowestValue){
+			lowestValue = f_score[openset[i].x][openset[i].y];
+			lowestCoord = openset[i];
+			idx = i;
+		}
+	}
+
+	return {"point": lowestCoord, "idx":idx};
+}
+
+function myIndexOf(arr, obj)
+{
+	for(var i = 0; i < arr.length; i++){
+		if(JSON.stringify(arr[i]) == JSON.stringify(obj))
+			return i;
+	}
+
+	return -1;
+}
+
 function searchPath()
+{
+	//check if our openset has anything
+	if(openset.length <= 0){
+		stopRequestActive = 1;
+		alert("Could not found path");
+		return;
+	}
+
+	//Get coordinates for current node
+	current = lowestFScore(openset);
+
+	//check if this is not the goal node
+	if(current.point.x == end.x && current.point.y == end.y){
+		stopRequestActive = 1;
+		alert("goal Reached");
+		return;
+	}
+
+	//Removing current from openset and adding to the closedset
+	openset.splice(current.idx, 1);
+	closedset.push(current.point);
+	if(current.point.x != start.x || current.point.y != start.y)
+		colorTile(current.point.x, current.point.y, CLOSEDSET);
+
+	for(var i = 0; i < neighbor.length; i++){
+		myPoint = new Point;
+		myPoint.x = current.point.x + neighbor[i].x
+		myPoint.y = current.point.y + neighbor[i].y;
+
+		//Physical map restrictions
+		if(myPoint.x >= xSize || myPoint.y >= ySize)
+			continue;
+		if(myPoint.x < 0 || myPoint.y < 0)
+			continue;
+		if(map[myPoint.x][myPoint.y] == WALL)
+			continue;
+
+
+		if(myIndexOf(closedset, myPoint) >= 0)
+			continue;
+
+		tent_g_score = g_score[current.point.x][current.point.y] +
+			dist(current.point.x, current.point.y, myPoint.x, myPoint.y);
+
+		if(myIndexOf(openset, myPoint) < 0 ||
+				tent_g_score < g_score[myPoint.x][myPoint.y]){
+			g_score[myPoint.x][myPoint.y] = tent_g_score;
+			f_score[myPoint.x][myPoint.y] = g_score[myPoint.x][myPoint.y] + 
+						dist(myPoint.x, myPoint.y, end.x, end.y);
+
+			if(myIndexOf(openset, myPoint) < 0){
+				openset.push(myPoint);
+				if(myPoint.x != end.x || myPoint.y != end.y)
+					colorTile(myPoint.x, myPoint.y, OPENSET);
+			}
+
+		}
+
+	}
+
+	//Check for stop request
+	if(stopRequestActive){
+		stopRequestActive = 0;
+		return;
+	} else {
+		setTimeout(searchPath, 100);
+	}
+
+	return;
+}
 
 
 
 
 
 function stopRequest(){
-    if(running){
-        stopRequestActive = 1;
-    }
+	if(running){
+		running = 0;
+		stopRequestActive = 1;
+	}
 
     return;
 }
 
 function startRequest(){
+	if(start.x == INVALID || start.y == INVALID){
+		alert("Please select the start node");
+		return;
+	}
+	if(end.x == INVALID || end.y == INVALID){
+		alert("Please select the finish node");
+		return;
+	}
 
+	//Init variables
+	running = 1;
+	stopRequestActive = 0;
+	g_score[start.x][start.y] = 0;
+	f_score[start.x][start.y] = dist(start.x, start.y, end.x, end.y);
+
+	//add start to openset
+	openset.push(start);
+
+	setTimeout(searchPath, 500);
 }
 
 
