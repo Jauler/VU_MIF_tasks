@@ -3,20 +3,18 @@
 
 int TM_QualityFirstTeamADeadlineEstimator::calcWorkingTime(int difficulty)
 {
-	//Lets say, that this is the formula to calculate actual working time from difficulty
-	return 5 + difficulty / 4 + 3;
+	return te.calcWorkingTime(difficulty);
 }
 
 
 int TM_QualityFirstTeamADeadlineEstimator::calcWorkingSpeed(int difficulty)
 {
-	//Lets say, that this team working speed depends only a little on difficulty
-	return 15 + difficulty / 4;
+	return te.calcWorkingSpeed(difficulty);
 }
 
 
 int TM_QualityFirstTeamADeadlineEstimator::calcRequiredWorkingDays(int difficulty)
 {
 	//this team only works every second day, and 8 hours a day
-	return calcWorkingTime(difficulty) * 2 / 8;
+	return te.calcRequiredWorkingDays(difficulty);
 }

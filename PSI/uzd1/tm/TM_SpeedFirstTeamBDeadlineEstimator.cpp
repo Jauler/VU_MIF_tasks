@@ -4,14 +4,14 @@
 int TM_SpeedFirstTeamBDeadlineEstimator::calcWorkingTime(int difficulty)
 {
 	//Lets say, that this is the formula to calculate actual working time from difficulty
-	return difficulty * 15 + 3;
+	return te.calcWorkingTime(difficulty);
 }
 
 
 int TM_SpeedFirstTeamBDeadlineEstimator::calcWorkingSpeed(int difficulty)
 {
 	//Lets say, that this team working speed depends a lot difficulty
-	return 3 + difficulty * 4;
+	return te.calcWorkingSpeed(difficulty);
 }
 
 
@@ -21,5 +21,5 @@ int TM_SpeedFirstTeamBDeadlineEstimator::calcRequiredWorkingDays(int difficulty)
 
 	//NOTE: multiplying by one is to illustrate that this team is working every day
 	//	compiler will optimize this out anyway
-	return calcWorkingTime(difficulty) * 1;
+	return te.calcRequiredWorkingDays(difficulty);
 }
