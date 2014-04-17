@@ -1,10 +1,9 @@
 
 #include "QualityFirstDeadlineEstimator.h"
-#include "TimeEstimator.h"
 
-
-QualityFirstDeadlineEstimator::QualityFirstDeadlineEstimator(TimeEstimator _te)
+QualityFirstDeadlineEstimator::QualityFirstDeadlineEstimator(TimeEstimator *_te)
 {
+	//save our time estimator
 	te = _te;
 	return;
 }
@@ -18,10 +17,10 @@ int QualityFirstDeadlineEstimator::calcTimeToDeadline(int difficulty)
 		//*with added some time for speed, because doing things fast, introduces errors
 
 	int tToDeadline;
-	tToDeadline = te.calcRequiredWorkingDays(difficulty);
-	tToDeadline += difficulty / 3;
-	tToDeadline -= te.calcWorkingTime(difficulty) / 10;
-	tToDeadline += te.calcWorkingSpeed(difficulty) / 12;
+	tToDeadline = te->calcRequiredWorkingDays(difficulty);
+	tToDeadline += difficulty * 4;
+	tToDeadline += te->calcWorkingTime(difficulty) / 5;
+	tToDeadline -= te->calcWorkingSpeed(difficulty) / 12;
 
 	return tToDeadline;
 }

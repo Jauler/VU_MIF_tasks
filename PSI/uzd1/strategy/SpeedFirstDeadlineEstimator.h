@@ -3,17 +3,16 @@
 #ifndef __SPEED_DEADLINE_ESTIMATOR
 #define __SPEED_DEADLINE_ESTIMATOR
 
+#include "../app/DeadlineEstimator.h"
 #include "TimeEstimator.h"
 
-class SpeedFirstDeadlineEstimator {
+class SpeedFirstDeadlineEstimator : public DeadlineEstimator {
 private:
-	TimeEstimator te;
+	TimeEstimator *te;
 
 public:
-	//Our contructor, requires TimeEstimator
-	SpeedFirstDeadlineEstimator(TimeEstimator _te);
+	SpeedFirstDeadlineEstimator(TimeEstimator *_te);
 
-	//calculate how much time to deadline
 	int calcTimeToDeadline(int difficulty);
 
 };

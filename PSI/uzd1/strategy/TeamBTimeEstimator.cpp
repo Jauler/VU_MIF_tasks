@@ -1,11 +1,10 @@
 
 #include "TeamBTimeEstimator.h"
 
-
 int TeamBTimeEstimator::calcWorkingTime(int difficulty)
 {
 	//Lets say, that this is the formula to calculate actual working time from difficulty
-	return difficulty * 4 + 3;
+	return difficulty * 15 + 3;
 }
 
 

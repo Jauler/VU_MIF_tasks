@@ -1,15 +1,8 @@
 
-#include "SpeedFirstDeadlineEstimator.h"
-
-SpeedFirstDeadlineEstimator::SpeedFirstDeadlineEstimator(TimeEstimator *_te)
-{
-	//save our time estimator
-	te = _te;
-	return;
-}
+#include "TM_SpeedFirstDeadlineEstimator.h"
 
 
-int SpeedFirstDeadlineEstimator::calcTimeToDeadline(int difficulty)
+int TM_SpeedFirstDeadlineEstimator::calcTimeToDeadline(int difficulty)
 {
 	//If we value speed, then we would like to publish deadline:
 		//*with added time for difficulty (more difficult to implement - more debug)
@@ -18,10 +11,11 @@ int SpeedFirstDeadlineEstimator::calcTimeToDeadline(int difficulty)
 		//*with decreased time for speed, because we care about fastness here
 
 	int tToDeadline;
-	tToDeadline = te->calcRequiredWorkingDays(difficulty);
+	tToDeadline = calcRequiredWorkingDays(difficulty);
 	tToDeadline += difficulty / 3;
-	tToDeadline += te->calcWorkingTime(difficulty) / 14;
-	tToDeadline -= te->calcWorkingSpeed(difficulty) / 10;
+	tToDeadline += calcWorkingTime(difficulty) / 14;
+	tToDeadline -= calcWorkingSpeed(difficulty) / 10;
 
 	return tToDeadline;
 }
+
