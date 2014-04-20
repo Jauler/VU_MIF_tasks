@@ -30,7 +30,7 @@ int main(void)
 	cin >> difficulty;
 	if(difficulty <= 0 || difficulty > 10){
 		cout << "    Difficulty should be in the range of [1;10]";
-		return;
+		return 0;
 	}
 	cout << "    Difficulty level is set to " << difficulty << "\n";
 
