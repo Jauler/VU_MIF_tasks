@@ -1,5 +1,5 @@
 
-SRC = main.cpp
+SRC = main.cpp WorkerExtension.cpp
 
 .PHONY: all
 
