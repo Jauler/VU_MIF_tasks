@@ -43,43 +43,52 @@ int main(void)
 	cout << "    ---------Results-------\n";
 
 	//declare deadline estimator
-	DeadlineEstimator *deadlineEstimator;
+	DeadlineEstimator *deadlineEstimator0;
+	DeadlineEstimator *deadlineEstimator1;
+	DeadlineEstimator *deadlineEstimator2;
+	DeadlineEstimator *deadlineEstimator3;
+
+	DeadlineEstimator *deadlineEstimator4;
+	DeadlineEstimator *deadlineEstimator5;
+	DeadlineEstimator *deadlineEstimator6;
+	DeadlineEstimator *deadlineEstimator7;
+
 	TimeEstimator *te;
 
 	//Quality first, team A
 	te = new TeamATimeEstimator();
-	deadlineEstimator = new QualityFirstDeadlineEstimator(te);
+	deadlineEstimator0 = new QualityFirstDeadlineEstimator(te);
 	cout << "    Quality first, Team A time to deadline: ";
-	cout << deadlineEstimator->calcTimeToDeadline(difficulty);
+	cout << deadlineEstimator0->calcTimeToDeadline(difficulty);
 	cout << "\n";
-	delete deadlineEstimator;
+	delete deadlineEstimator0;
 	delete te;
 
 	//Quality first, team B
 	te = new TeamBTimeEstimator();
-	deadlineEstimator = new QualityFirstDeadlineEstimator(te);
+	deadlineEstimator1 = new QualityFirstDeadlineEstimator(te);
 	cout << "    Quality first, Team B time to deadline: ";
-	cout << deadlineEstimator->calcTimeToDeadline(difficulty);
+	cout << deadlineEstimator1->calcTimeToDeadline(difficulty);
 	cout << "\n";
-	delete deadlineEstimator;
+	delete deadlineEstimator1;
 	delete te;
 
 	//Speed first, team A
 	te = new TeamATimeEstimator();
-	deadlineEstimator = new SpeedFirstDeadlineEstimator(te);
+	deadlineEstimator2 = new SpeedFirstDeadlineEstimator(te);
 	cout << "    Speed first, Team A time to deadline: ";
-	cout << deadlineEstimator->calcTimeToDeadline(difficulty);
+	cout << deadlineEstimator2->calcTimeToDeadline(difficulty);
 	cout << "\n";
-	delete deadlineEstimator;
+	delete deadlineEstimator2;
 	delete te;
 
 	//Speed first, team A
 	te = new TeamBTimeEstimator();
-	deadlineEstimator = new SpeedFirstDeadlineEstimator(te);
+	deadlineEstimator3 = new SpeedFirstDeadlineEstimator(te);
 	cout << "    Speed first, Team B time to deadline: ";
-	cout << deadlineEstimator->calcTimeToDeadline(difficulty);
+	cout << deadlineEstimator3->calcTimeToDeadline(difficulty);
 	cout << "\n";
-	delete deadlineEstimator;
+	delete deadlineEstimator3;
 	delete te;
 
 	/*
@@ -91,32 +100,32 @@ int main(void)
 	cout << "    -----------Results------\n";
 
 	//Quality first, team A
-	deadlineEstimator = new TM_QualityFirstTeamADeadlineEstimator();
+	deadlineEstimator4 = new TM_QualityFirstTeamADeadlineEstimator();
 	cout << "    Quality first, Team A time to deadline: ";
-	cout << deadlineEstimator->calcTimeToDeadline(difficulty);
+	cout << deadlineEstimator4->calcTimeToDeadline(difficulty);
 	cout << "\n";
-	delete deadlineEstimator;
+	delete deadlineEstimator4;
 
 	//Quality first, team B
-	deadlineEstimator = new TM_QualityFirstTeamBDeadlineEstimator();
+	deadlineEstimator5 = new TM_QualityFirstTeamBDeadlineEstimator();
 	cout << "    Quality first, Team B time to deadline: ";
-	cout << deadlineEstimator->calcTimeToDeadline(difficulty);
+	cout << deadlineEstimator5->calcTimeToDeadline(difficulty);
 	cout << "\n";
-	delete deadlineEstimator;
+	delete deadlineEstimator5;
 
 	//Speed first, team A
-	deadlineEstimator = new TM_SpeedFirstTeamADeadlineEstimator();
+	deadlineEstimator6 = new TM_SpeedFirstTeamADeadlineEstimator();
 	cout << "    Speed first, Team A time to deadline: ";
-	cout << deadlineEstimator->calcTimeToDeadline(difficulty);
+	cout << deadlineEstimator6->calcTimeToDeadline(difficulty);
 	cout << "\n";
-	delete deadlineEstimator;
+	delete deadlineEstimator6;
 
 	//Speed first, team B
-	deadlineEstimator = new TM_SpeedFirstTeamBDeadlineEstimator();
+	deadlineEstimator7 = new TM_SpeedFirstTeamBDeadlineEstimator();
 	cout << "    Speed first, Team B time to deadline: ";
-	cout << deadlineEstimator->calcTimeToDeadline(difficulty);
+	cout << deadlineEstimator7->calcTimeToDeadline(difficulty);
 	cout << "\n";
-	delete deadlineEstimator;
+	delete deadlineEstimator7;
 
 	return 0;
 }
