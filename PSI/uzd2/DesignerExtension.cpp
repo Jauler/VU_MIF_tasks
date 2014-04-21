@@ -1,14 +1,17 @@
 
-
+#include <iostream>
 #include "DesignerExtension.h"
 
+using namespace std;
 
-DesignerExtension::DesignerExtension(Worker _w)
+
+DesignerExtension::DesignerExtension(Worker _w) :
+		WorkerExtension(_w)
 {
-	WorkerExtension(_w);
+	return;
 }
 
-void work()
+void DesignerExtension::work()
 {
 	cout << w.getName() + " is Designing something\n";
 

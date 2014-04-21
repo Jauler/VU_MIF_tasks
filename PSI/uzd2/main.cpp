@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include "CoderExtension.h"
+
 using namespace std;
 
 /*
@@ -17,6 +19,13 @@ using namespace std;
 int main(void)
 {
 	cout << "Hello World!\n";
+
+	Worker w("Rytis", 3000);
+
+	CoderExtension e(w);
+
+	w.work();
+	e.work();
 
 
 	return 0;

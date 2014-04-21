@@ -5,7 +5,7 @@
 
 #include "WorkerExtension.h"
 
-class DesignerExtension : public WorkerExtension{
+class DesignerExtension : public WorkerExtension {
 
 public:
 	DesignerExtension(Worker _w);
@@ -13,6 +13,6 @@ public:
 
 
 
-}
+};
 
 #endif
