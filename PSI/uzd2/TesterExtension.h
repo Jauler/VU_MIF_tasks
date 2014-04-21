@@ -8,7 +8,7 @@
 class TesterExtension : public WorkerExtension {
 
 public:
-	TesterExtension(Worker _w);
+	TesterExtension(Worker *_w);
 	void work();
 
 

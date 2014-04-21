@@ -1,6 +1,9 @@
 #include <iostream>
 
+#include "DesignerExtension.h"
 #include "CoderExtension.h"
+#include "TesterExtension.h"
+
 
 using namespace std;
 
@@ -20,12 +23,12 @@ int main(void)
 {
 	cout << "Hello World!\n";
 
+	//Create a general worker, but extended to do Designer and coding and testing
 	Worker w("Rytis", 3000);
-
-	CoderExtension e(w);
-
-	w.work();
-	e.work();
+	CoderExtension e(&w);
+	DesignerExtension e2(&e);
+	TesterExtension e3(&e2);
+	e3.work();
 
 
 	return 0;

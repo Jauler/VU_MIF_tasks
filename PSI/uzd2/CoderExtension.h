@@ -8,7 +8,7 @@
 class CoderExtension : public WorkerExtension {
 
 public:
-	CoderExtension(Worker _w);
+	CoderExtension(Worker *_w);
 	void work();
 
 

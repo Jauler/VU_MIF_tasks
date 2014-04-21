@@ -8,7 +8,7 @@
 class DesignerExtension : public WorkerExtension {
 
 public:
-	DesignerExtension(Worker _w);
+	DesignerExtension(Worker *_w);
 	void work();
 
 

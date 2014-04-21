@@ -5,7 +5,7 @@
 using namespace std;
 
 
-TesterExtension::TesterExtension(Worker _w) :
+TesterExtension::TesterExtension(Worker *_w) :
 		WorkerExtension(_w)
 {
 	return;
@@ -13,7 +13,8 @@ TesterExtension::TesterExtension(Worker _w) :
 
 void TesterExtension::work()
 {
-	cout << w.getName() + " is Testing something\n";
+	cout << w->getName() + " is Testing something\n";
+	WorkerExtension::work();
 
 	return;
 }

@@ -7,11 +7,11 @@
 
 class WorkerExtension : public Worker {
 protected:
-	Worker w;
+	Worker *w;
 
 public:
-	WorkerExtension(Worker _w);
-	virtual void work(){};
+	WorkerExtension(Worker *_w);
+	virtual void work(){w->work();};
 
 };
 
