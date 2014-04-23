@@ -21,14 +21,21 @@ using namespace std;
 
 int main(void)
 {
-	cout << "Hello World!\n";
+	//Signle Decorator example
+	cout << "Single decorator example\n";
+	Worker w0("Darbuotojas0", 3000);
+	CoderDecorator cd0(&w0);
+	cd0.work();
+	cout << "\n\n";
 
-	//Create a general worker, but extended to do Designer and coding and testing
-	Worker w("Rytis", 3000);
-	CoderDecorator e(&w);
-	DesignerDecorator e2(&e);
-	TesterDecorator e3(&e2);
-	e3.work();
+	//Multiple Decorator example
+	cout << "Multiple decorator example\n";
+	Worker w1("Darbuotojas1", 2500);
+	CoderDecorator cd1(&w1);
+	DesignerDecorator cddd1(&cd1);
+	TesterDecorator cdddtd1(&cddd1);
+	cdddtd1.work();
+	cout << "\n\n";
 
 
 	return 0;
