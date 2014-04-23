@@ -17,7 +17,7 @@ public:
 	virtual void work(){w->work();};
 
 	//Decorator interface
-	WorkerDecorator *getRole(Worker *w, string role);
+	WorkerDecorator *getRole(string role);
 
 };
 
