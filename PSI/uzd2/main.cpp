@@ -1,8 +1,8 @@
 #include <iostream>
 
-#include "DesignerExtension.h"
-#include "CoderExtension.h"
-#include "TesterExtension.h"
+#include "DesignerDecorator.h"
+#include "CoderDecorator.h"
+#include "TesterDecorator.h"
 
 
 using namespace std;
@@ -25,9 +25,9 @@ int main(void)
 
 	//Create a general worker, but extended to do Designer and coding and testing
 	Worker w("Rytis", 3000);
-	CoderExtension e(&w);
-	DesignerExtension e2(&e);
-	TesterExtension e3(&e2);
+	CoderDecorator e(&w);
+	DesignerDecorator e2(&e);
+	TesterDecorator e3(&e2);
 	e3.work();
 
 

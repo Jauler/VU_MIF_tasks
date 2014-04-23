@@ -8,16 +8,16 @@
 
 using namespace std;
 
-class WorkerExtension : public Worker {
+class WorkerDecorator : public Worker {
 protected:
 	Worker *w;
 
 public:
-	WorkerExtension(Worker *_w);
+	WorkerDecorator(Worker *_w);
 	virtual void work(){w->work();};
 
-	//Extension interface
-	WorkerExtension *getRole(Worker *w, string role);
+	//Decorator interface
+	WorkerDecorator *getRole(Worker *w, string role);
 
 };
 

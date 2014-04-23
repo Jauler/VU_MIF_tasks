@@ -3,12 +3,12 @@
 #ifndef __MANAGER_EXTENSION_H
 #define __MANAGER_EXTENSION_H
 
-#include "WorkerExtension.h"
+#include "WorkerDecorator.h"
 
-class ManagerExtension : public WorkerExtension {
+class ManagerDecorator : public WorkerDecorator {
 
 public:
-	ManagerExtension(Worker *_w);
+	ManagerDecorator(Worker *_w);
 	void work();
 	void raiseWage(int amount, Worker *w);
 

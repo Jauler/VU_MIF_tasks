@@ -1,5 +1,5 @@
 
-SRC = main.cpp WorkerExtension.cpp DesignerExtension.cpp CoderExtension.cpp TesterExtension.cpp
+SRC = main.cpp WorkerDecorator.cpp DesignerDecorator.cpp CoderDecorator.cpp TesterDecorator.cpp
 
 .PHONY: all
 
