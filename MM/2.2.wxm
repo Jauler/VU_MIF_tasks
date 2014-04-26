@@ -1,0 +1,41 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 13.04.2 ] */
+
+/* [wxMaxima: input   start ] */
+(5-3.5*y)*x = 0;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+(-3+4*x)*y = 0;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+solve([%o14, %o15]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+(-3+4*x)*y/(5-3.5*y)*x=a;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+solve(%o37, y);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+1*10*x/((7*1+8)*x-6);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+2*10*x/((7*2+8)*x-6);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+3*10*x/((7*3+8)*x-6);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+plot2d([%o59, %o60, %o61], [x, -0.5, 1]);
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

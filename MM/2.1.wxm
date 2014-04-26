@@ -1,0 +1,37 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 13.04.2 ] */
+
+/* [wxMaxima: input   start ] */
+'diff(x(t), t) = -2*x(t)-4*y(t);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+'diff(y(t), t) = -4 * y(t);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+atvalue(y(t), t=0, 1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+atvalue(x(t), t=0, 1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+desolve([%o1, %o2], [x(t), y(t)]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+2*%e^(-4*t)-%e^(-2*t);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+%e^(-4*t);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+plot2d([%o28, %o29], [t, -2, 2]);
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$
