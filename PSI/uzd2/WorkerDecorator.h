@@ -8,6 +8,11 @@
 
 using namespace std;
 
+const int SUCCESS = 1;
+const int FAILURE = 0;
+
+
+
 class WorkerDecorator : public Worker {
 protected:
 	Worker *w;
@@ -18,11 +23,8 @@ public:
 
 	//Decorator interface
 	WorkerDecorator *getRole(string role);
+	WorkerDecorator *removeRole(string role);
 
 };
-
-
-
-
 
 #endif
