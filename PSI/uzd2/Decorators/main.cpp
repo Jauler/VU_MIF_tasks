@@ -33,9 +33,9 @@ int main(void)
 	cout << "Multiple decorator example...\n";
 	Worker w1("Worker1", 2500);
 	CoderDecorator cd1(&w1);
-	DesignerDecorator cddd1(&cd1);
-	TesterDecorator cdddtd1(&cddd1);
-	cdddtd1.work();
+	DesignerDecorator dd1(&cd1);
+	TesterDecorator td1(&dd1);
+	td1.work();
 	cout << "\n\n";
 
 	//Specific interface example
