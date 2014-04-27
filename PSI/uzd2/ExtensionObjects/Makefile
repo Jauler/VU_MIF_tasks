@@ -1,5 +1,5 @@
 
-SRC = main.cpp
+SRC = main.cpp Worker.cpp
 
 all: uzd2
 uzd2:

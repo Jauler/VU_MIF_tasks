@@ -5,22 +5,29 @@
 
 #include <string>
 #include <iostream>
+#include "WorkerExtension.h"
 
 using namespace std;
 
 class Worker {
 private:
+	WorkerExtension *extensions;
 	string name;
 	int wage;
 
 public:
-	Worker(string _name, int _wage){name = _name; wage = _wage;};
-	string getName(){return name;};
-	int getWage(){return wage;};
-	void setWage(int _wage){wage = _wage; cout << name << " Wage set to " << _wage;};
-	virtual void work(){cout << name + " is Working\n";};
+	Worker(string _name, int _wage);
+	string getName();
+	int getWage();
+	void setWage(int _wage);
+	virtual void work();
 
+	void addExtension(WorkerExtension *we);
+	WorkerExtension *getExtension(string extension);
+	int rmExtension(string extension);
 
+	static const int SUCCESS = 1;
+	static const int FAILURE = 0;
 };
 
 
