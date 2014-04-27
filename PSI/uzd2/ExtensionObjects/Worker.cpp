@@ -1,4 +1,5 @@
 
+#include <stdio.h>
 #include <typeinfo>
 #include <cxxabi.h>
 #include "Worker.h"
@@ -15,12 +16,11 @@ static string DemangleName(const char *name)
 	return realNameStr;
 }
 
-Worker::Worker(string _name, int _wage)
+Worker::Worker(string _name, int _wage):
+		extensions(NULL),
+		name(_name),
+		wage(_wage)
 {
-	extensions = NULL;
-	name = _name;
-	wage = _wage;
-
 	return;
 }
 
@@ -38,11 +38,16 @@ void Worker::setWage(int _wage)
 {
 	wage = _wage;
 
+	cout << name + " wage is set to " << _wage << endl;
+
 	return;
 }
 
 void Worker::work()
 {
+	if(extensions != NULL)
+		extensions->work();
+
 	cout << name + " is working\n";
 	return;
 }
@@ -64,9 +69,6 @@ void Worker::addExtension(WorkerExtension *we)
 
 	//take care of next links
 	extLast->next = we;
-
-	//Add this extension to the first place
-	extensions = we;
 
 	return;
 }
@@ -90,8 +92,41 @@ WorkerExtension *Worker::getExtension(string extension)
 
 int Worker::rmExtension(string extension)
 {
+	int status = FAILURE;
 
-	return FAILURE;
+	//check if at least one extension is here
+	if(extensions == NULL)
+		return FAILURE;
+
+	//check if the first one is what we want to remove
+	string className = DemangleName(typeid(*extensions).name());
+	if(className == extension){
+		extensions = extensions->next;
+		if(extensions == NULL) return SUCCESS;
+	}
+
+	//Search for the extension
+	WorkerExtension *currExt = extensions;
+	while(currExt->next != NULL){
+		//check if we need to remove this
+		className = DemangleName(typeid(*currExt->next).name());
+		if(className == extension){
+			currExt->next = currExt->next->next;
+			status = SUCCESS;
+			continue;
+		}
+
+		//Go further
+		currExt = currExt->next;
+	}
+
+	//If all of classes were our classes, we have to delete last one
+	className = DemangleName(typeid(*extensions).name());
+	if(className == extension){
+		extensions = NULL;
+	}
+
+	return status;
 }
 
 
