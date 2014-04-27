@@ -13,7 +13,7 @@ DesignerDecorator::DesignerDecorator(Worker *_w) :
 
 void DesignerDecorator::work()
 {
-	cout << w->getName() + " is Designing something\n";
+	cout << WorkerDecorator::getName() + " is Designing something\n";
 	WorkerDecorator::work();
 
 	return;

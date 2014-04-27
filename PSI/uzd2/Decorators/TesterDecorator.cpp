@@ -13,7 +13,7 @@ TesterDecorator::TesterDecorator(Worker *_w) :
 
 void TesterDecorator::work()
 {
-	cout << w->getName() + " is Testing something\n";
+	cout << WorkerDecorator::getName() + " is Testing something\n";
 	WorkerDecorator::work();
 
 	return;

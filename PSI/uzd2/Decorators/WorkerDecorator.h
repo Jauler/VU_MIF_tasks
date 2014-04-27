@@ -14,7 +14,7 @@ const int FAILURE = 0;
 
 
 class WorkerDecorator : public Worker {
-protected:
+private:
 	Worker *w;
 
 public:
