@@ -92,17 +92,17 @@ WorkerExtension *Worker::getExtension(string extension)
 
 int Worker::rmExtension(string extension)
 {
-	int status = FAILURE;
+	int status = 0;
 
 	//check if at least one extension is here
 	if(extensions == NULL)
-		return FAILURE;
+		return 0;
 
 	//check if the first one is what we want to remove
 	string className = DemangleName(typeid(*extensions).name());
 	if(className == extension){
 		extensions = extensions->next;
-		if(extensions == NULL) return SUCCESS;
+		if(extensions == NULL) return 1;
 	}
 
 	//Search for the extension
@@ -112,7 +112,7 @@ int Worker::rmExtension(string extension)
 		className = DemangleName(typeid(*currExt->next).name());
 		if(className == extension){
 			currExt->next = currExt->next->next;
-			status = SUCCESS;
+			status = 1;
 			continue;
 		}
 

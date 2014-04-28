@@ -25,9 +25,6 @@ public:
 	void addExtension(WorkerExtension *we);
 	WorkerExtension *getExtension(string extension);
 	int rmExtension(string extension);
-
-	static const int SUCCESS = 1;
-	static const int FAILURE = 0;
 };
 
 
