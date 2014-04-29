@@ -14,22 +14,22 @@ class Backward_solver
 		@tmpFacts = Array.new
 	end
 
-	def recursive_solver(rules, facts, goal, path, usablePath, level)
+	def recursive_solver(rules, facts, goal, path, level)
 		@resultText << Array.new
 		@tmpFacts << Array.new
 
-		currUsablePath = usablePath.dup
-
 		@resultText[-1] << level
-		@resultText[-1] << 'Goal ' + goal
+		@resultText[-1] << 'Goal ' + goal + ", "
 
 		if(facts.include? goal)
-			@resultText[-1] << "Goal is between facts"
+			@resultText[-1][-1] << "Goal is between facts"
+			path.delete_at(path.length - 1)
 			return true
 		end
 
 		if(path.include? goal)
-			@resultText[-1] << "Loop detected"
+			@resultText[-1][-1] << "Loop detected"
+			path.delete_at(path.length - 1)
 			return false
 		end
 
@@ -39,20 +39,20 @@ class Backward_solver
 				next
 			end
 
-			@resultText[-1] << ' Using rule ' + rule.to_s
-			@resultText[-1] << ' New goals ' + rule.reqs_to_s
+			@resultText[-1][-1] << 'Using rule ' + rule.to_s + ', '
+			@resultText[-1][-1] << 'New goals ' + rule.reqs_to_s
 
 			#check for every requirement
 			allReqsFullfiled = true
 			rule.req.each do |req|
 				path << goal
-				result = recursive_solver(rules, facts, req, path, currUsablePath, level + 1)
+				result = recursive_solver(rules, facts, req, path, level + 1)
 				if(result == false)
 					@resultText << Array.new
 					@resultText[-1] << level
-					@resultText[-1] << 'Goal ' + goal
+					@resultText[-1] << 'Goal ' + goal + ", "
 					allReqsFullfiled = false
-					path.delete(path.length - 1)
+					path.delete_at(path.length - 1)
 					@path.clear
 					break
 				end
@@ -65,7 +65,8 @@ class Backward_solver
 			end
 		end
 
-		@resultText[-1] << ' No suitable rule found for current goal'
+		@resultText[-1][-1] << ' No suitable rule found for current goal'
+		path.delete_at(path.length - 1)
 		return false
 	end
 
@@ -76,10 +77,9 @@ class Backward_solver
 		@path.clear
 
 		path = Array.new
-		usablePath = Array.new
 
 		#solve recursively
-		result = recursive_solver(rules, facts, goal, path, usablePath, 1)
+		result = recursive_solver(rules, facts, goal, path, 1)
 
 		return result
 
