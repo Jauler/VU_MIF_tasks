@@ -16,6 +16,7 @@
 #include "../tm/TM_SpeedFirstDeadlineEstimator.h"
 #include "../tm/TM_QualityFirstTeamADeadlineEstimator.h"
 #include "../tm/TM_QualityFirstTeamBDeadlineEstimator.h"
+#include "../tm/TM_QualityFirstTeamCDeadlineEstimator.h"
 #include "../tm/TM_SpeedFirstTeamADeadlineEstimator.h"
 #include "../tm/TM_SpeedFirstTeamBDeadlineEstimator.h"
 
@@ -109,6 +110,13 @@ int main(void)
 	//Quality first, team B
 	deadlineEstimator5 = new TM_QualityFirstTeamBDeadlineEstimator();
 	cout << "    Quality first, Team B time to deadline: ";
+	cout << deadlineEstimator5->calcTimeToDeadline(difficulty);
+	cout << "\n";
+	delete deadlineEstimator5;
+
+	//Quality first, team C
+	deadlineEstimator5 = new TM_QualityFirstTeamCDeadlineEstimator();
+	cout << "    Quality first, Team C time to deadline: ";
 	cout << deadlineEstimator5->calcTimeToDeadline(difficulty);
 	cout << "\n";
 	delete deadlineEstimator5;

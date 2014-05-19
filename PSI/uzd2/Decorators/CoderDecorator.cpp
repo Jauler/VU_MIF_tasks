@@ -14,7 +14,7 @@ CoderDecorator::CoderDecorator(Worker *_w) :
 void CoderDecorator::work()
 {
 	cout << WorkerDecorator::getName() + " is Coding something\n";
-	WorkerDecorator::work();
+	w->work();
 
 	return;
 }

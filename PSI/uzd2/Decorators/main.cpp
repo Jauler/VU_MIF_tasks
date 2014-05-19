@@ -25,8 +25,16 @@ int main(void)
 	//Signle Decorator example
 	cout << "Single decorator example...\n";
 	Worker w0("Worker0", 3000);
-	CoderDecorator cd0(&w0);
+	WorkerDecorator wd0(&w0);
+	cout << w0.getWage() << endl << endl;
+
+	wd0.work();
+	cout << wd0.getWage() << endl;
+
+	CoderDecorator cd0(&wd0);
+	cout << cd0.getWage() << endl;
 	cd0.work();
+	cout << cd0.getWage() << endl;
 	cout << "\n\n";
 
 	//Multiple Decorator example

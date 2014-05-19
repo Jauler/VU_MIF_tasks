@@ -14,12 +14,16 @@ const int FAILURE = 0;
 
 
 class WorkerDecorator : public Worker {
-private:
+protected:
 	Worker *w;
 
 public:
 	WorkerDecorator(Worker *_w);
 	virtual void work(){w->work();};
+
+	string getName(){return w->getName();};
+	int getWage(){return w->getWage();};
+	void setWage(int _wage){w->setWage(_wage);};
 
 	//Decorator interface
 	WorkerDecorator *getRole(string role);

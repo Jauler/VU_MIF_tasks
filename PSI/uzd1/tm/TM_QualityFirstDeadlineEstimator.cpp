@@ -4,7 +4,6 @@
 
 int TM_QualityFirstDeadlineEstimator::calcTimeToDeadline(int difficulty)
 {
-	//TODO: update coments
 	//If we value quality, then we would like to publish deadline:
 		//*with added time for difficulty (more difficult to implement - more debug)
 		//*with removed a little time due high working capacity (better focused)

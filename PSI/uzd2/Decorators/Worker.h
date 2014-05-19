@@ -9,16 +9,15 @@
 using namespace std;
 
 class Worker {
-private:
+public:
 	string name;
 	int wage;
 
-public:
 	Worker(string _name, int _wage){name = _name; wage = _wage;};
-	string getName(){return name;};
-	int getWage(){return wage;};
-	void setWage(int _wage){wage = _wage; cout << name << " Wage set to " << _wage;};
-	virtual void work(){cout << name + " is Working\n";};
+	virtual string getName(){return name;};
+	virtual int getWage(){return wage;};
+	virtual void setWage(int _wage){wage = _wage; cout << name << " wage set" << endl;};
+	virtual void work(){cout << name << " is Working\n"; wage++;};
 
 
 };
