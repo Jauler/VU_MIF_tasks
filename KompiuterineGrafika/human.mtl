@@ -1,0 +1,146 @@
+# Blender MTL File: 'Girl Blendswap.blend'
+# Material Count: 15
+
+newmtl Alex_Leggins
+Ns 56.862745
+Ka 0.000000 0.000000 0.000000
+Kd 0.033103 0.033103 0.033103
+Ks 0.100000 0.100000 0.100000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd /home/rytis/Downloads/textures/Alex_Color.png
+
+newmtl Alex_Leggins_NONE
+Ns 56.862745
+Ka 0.000000 0.000000 0.000000
+Kd 0.033103 0.033103 0.033103
+Ks 0.100000 0.100000 0.100000
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Alex_Shirt
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.123710 0.123710 0.123710
+Ks 0.039311 0.039311 0.039311
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Alex_Shorts
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.065116 0.049382 1.000000
+Ks 0.100000 0.100000 0.100000
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Alex_Shorts_Fold
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.113594 0.292398 0.800000
+Ks 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+
+newmtl Alex_Shorts_Top
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.043372 0.031260 0.800000
+Ks 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+
+newmtl Alex_eyeball
+Ns 792.328924
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 1.000000 1.000000 1.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd /home/rytis/Downloads/Alex_Eyeball.png
+map_Ks /home/rytis/Downloads/Alex_Eyeball.png
+
+newmtl Alex_skin
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd /home/rytis/Downloads/textures/Alex_Color.png
+map_Ka /home/rytis/Downloads/textures/Alex_Ambient.png
+map_Ks /home/rytis/Downloads/textures/Alex_Spec_col.png
+
+newmtl Eye_lens
+Ns 874.999998
+Ka 0.000000 0.000000 0.000000
+Kd 0.273908 0.273908 0.273908
+Ks 1.000000 1.000000 1.000000
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd /home/rytis/Downloads/Alex_Eyeball.png
+
+newmtl Eye_pupil
+Ns 0.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.001032 0.001032 0.001032
+Ks 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd /home/rytis/Downloads/Alex_Eyeball.png
+
+newmtl Material.001
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.141578 0.329169 1.000000
+Ks 0.119048 0.119048 0.119048
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd /home/rytis/Downloads/textures/Alex_Color.png
+
+newmtl Material.001_NONE
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.141578 0.329169 1.000000
+Ks 0.119048 0.119048 0.119048
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl None
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+
+newmtl Shoe_white
+Ns 15.686275
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.071429 0.071429 0.071429
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd /home/rytis/Downloads/textures/Alex_Color.png
+
+newmtl Shoe_white_NONE
+Ns 15.686275
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.071429 0.071429 0.071429
+Ni 1.000000
+d 1.000000
+illum 2
