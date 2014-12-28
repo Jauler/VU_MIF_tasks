@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSet1" targetNamespace="http://tempuri.org/DataSet1.xsd" xmlns:mstns="http://tempuri.org/DataSet1.xsd" xmlns="http://tempuri.org/DataSet1.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSet1" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSet1" msprop:Generator_UserDSName="DataSet1">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Note" msprop:Generator_TableClassName="NoteDataTable" msprop:Generator_TableVarName="tableNote" msprop:Generator_TablePropName="Note" msprop:Generator_RowDeletingName="NoteRowDeleting" msprop:Generator_UserTableName="Note" msprop:Generator_RowChangingName="NoteRowChanging" msprop:Generator_RowEvHandlerName="NoteRowChangeEventHandler" msprop:Generator_RowDeletedName="NoteRowDeleted" msprop:Generator_RowEvArgName="NoteRowChangeEvent" msprop:Generator_RowChangedName="NoteRowChanged" msprop:Generator_RowClassName="NoteRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Title" msprop:Generator_ColumnVarNameInTable="columnTitle" msprop:Generator_ColumnPropNameInRow="Title" msprop:Generator_ColumnPropNameInTable="TitleColumn" msprop:Generator_UserColumnName="Title" type="xs:string" minOccurs="0" />
+              <xs:element name="Text" msprop:Generator_ColumnVarNameInTable="columnText" msprop:Generator_ColumnPropNameInRow="Text" msprop:Generator_ColumnPropNameInTable="TextColumn" msprop:Generator_UserColumnName="Text" type="xs:string" minOccurs="0" />
+              <xs:element name="ReminderDate" msprop:Generator_ColumnVarNameInTable="columnReminderDate" msprop:Generator_ColumnPropNameInRow="ReminderDate" msprop:Generator_ColumnPropNameInTable="ReminderDateColumn" msprop:Generator_UserColumnName="ReminderDate" type="xs:string" minOccurs="0" />
+              <xs:element name="ReminderTime" msprop:Generator_ColumnVarNameInTable="columnReminderTime" msprop:Generator_ColumnPropNameInRow="ReminderTime" msprop:Generator_ColumnPropNameInTable="ReminderTimeColumn" msprop:Generator_UserColumnName="ReminderTime" type="xs:string" minOccurs="0" />
+              <xs:element name="ReminderRepeat" msprop:Generator_ColumnVarNameInTable="columnReminderRepeat" msprop:Generator_ColumnPropNameInRow="ReminderRepeat" msprop:Generator_ColumnPropNameInTable="ReminderRepeatColumn" msprop:Generator_UserColumnName="ReminderRepeat" type="xs:string" minOccurs="0" />
+              <xs:element name="CreationDate" msprop:Generator_ColumnVarNameInTable="columnCreationDate" msprop:Generator_ColumnPropNameInRow="CreationDate" msprop:Generator_ColumnPropNameInTable="CreationDateColumn" msprop:Generator_UserColumnName="CreationDate" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

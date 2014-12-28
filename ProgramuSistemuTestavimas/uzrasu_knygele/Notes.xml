@@ -1,0 +1,43 @@
+<?xml version="1.0" standalone="yes"?>
+<DataSet1 xmlns="http://tempuri.org/DataSet1.xsd">
+  <Note>
+    <Title>test2</Title>
+    <Text>testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttestlabas</Text>
+    <ReminderDate>Friday, October 31, 2014</ReminderDate>
+    <ReminderTime />
+    <ReminderRepeat />
+    <CreationDate>10/31/2014</CreationDate>
+  </Note>
+  <Note>
+    <Title>test1</Title>
+    <Text>testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest</Text>
+    <ReminderDate>Friday, October 31, 2014</ReminderDate>
+    <ReminderTime />
+    <ReminderRepeat />
+    <CreationDate>10/31/2014</CreationDate>
+  </Note>
+  <Note>
+    <Title>bandau</Title>
+    <Text>bandaubandau</Text>
+    <ReminderDate>Friday, October 31, 2014</ReminderDate>
+    <ReminderTime />
+    <ReminderRepeat />
+    <CreationDate>10/31/2014</CreationDate>
+  </Note>
+  <Note>
+    <Title>bandau</Title>
+    <Text>bandaubandau</Text>
+    <ReminderDate>Friday, October 31, 2014</ReminderDate>
+    <ReminderTime />
+    <ReminderRepeat />
+    <CreationDate>10/31/2014</CreationDate>
+  </Note>
+  <Note>
+    <Title>asdf</Title>
+    <Text>asdf</Text>
+    <ReminderDate>Friday, October 31, 2014</ReminderDate>
+    <ReminderTime>12:45</ReminderTime>
+    <ReminderRepeat>Kasdien</ReminderRepeat>
+    <CreationDate>10/31/2014</CreationDate>
+  </Note>
+</DataSet1>
