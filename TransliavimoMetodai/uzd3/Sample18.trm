@@ -1,0 +1,52 @@
+/*
+##########################################################
+# Transliavimo metodai, 2014/2015 m.m. (7 semestras)
+# Trečiasis praktinis darbas
+# Rytis Karpuška, Donatas Kučinskas, Programų sistemos, 4k., 3 grupė
+# Variantas: 111
+##########################################################
+*/
+
+
+#define TEKSTAS "Truputis teksto"
+#define PENKI 5
+#define PENKIU_KVADRATAS PENKI*PENKI
+
+#define REIKSME 1
+#define REIKSME 2
+
+#define HEX_SKAICIUS (0x100)
+
+struct Struktura {
+	char raide;
+	int numeris;
+	long suma;
+};
+
+
+/* keletas teisingų pavyzdžių */
+int labas;
+int foo();
+int labas();
+int labas(int);
+int labas(int, int);
+int labas(int a1, int a2);
+int labas(short a4, long int asdf);
+struct aaa {
+	int labas;
+};
+struct aaa {int labas; int ate;};
+struct aaa {int labas;};
+#define ABC
+#define ABC "abc"
+#define ABC 123
+#define ABC 0x123
+#define ABC 123 + 123
+#define ABC 123 + ABC
+#define ABC ABC + ABC
+#define ABC (ABC + ABC)
+#define ABC (ABC + ABC) * ABC
+#define ABC ABC * ((ABC + ABC) * 5 + 0x123)
+
+/* Klaidingas sakinys */
+//intlabas()

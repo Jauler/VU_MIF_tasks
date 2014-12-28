@@ -1,0 +1,34 @@
+/*
+##########################################################
+# Transliavimo metodai, 2014/2015 m.m. (7 semestras)
+# Antrasis praktinis darbas
+# Rytis Karpuška, Donatas Kučinskas, Programų sistemos, 4k., 3 grupė
+# Variantas: 111
+##########################################################
+*/
+
+/* keletas teisingų pavyzdžių */
+int labas;
+int labas();
+int labas(int);
+int labas(int, int);
+int labas(int a1, int a2);
+int labas(short a4, long int asdf);
+struct aaa {
+	int labas;
+};
+struct aaa {int labas; int ate;};
+struct aaa {int labas;};
+#define ABC
+#define ABC "abc"
+#define ABC 123
+#define ABC 0x123
+#define ABC 123 + 123
+#define ABC 123 + abc
+#define ABC abc + abc
+#define ABC (abc + abc)
+#define ABC (abc + abc) * abc
+#define ABC abc * ((abc + abc) * 5 + 0x123)
+
+/* Klaidingas sakinys */
+intlabas()

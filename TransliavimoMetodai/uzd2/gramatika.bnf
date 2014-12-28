@@ -1,0 +1,55 @@
+########################################################
+# Transliavimo metodai, 2014/2015 m.m. (7 semestras)
+# Antrasis praktinis darbas
+# Rytis Karpuška, Donatas Kučinskas, Programų sistemos, 4k., 3 grupė
+# Variantas: 111
+########################################################
+<API> ::= <API vienetas> | <API><API vienetas>
+<API vienetas> ::= <kintamasis> | <struktura> | <funkcija> | <direktyva>
+
+
+<konstanta> ::= <10-aine konstanta> | <16-aine konstanta>
+<10-aine konstanta> ::= <10-ainis skaitmuo> | <10-ainis  skaitmuo><10-aine konstanta>
+<10-ainis skaitmuo> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+<16-aine konstanta> ::= "0x"<16-ainis skaitmuo> | <16-aine konstanta><16-ainis skaitmuo>
+<16-ainis skaitmuo> ::= "A" | "B" | "C" | "D" | "E" | "F" | "a" | "b" | "c" | "d" |
+			 "e" | "f" | "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+
+
+<direktyva> ::= "#define"<tarpas><identifikatorius> |
+							"#define"<tarpas><identifikatorius><tarpas><operacija>
+<operacija> ::= <identifikatorius> | <konstanta> | <operacija><operatorius><operacija> |
+							"("<operacija>")"
+<operatorius> ::= "+" | "-" | "/" | "*"
+
+
+<identifikatorius> ::= <pirmas identifikatoriaus simbolis> | <identifikatorius><identifikatoriaus simbolis>
+<identifikatoriaus simbolis> ::= <pirmas identifikatoriaus simbolis> | <10-ainis skaitmuo>
+<pirmas identifikatoriaus simbolis> ::= <raide> | "_"
+<raide> ::= <mazoji raide> | <didzioji raide>
+<mazoji raide> ::= "a"|"b"|"c"|"d"|"e"|"f"|"g"|"h"|"i"|"j"|"k"|"l"|"m"|"n"|"o"|
+						"p"|"q"|"r"|"s"|"t"|"u"|"v"|"w"|"x"|"y"|"z"
+<didzioji raide> ::= "A"|"B"|"C"|"D"|"E"|"F"|"G"|"H"|"I"|"J"|"K"|"L"|"M"|"N"|"O"|
+						"P"|"Q"|"R"|"S"|"T"|"U"|"V"|"W"|"X"|"Y"|"Z"
+
+
+<struktura> ::= "struct" <identifikatorius> "{"<kintamuju sarasas>"}"<sakinio pabaiga>
+<kintamuju sarasas> ::= <kintamasis> | <kintamuju sarasas><kintamasis>
+<kintamasis> ::=  <tipas><tarpas><identifikatorius><sakinio pabaiga>
+<tipas> ::= "char" | "unsigned char" | "short" | "unsigned short" | "int" |
+		"unsigned int" | "long" | "unsigned long" | "long int" | "unsigned long int" |
+		"long long" | "unsigned long long" | "long long int" | "unsigned long long int"
+
+
+<funkcija> ::= <tipas><tarpas><identifikatorius><argumentu sarasas><sakinio pabaiga>
+<argumentu sarasas> ::= "()" | "("<argumentai>")"
+<argumentai> ::= <argumentas> | <argumentai>","<argumentas>
+<argumentas> ::= <kintamasis be sakinio pabaigos> | <tipas>
+<kintamasis be sakinio pabaigos> ::= <tipas><tarpas><identifikatorius>
+
+
+<tarpo simbolis> ::= " " | "	"
+<tarpas> ::= <tarpo simbolis> | <tarpas><tarpo simbolis>
+<sakinio pabaiga> ::= ";"
+
+

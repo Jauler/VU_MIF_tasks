@@ -1,0 +1,53 @@
+Vertinimas 6:4.
+yra galimybė nelaikyti egzo pasistengus per praktika
+
+Transliatorius verčia iš vienos kalbos į kitą
+
+Galimos fazėsi transliavime:
+	*analizė
+	*sintezė
+
+
+Kalbos apibrėžiamos taisyklių rinkinių
+	Formalios (apibrėžiama sintaksė)
+	Neformalios (apibrėžiama semantika)
+
+Gramatikos (taisyklių rinkiniai) kalbos apibrėžimui
+	Reguliari gr. (pati papraščiausia, apibrėžiamos leksemos) (3)
+		Neterminaliniai simboliai ::= Neterminalinis simbolis Terminalinis simbolis
+		Neerminaliai simboliai ::= Terminalinis simbolis
+	Laisvo konteksto gramatikos
+		Neterminaliniai simboliai ::= x (bet kas)
+
+Transliatoriaus struktūra
+	analizė
+		skaneris
+		sintaksinis ir semantinis analizatorius
+	sintezė
+		optimizavimas
+		kodo generavimas
+	transliavimo lentelė
+		ivairios lentelės
+			kosntantų
+			kintamųjų
+			ir pan...
+
+PAVYZDYS gramatikos apibrėžimas:
+<sakinys>::=<kintamasis>:=<išraiška>
+<išraiška>::=<išraiška>+<termas> | <išraiška>
+<termas>::=<termas>*<daugiklis> | <daugiklis>
+<daugiklis>::= (<išraiška>) | <operandas>
+<operandas>::=<identifikatorius> | <konstanta>
+<kintamasis>::=<identifikatorius>
+
+Analizuojant sudaromas medis augantis nuo pačių elementariausių ir smulkiausių taisyklių iki abstraktesnių.
+Negalint apjungti abstrakčiausių elementų, jungiame kelis pagal esančias taisykles gramatikoje.
+Tai yra kylantis analizatorius.
+
+Egzistuoja taip pat ir žemėjantis analizatorius.
+
+
+
+
+
+

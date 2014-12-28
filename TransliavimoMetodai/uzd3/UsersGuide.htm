@@ -1,0 +1,48 @@
+<html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta charset="UTF-8">
+<title>Vartotojo vadovas</title>
+</head>
+<body>
+<h2>Vartotojo vadovas</h2>
+
+<h3>Transliuojama kalba</h3>
+<p>Transliuojama kalba galima apibrėžti kintamuosius, funkcijas, struktūras bei kompiliatoriaus direktyvas.</p>
+
+<h5>Kintamieji</h5>
+<p>Kintamieji apibrėžiami nurodant kintamojo tipą, kintamojo pavadinimą. Pvz.:</p>
+<pre><code>int kintamasis;</code></pre>
+
+<h5>Funkcijos</h5>
+<p>Funkcijos apibrėžiamos nurodant funkcijos grąžinamos reikšmės tipą, funkcijos pavadinimą bei skliausteliuose aprašant funkcijos parametrų kintamuosius (kintamųjų apibrėžimą žr. aukščiau). Pvz.:</p>
+<pre><code>long suma(long a, long b);</code></pre>
+
+<h5>Struktūros</h5>
+<p>Struktūros apibrėžiamos nurodant jos pavadinimą bei ją sudarančius kintamuosius (kintamųjų apibrėžimą žr. aukščiau). Pvz.:</p>
+<pre><code>struct Struktura {
+	int numeris;
+	char raide;
+};</code></pre>
+
+<h5>Konstantos apibrėžimas</h5>
+<p>Konstantos apibrėžimai aprašomi vienoje eilutėje, kuri prasideda "#define", po kurio seka kintamojo vardas bei kintamojo reikšmė. Konstantos reikšmė gali būti dviejų tipų - skaitinė arba tekstinė. Skaitinę reikšmę gali sudaryti dešimtainiai bei šešioliktainiais skaičiai, aritmetinės operacijos, skliausteliai bei kitų konstantų pavadinimai. Pvz.:</p>
+<pre><code>
+#define pirmas 5
+#define antras kintamasis*kintamasis+1
+#define tekstas "Labas rytas"
+</code></pre>
+
+<h3>Transliatorius</h3>
+
+<p>Paleidžiant transliatorius, privalu jam perduoti du parametrus - įvesties (transliuojamasis) bei išvesties (transliavimo rezultato) failų pavadinimus.</p>
+<p>Transliatorius išanalizuoja pateiktą aukščiau aprašytos kalbos failą bei sugeneruoja jo aprašymą, kuriame yra:</p>
+<ul>
+<li>Konstantų apibrėžimai su paskaičiuotomis tiksliomis reikšmėmis.</li>
+<li>Funkcijų aprašymai, kurių kiekvieną sudaro jos pavadinimas, gražinamos reikšmės tipas bei argumentai.</li>
+<li>Struktūros, kurių kiekvieną sudaro jos pavadinimas bei ją sudarantys kintamieji.</li>
+</ul>
+
+</body>
+</html>

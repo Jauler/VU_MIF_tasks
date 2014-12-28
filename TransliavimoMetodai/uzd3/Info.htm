@@ -1,0 +1,45 @@
+<html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta charset="UTF-8">
+<title>Transliavimo metodai, 3 užduotis</title>
+</head>
+<body>
+<p>Transliavimo metodai, 2014/2015 m.m. Trečiasis praktinis darbas. 111 Variantas. Atliko: Rytis Karpuška, Donatas Kučinskas, Programų sistemos 4 kursas, 1 grupė.</p>
+
+<h2>Darbo aprašymas</h2>
+<p>Trečiasis darbas atliekamas tęsiant antrąją Transliavimo metodų praktinę užduotį pagal "Windows C API" pavyzdį. Šiame darbe realizuotas transliatorius funkcionalumas - atlikus transliatoriui patiekto failo analizę, sugeneruojamas failo aprašymas (plačiau vartotojo gide).</p>
+
+<h2>Objektinės kalbos analizė</h2>
+<p>Ši kalba sudaryta remiantis "Windows C API" pavyzdžiu, todėl ji gerai tinka aprašyti programos modulio galimų veiksmų sąrašą. Palaikomos ypatybės apima kintamuosius, jų struktūras, funkcijas, bei makro apibrėžimus, ja galima sutransliuoti į programos ar programinės bibliotekos sąsajos aprašą ar kitą sąsają apibūdinančią kalbą.</p>
+
+<h2>Yacc rezultato tinkamumas panaudoti analizatoriuje</h2>
+<p>Praeitame darbe buvo išspręstos visos gramatikos daugiaprasmybės, todėl gramatika yra vienareikšmiška ir tinkama panaudoti analizatoriuje.</p>
+
+<h2>Atlikto darbo palyginimas</h2>
+<p>Pateiktame darbe transliatoriaus paskirtis kitokia - jame transliuojama į java kalbą, o mūsų atveju transliavimas vyksta į supaprastintą aprašymą. Taip pat pateikto darbo kalboje yra įvairių skirtumų - pvz. nėra apskaičiuojamos tikslios konstantų reikšmės. Taip pat tame darbe vartotojo vadovas yra aprašytas trumpiau, nepateikta pavyzdžių. Tiek vartotojo, tiek programuotojo gidai nėra iškelti į kitus failus - jie įdėti į tą patį darbo aprašymo failą, o tai nėra labai patogu norint pateikti transliatorių be darbo aprašymo (pvz. jeigu ateityje darbas būtų tobulinamas toliau).</p>
+
+<h2>Atlikto darbo indėlis</h2>
+<p>Šiame darbe Donatas Kučinskas ir Rytis Karpuška įdėjo vienodą kiekį laiko ir pastangų.</p>
+
+<h2>Darbo rezultatai</h2>
+<p>Visi komandiniai ar kodo failai yra pritaikyti darbui su 4 tarpų ilgio tabuliacija:</p>
+<ul>
+		<li><a href="gramatika.bnf">gramatika.bnf</a> BNF forma apibrėžta gramatika. Pradinis gramatikos simbolis: API</li>
+		<li><a href="lexer.flex">lexer.flex</a> flex failas leksikos analizatoriaus kodo sugeneravimui</li>
+		<li><a href="parser.y">parser.y</a> yacc failas sintaksinio analizatoriaus kodo sugeneravimui</li>
+		<li><a href="main.c">main.c</a> pagrindinis programos kodo failas</li>
+		<li><a href="common.h">common.h</a> kodo failas su bendromis leksikos ir sintaksės analizatorių deklaracijomis</li>
+		<li><a href="parser.h">parser.h</a> kodo failas su bendromis sintaksės analizatoriaus bei pagrindinio main.c failo deklaracijomis</li>
+		<li><a href="Makefile">Makefile</a> programos sutransliavimui skirtas failas</li>
+		<li><a href="parse.sh">parse.sh</a> programos paleidimui skirtas failas Unix aplinkoje</li>
+		<li><a href="parse.bat">parse.bat</a> programos paleidimui skirtas failas Windows aplinkoje</li>
+		<li><a href="Sample18.trm">Sample18.trm</a> pavyzdinis duomenų failas su sintaksinėmis klaidomis</li>
+		<li><a href="UsersGuide.htm">UsersGuide.htm</a> vartotojo gidas (User's guide)</li>
+		<li><a href="ProgrammersGuide.htm">ProgrammersGuide.htm</a> programuotojo gidas (Programmer's guide)</li>
+</ul>
+
+
+</body>
+</html>

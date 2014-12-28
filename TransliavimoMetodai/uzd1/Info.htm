@@ -1,0 +1,73 @@
+<html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta charset="UTF-8">
+<title>Transliavimo metodai, 1 užduotis</title>
+</head>
+<body>
+<p>Translavimo metodai, 2014/2015 m.m. Pirmasis praktinis darbas. 111 Variantas. Atliko: Rytis Karpuška, Donatas Kučinskas, Programų sistemos 4 kursas, 1 grupė.</p>
+
+<h2>Darbo aprašymas</h2>
+<p>Darbas atliekamas remiantis pateiktu pavyzdžiu 111 variante "Windows C API".</p>
+
+<h2>Kalbos aprašymas</h2>
+<p>Kalboje yra apibrėžiamos taisyklės reikalingos pavyzdinio failo leksinei analizei.
+Apibrėžiami šie elementai:</p>
+<ul>
+		<li>Konstantos</li>
+		<ul>
+				<li>16-ainiai skaičiai</li>
+				<li>10-ainiai skaičiai</li>
+		</ul>
+		<li>Identifikatoriai</li>
+		<li>Raktiniai žodžiai</li>
+		<li>Kintamųjų deklaracijos</li>
+		<ul>
+				<li>Kintamieji</li>
+				<li>Struktūros</li>
+		</ul>
+		<li>Funkcijų apibrėžimas</li>
+		<ul>
+				<li>Be argumentų</li>
+				<li>Su argumentais</li>
+		</ul>
+		<li>Apibrėžimai (eng. define)</li>
+		<ul>
+				<li>Tušti preprocesoriaus elementai</li>
+				<li>Preprocesoriaus elementai pakeičiantys skaitines konstantas</li>
+				<li>Preprocesoriaus elementai pakeičiantys operacijas</li>
+		</ul>
+</ul>
+
+<h2>Kalbos semantika</h2>
+<p>Kalboje apibrėžiami elementai:</p>
+<ul>
+		<li><b>Konstantos</b> - Apibrėžiamos dviejų tipų konstantos, 10-ainės ir 16-ainės. 10-ainė konstanta susideda iš skaitmenų (0-9) simbolių, kurie gali kartotis vieną ar daugiau kartų.</li>
+		<li><b>Identifikatoriai</b> - Apibrėžiami identifikatoriai gali turėti mažąsias, didžiąsias raides, skaitmenis, bei "_" simbolius, su išimtimi pirmam simboliui, kuris negali būti skaitmuo.</li>
+		<li><b>Kintamieji</b> - Kintamieji gali būti arba struktūros, arba įprasti kintamieji. įprasti kintamieji prasideda raktiniu žodžiu, tuomet reikalaujamas bent vienas tarpo simbolis. Po tarpo rašomas kintamojo identifikatorius (pavadinimas). Struktūros prasideda raktiniu žodžiu "struct" tuomet suteikiamas pavadinimas, tuomet atidaromas kintamųjų sąrašas su simboliu "{". Po jo rašomi kintamieji atskirti simboliu ";". Struktūros kintamųjų sąrašui užbaigti naudojamas "}" simbolis.</li>
+		<li><b>Funkcijos</b> - Funkcijos apibrėžiamos kaip tipo raktinis žodis (pvz.: "void", "int"...) tuomet seka pavadinimas ir "()" funkcijai be argumentų arba "(", po kurio yra kintamųjų sąrašas atskirtas "," ir uždarantis ")".
+		<li><b>Kompiliatoriaus apibrėžimasi (eng. define)</b> - čia palaikama tirjų tipu apibrėžima (eng. define) apibrėžiantys tušią identifikatorių, apibrėžiantys konstantą ir apibrėžiantys operaciją. Tušti identifikatoriai susideda iš raktinio žodžio "#define" po kurio seka apibrėžimo identifikatorius. konstantos apibrėžimai susideda iš "#define", identifikatoriaus ir konstatos. Operacijos apibrėžiamos veiksmu, kuris gali būti arba identifikatorius, arba identifikatorius po kurio seka operatoriaus ir tuomet kitas identifikatorius.</li>
+</ul>
+
+
+<h2>Atlikto darbo palyginimas</h2>
+<p>Pateiktame pavyzdyje "Sample18w1", buvo nagrinėjamos tik konstantos, keli kintamųjų tipai ir įprastos "#define" direktyvos. Tad pavyzdinis darbas nepilnai padengia pateiktą pavyzdinį failą.</p>
+
+<h2>Atlikto darbo indėlis</h2>
+<p>Šiame darbe Donatas Kučinskas ir Rytis Karpuška įdėjo vienodą kiekį laiko ir pastangų.</p>
+
+<h2>Darbo rezultatai</h2>
+<p>Visi komandiniai ar kodo failai yra pritaikyti darbui su 4 tarpų ilgio tabuliacija:</p>
+<ul>
+		<li><a href="gramatika.bnf">gramatika.bnf</a> BNF forma apibrėžta gramatika.</li>
+		<li><a href="lexer.flex">lexer.flex</a> flex failas transliatoriaus kodo sugeneravimui</li>
+		<li><a href="Makefile">Makefile</a> programos sutransliavimui skirtas failas</li>
+		<li><a href="lexer.yy.c">lexer.yy.c</a> sugeneruotas transliatoriaus kodas</li>
+		<li><a href="parse.sh">parse.sh</a> programos paleidimui skirtas failas Unix aplinkoje</li>
+		<li><a href="parse.bat">parse.bat</a> programos paleidimui skirtas failas Windows aplinkoje</li>
+</ul>
+
+
+</body>
+</html>
