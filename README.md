@@ -1,4 +1,4 @@
-MIF
+VU MIF
 ===
 
-University of Vilnius at MIF works
+This repository is used for keeping track of my work as a student at University of Vilnius Faculty of Mathematics and Informatics
