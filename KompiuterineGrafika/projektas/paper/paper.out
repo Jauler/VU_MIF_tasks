@@ -1,3 +1,18 @@
 \BOOKMARK [1][-]{section*.1}{Ivadas}{}% 1
 \BOOKMARK [1][-]{section.1}{Kompiliacija bei paleidimas}{}% 2
-\BOOKMARK [1][-]{section.2}{Veikimo principai}{}% 3
+\BOOKMARK [2][-]{subsection.1.1}{I\235eities kodas ir jo struktura}{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.2}{I\235maniajam telefonui skirto kodo kompiliacija, bei instaliacija}{section.1}% 4
+\BOOKMARK [2][-]{subsection.1.3}{I\235maniajam telefonui skirtos programeles instaliacija be kompiliacijos}{section.1}% 5
+\BOOKMARK [2][-]{subsection.1.4}{Kompiuteriui skirto kodo kompiliacija}{section.1}% 6
+\BOOKMARK [2][-]{subsection.1.5}{\227io dokumento kodo kompiliacija}{section.1}% 7
+\BOOKMARK [1][-]{section.2}{Programos naudojimas}{}% 8
+\BOOKMARK [2][-]{subsection.2.1}{\214Linux\215 operacinei sistemai skirto kodo paleidimas}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.2}{\214Android\215 operacinei sistemai skirto kodo paleidimas}{section.2}% 10
+\BOOKMARK [1][-]{section.3}{Veikimo principas}{}% 11
+\BOOKMARK [2][-]{subsection.3.1}{Sensoriai}{section.3}% 12
+\BOOKMARK [2][-]{subsection.3.2}{Duomenu perdavimas}{section.3}% 13
+\BOOKMARK [2][-]{subsection.3.3}{Duomenu apdorojimas}{section.3}% 14
+\BOOKMARK [1][-]{section.4}{Esamos problemos ir galimi patobulinimai}{}% 15
+\BOOKMARK [2][-]{subsection.4.1}{Dreifavimas}{section.4}% 16
+\BOOKMARK [2][-]{subsection.4.2}{\231emas matavimu da\236nis}{section.4}% 17
+\BOOKMARK [1][-]{section.5}{I\235vados}{}% 18
