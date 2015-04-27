@@ -110,9 +110,52 @@ Ryškiausi klientų pasiekimai su "`Emus BMS"':
 %Skyrius apie mano veiklą įmonėje
 \section{Veikla praktikos metu}
 
+Praktikos metu įmonėje dirbau prie naujo įmonės projekto.
+Projekto metu buvo sukurta sistema skirta geležinkelių aukštos įtampos kabelio vibracijoms tirti.
+Sistema seka Šeimininko-Vergo (eng.: Master-Slave) topologiją, leidžiančią vienu metu palaikyti iki 16 "`Slave"' tinklo mazgų.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1\textwidth]{img/NorgeRail_star.png}
+\caption{Vibracijų sensorių tinklo topologija.}
+\end{center}
+\end{figure}
+
+Šio projekto metu buvo sukurti mazgų planavimo (eng.: scheduling), paketavimo, ir kiti algoritmai pritaikyti labai žemam elektros suvartojimui.
+Ramiom darbo sąlygom techninė radio ryšio įranga dirba mažiau nei 1\% laiko.
+Tai leido "`Slave"' sensoriams be pertraukimų atlikti matavimus nenutrūkstamai iki 7 dienų iki baterijos išsikrovimo.
+
+Negana labai aukštų reikalavimų elektros suvartojimui, šie sensoriai turi stabiliai dirbti labai EMI triukšmingoje aplinkoje, nes jie montuojami teisiogiai ant aukštos įtampos kabelio.
+Tam buvo sukurta speciali dėžutė imituojanti faradėjaus narvo savybes.
+
+%TODO: Internet access
+
 \subsection{Naujos Testavimo procedūros}
 
+Prasidėjus profesinei praktikai projektas jau buvo pažengęs ir buvo atlikti bandymai realiuose geležinkeliuose su realiais traukiniais Trondheim ir Oslo traukinių stotyse, Norvegijoje.
+Deja, praktika parodė, kad sistemoje buvo nemažai defektų, tame tarpe ir kritinių, dėl kurių buvo įmanoma pilnai prarasti ryšį su "`Slave"' sensoriais.
+Todėl buvo nuspręsta, kad reikia sustiprinti testavimo procedūras.
+
 \subsubsection{"`Checker"' modulis}
+
+Įterptinės sistemos daugeliu atveju pasižymi palyginus silpnais procesoriais, kilobaitų eilės "`RAM"', "`FLASH"' atmintimis, bei labai limituotom derinimo sąsajom.
+Dažna situacija kuomet vienintelis kelias derinimui yra "`JTAG"' ar panašaus tipo derintuvai, ar paprastesniais atvejais "`UART"' sąsaja su kompiuteriu, galinti išspausdinti tekstinę informaciją.
+Tai buvo mūsų situacija.
+Deja derinimas su tokiais įrankiais yra labai sudėtingas, ypač kai aplikacija yra realaus laiko ir labai jautri nenumatytiems uždelsimams.
+Taip yra dėl to, kad pats derinimo veiksmas reikalauja uždelsimų, kurie iškreipia normalų programos darbą, o 10 mikrosekundžių užgaištos spausdinant vieną raidę, gali lemti programos darbo sutrikimus.
+
+\paragraph{Sprendimo įdėja}
+Kol "`UART"' sąsaja yra labai lėta, tai atminties operacijos šiuose procesoriuose yra ypatingai greitos dėl jų SRAM technologijų.
+Atminties priėjimas užtrunka vos keletą ciklų.
+
+%TODO continue here about solution and "checker" module
+
+
+
+
+
+
+
 
 \subsubsection{Regresiniai vienetų testai}
 
