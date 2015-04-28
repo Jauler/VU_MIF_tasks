@@ -112,7 +112,7 @@ Ryškiausi klientų pasiekimai su "`Emus BMS"':
 
 Praktikos metu įmonėje dirbau prie naujo įmonės projekto.
 Projekto metu buvo sukurta sistema skirta geležinkelių aukštos įtampos kabelio vibracijoms tirti.
-Sistema seka Šeimininko-Vergo (eng.: Master-Slave) topologiją, leidžiančią vienu metu palaikyti iki 16 "`Slave"' tinklo mazgų.
+Sistema seka Šeimininko-Vergo (ang.: Master-Slave) topologiją, leidžiančią vienu metu palaikyti iki 16 "`Slave"' tinklo mazgų.
 
 \begin{figure}[H]
 \begin{center}
@@ -121,20 +121,92 @@ Sistema seka Šeimininko-Vergo (eng.: Master-Slave) topologiją, leidžiančią 
 \end{center}
 \end{figure}
 
-Šio projekto metu buvo sukurti mazgų planavimo (eng.: scheduling), paketavimo, ir kiti algoritmai pritaikyti labai žemam elektros suvartojimui.
-Ramiom darbo sąlygom techninė radio ryšio įranga dirba mažiau nei 1\% laiko.
-Tai leido "`Slave"' sensoriams be pertraukimų atlikti matavimus nenutrūkstamai iki 7 dienų iki baterijos išsikrovimo.
+Šio projekto metu nuo pagrindų buvo sukurtas žvaigždės topologijos radio tinklas, dėl labai aukštų elektros suvartojimo ir duomenų perdavimo greičio reikalavimų.
+Suprogramuotas specialus laiko dalinimosi algorithmas ramiom darbo sąlygom leidžiantis techninę radio ryšio įrangą įjungti mažiau nei 1\% laiko, taip sutaupant elektros, kita vertus, atmetus visus protokolo nuostolius per vieną kanalą pasiekiamas pasiekiamas net 15KB/s srautas daugiau kaip 1 kilometro atstumu (jeigu tarp "`Master"' ir "`Slave"' įrenginių nėra kliūčių).
+
+Šie algoritmai buvo pakankamai efektyvūs, kad"`Slave"' sensoriai be pertraukų atliktų matavimus 7 dienas iki baterijos išsikrovimo.
+
 
 Negana labai aukštų reikalavimų elektros suvartojimui, šie sensoriai turi stabiliai dirbti labai EMI triukšmingoje aplinkoje, nes jie montuojami teisiogiai ant aukštos įtampos kabelio.
 Tam buvo sukurta speciali dėžutė imituojanti faradėjaus narvo savybes.
 
-%TODO: Internet access
+
+"`Master"' įrenginyje dirbo Linux operacinė sistema, kuriai buvo atskirai parašytos tvarkyklės privačiam šios sistemos protokolui palaikyti.
+Taip pat įrenginys buvo aprūpintas Wi-Fi ir GSM sąsajom, todėl parsisiųsti matavimus, stebėti kaip sistema dirba, o prireikus perkonfigūruotis "`Slave"' bei "`Master"' įrenginius galima nuotoliniu būdu.
+
+
 
 \subsection{Naujos Testavimo procedūros}
 
 Prasidėjus profesinei praktikai projektas jau buvo pažengęs ir buvo atlikti bandymai realiuose geležinkeliuose su realiais traukiniais Trondheim ir Oslo traukinių stotyse, Norvegijoje.
 Deja, praktika parodė, kad sistemoje buvo nemažai defektų, tame tarpe ir kritinių, dėl kurių buvo įmanoma pilnai prarasti ryšį su "`Slave"' sensoriais.
 Todėl buvo nuspręsta, kad reikia sustiprinti testavimo procedūras.
+
+\subsubsection{Regresiniai vienetų testai}
+
+Vienetų testai įmonėje buvo naudojami ir ankščiau, bet, deja, darbas su jais buvo varginantis ir nepatogus.
+Vien jų paleidimas reikalavo specialios įrangos, kad pavyktų prijungti programuojamą įrenginį prie kompiuterio,
+testai turėdavo būti paleidinėjami rankomis. Reikėjo įvedinėti lengvai pamirštamas komandas.
+Testus pernešti iš vieno projekto (kodo bazės) į kitą būdavo labai sunku, tad kai kurie seniau parašytų modulių testai būdavo ištrynami norint greičiau pasiekti sėkmingą kompiliaciją.
+Nekartą pasitaikė situacija, kad testai būdavo išvis apleidžiami ir neatnešdavo realios naudos.
+Šių vienetų testų tikrai nebuvo galima pavadinti regresiniais, o tai yra viena iš stipresnių vienetų testų savybių.
+
+Todėl po nesėkmingų sistemos bandymų Norvegijoje buvo nuspresta sustiprinti vienetų testus.
+
+\paragraph{STM32 procesorių kodo struktūra (ang.: "`Framework"')}
+
+Įmonėje tenka kompiliuoti kodą įvairioms STM32 procesorių platformoms ar įrenginiams tačiau ankstesnioje kodo struktūroje pernešti kodą iš vieno įrenginio į kitą buvo sudėtinga užduotis.
+Tai turėjo įtakos ir vienetų testams.
+Todėl darbai prasidėjo kaip tik nuo kodo struktūros, ji buvo pilnai pertvarkyta.
+
+
+\paragraph{Nepriklausomumas nuo platformos}
+
+Absoliučioje daugumoje įterptinių sistemų nuo įrenginio, platformos ar procesoriaus priklausantis kodas būna tik žemiausiame tvarkyklių lygmenyje, kitur priklausomybė lieka tik nuo modulių sąsajų.
+Todėl pirmas žingsnis kodo struktūros darbuose buvo sąsajų standartizavimas.
+Išskaidėme visas tvarkykles bei programinius modulius į šiuos tipus:
+\begin{itemize}
+	\item \textit{Output} - Išeities įrenginys ar modulis.
+	\item \textit{Memory} - Atminties įrenginys ar modulis.
+	\item \textit{Measure} - Bendru atveju įeities įrenginys ar modulis.
+	\item \textit{Stream} - Sąsajos įrenginys ar modulis.
+	\item \textit{Generic} - Kiti moduliai (dažniausiai - valdantieji).
+\end{itemize}
+
+Kiekvienam iš šių įrenginių ar modulių konkrečiai apibrėžėme jų sąsajas, bet jų apibūdinimas iškrenta iš šios ataskaitos apimties ribų, todėl čia nedetalizuosių sąsajų.
+
+
+Standartizuotos sąsajos leidžia pernaudoti kodą, kuris nėra tiesiogiai priklausomas nuo techninės įrangos, todėl norint pernešti kodą iš vienos platformos į kitą, tereikia užtikrinti, kad visos reikalingos tvarkyklės būtų kitoje platformoje.
+Taip pat standarizuotos sąsajos leidžia sukurti apsimestines (ang.: Mock) tvarkykles ir kompiliuoti kodą architektūroms, kur tos techninės įrangos galbūt nėra. Pavyzdžiui x86 architektūrai.
+Tai yra svarbiausia naujos kodo struktūros savybė vienetų ir integraciniams testams.
+
+
+\paragraph{Automatizuotas vienetų testų vykdymas}
+
+Įmonėje yra naudojama git versijavimo sistema paleista privačiuose VPS serveriuose.
+Tai leidžia pilnai kontroliuoti ką, kada ir kaip git serveris atlieka.
+Pasinaudodami šiomis galimybėmis kartu su komanda sukūrėme git "`kablius"' (ang.: hooks), kurie kiekvieną kartą kai kodo pakeitimai yra siunčiami į serverį ("`Push"' operacija), atlieka šiuos veiksmus:
+\begin{itemize}
+	\item atnaujina kodą naujausiais pakeitimais
+	\item Ištrina bet kokius senesnių kompiliacijų likučius
+	\item Švariai sukompiliuoja naujausią kodą visoms palaikomoms platformoms, tame tarpe ir x86
+	\item Automatiškai paleidžia vienetu testus
+\end{itemize}
+
+Įvykus kompiliacijos ar vienetų testų klaidai, serveris išsiunčia elektroninį laišką tam, kas siuntė kodą į serverį.
+Laiške pateikiama išsami informacija apie tai kodėl šis laiškas yra siunčiamas, jame pateikiami:
+\begin{itemize}
+	\item Konkreti kodo versijos šaka ir versijos SHA1 identifikatorius
+	\item Pilnas kompiliavimo žurnalas visoms platformoms (ang.: "`log"')
+	\item Vienetų testų rezultatai ir bet kokie klaidos pranešimai, jeigu jų yra.
+\end{itemize}
+
+
+Atlikę šiuos pakeitimus, galime drąsiai sakyti, kad vykdome regresinius vienetų testus.
+
+
+
+
 
 \subsubsection{"`Checker"' modulis}
 
@@ -145,19 +217,78 @@ Deja derinimas su tokiais įrankiais yra labai sudėtingas, ypač kai aplikacija
 Taip yra dėl to, kad pats derinimo veiksmas reikalauja uždelsimų, kurie iškreipia normalų programos darbą, o 10 mikrosekundžių užgaištos spausdinant vieną raidę, gali lemti programos darbo sutrikimus.
 
 \paragraph{Sprendimo įdėja}
+
 Kol "`UART"' sąsaja yra labai lėta, tai atminties operacijos šiuose procesoriuose yra ypatingai greitos dėl jų SRAM technologijų.
 Atminties priėjimas užtrunka vos keletą ciklų.
-
-%TODO continue here about solution and "checker" module
-
+Žinodamas tai pasiūliau komandai sukurti modulį, kurį pavadinome "`Checker"'.
 
 
+\paragraph{"`Checker"' modulis}
+"`Checker"' modulis statiškai rezervuoja atminties bloką (prisiminkime, kad silpnesnieji iš mikrovaldiklių, net neturi dinaminio atminties valdymo, tad "`malloc"' ir panašūs iškvietimai yra nepalaikomi), ir jame suformuoja žiedinį buferį.
+Ir suteikia tokią programinę sąsają kitiems moduliams:
+
+\lstinputlisting[language=C]{checker_itf.h}
+
+\vspace{3cm}
+
+Kiekviena iš šių funkcijų turi specialią reikšmę:
+\begin{itemize}
+	\item \textit{Macro chk} - macro nukreipiantis į \_\_check funkciją
+	\item \textit{Macro chk\_return} - macro nukreipiantis į \_\_check funkcija ir gražinantis reikšmę "`code"'.
+		Gali būti naudojamas tik funkcijose gražinančiose "`int"' ar su juo suderinamus tipus
+	\item \textit{Funkcija \_\_check} - funkcija užregistruojanti pranešimą į žiedinį buferį
+	\item \textit{Funkcija CHK\_cnt} - funkcija gražinanti žiediniame buferyje esančių įrašų skaičių
+	\item \textit{Funkcija CHK\_getRecord} - funkcija gražinantį rodyklę į žiediniame buferyje esantį įrašą su indeksu "`idx"'
+\end{itemize}
+
+
+Programuotojai pasinaudodami "`chk"', "`chk\_return"' ir kitom modulio sąsajos suteikiamom galimybėm deda įrašus į žiedinį buferį kiekvienoje klaidas tikrinančioje ar bet kaip kitaip "`įtartinoje"' programos vietoje.
+
+Prisipildžius žiediniam buferiui, seniausias įrašas yra pakeičiamas naujesniu, taip praprandant dalį informacijos, tačiau tai leidžia apsiriboti statiškai išskirtu buferiu, bei tiksliai numatyti modulio atminties suvartojimą.
+
+\paragraph{Žiedinio buferio turinio gavimas}
+
+Jeigu informacija būtų tik kaupiama žiediniame buferyje, tai nesuteiktų jokios naudos, todėl sąsajoje yra dar dvi funkcijos žiedinio buferio turiniui gauti: "`CHK\_cnt"' ir "`CHK\_getRecord"'.
+Pasinaudojant šiomis funkcijomis buvo sukurta komanda išspausdinanti žiedinio buferio turinį per "`USB"' ar "`UART"' sąsajas.
+Komanda suformuodavo duomenis lentelės pavidalu:
+\begin{table}[h]
+\resizebox{1.1\textwidth}{!}{
+\begin{tabular}{| l | l | l | l | l|}
+	\hline
+	\textbf{Severity} & \textbf{Error Code} & \textbf{Return address} & \textbf{Line} & \textbf{File} \\
+	\hline
+	0 & -19 (No such device) & 0x8013103 (DEVLIST\_getActiveDevPBydevconf) & 487 & dev\_list.c \\
+	\hline
+	0 & -19 (No such device) & 0x8010c71 (ACTRL\_Init) & 365 & attitudeCtrl.c \\
+	\hline
+	0 & -19 (No such device) & 0x80130db (DEVLIST\_getActiveDevPByDevidAndItf) & 487 & dev\_list.c \\
+	\hline
+\end{tabular}
+}
+\caption{Žiedinio buferio turinio pavyzdys, kuomet nėra prijungtas sukonfigūruotas sensorius}
+\end{table}
+
+Deja įmonė statistinių duomenų apie sugaištą laiką derinant sistemos darbą nekaupė, bet net ir be jų buvo labai aiškus laiko sutaupymas.
+Daugelių atveju jeigu sistema dirbdavo netinkamai užtekdavo tik pasižiūrėti į žiedinio buferio turinį ir problema paaiškėdavo iškart. Tai sutaupė ilgas valandas derinimo, ieškant problemos.
+
+
+Taip pat iškilus problemoms ir esant tuščiam žiedinio buferio turiniui (praktikos laikotarpiu pasitaikė 2 tokie atvejai), su dideliu patikimumu galima problemos ieškoti techninėje, o ne programinėje įrangoje.
+Abiejais atvejais reali problema ir buvo techninėje įrangoje.
+
+
+\paragraph{Modulis "`Checker"' produkcinėje aplinkoje} Funkcija "`\_\_check"' (taigi atitinkamai ir macro "`chk"' bei "`chk\_return"') teatlieka atminties kopijavimo operaciją, kuri yra nepalyginamai greitesnė, negu spausdinimas "`UART"' ar kitom sąsajom, todėl pats "`Checker"' modulio darbas tampa nepastebimas normaliai programos eigai.
+
+Dėl šių priežaščių modulis "`Checker"' gali būti paliktas įjungtas net tik viso programavimo ir testavimo metu (ko negalėtume padaryti naudojant "`JTAG"' ir panašius derintuvus), bet net ir produkcinėje aplinkoje. O paruošus tinkamus ir patogius įrankius, klientai gali atsiūsti žiedinio buferio turinį, kuris padeda diagnozuoti ne tik vidinius kodo defektus, bet ir pajungimo, instaliavimo bei konfigūravimo problemas.
 
 
 
 
 
-\subsubsection{Regresiniai vienetų testai}
+
+
+
+
+
 
 
 
