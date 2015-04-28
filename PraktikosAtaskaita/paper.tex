@@ -40,7 +40,7 @@
     Rytis Karpuška
 }
 
-\supervisor{Irus Grinis, doc.}
+\supervisor{Irus Grinis, lekt.}
 \date{Vilnius \\
 	2014}
 
@@ -51,6 +51,8 @@
 \maketitle
 
 \vumifsectionnonum{Įvadas}
+
+
 
 
 %Skyrius apie įmonę
@@ -120,6 +122,11 @@ Sistema seka Šeimininko-Vergo (ang.: Master-Slave) topologiją, leidžiančią 
 \caption{Vibracijų sensorių tinklo topologija.}
 \end{center}
 \end{figure}
+
+\begin{itemize}
+	\item \textit{Slave} - Moduliai matuojantys akseleracijas visomis trimis kryptimis ir komunikuojantys su "`Master"' moduliu
+	\item \textit{Master} - Modulis valdantis visą sistemą, priimantis matavimo duomenis, suteikiantis internetinę prieiga sistemos konfigūravimui, stebėjimui bei matavimų parsisiuntimui
+\end{itemize}
 
 Šio projekto metu nuo pagrindų buvo sukurtas žvaigždės topologijos radio tinklas, dėl labai aukštų elektros suvartojimo ir duomenų perdavimo greičio reikalavimų.
 Suprogramuotas specialus laiko dalinimosi algorithmas ramiom darbo sąlygom leidžiantis techninę radio ryšio įrangą įjungti mažiau nei 1\% laiko, taip sutaupant elektros, kita vertus, atmetus visus protokolo nuostolius per vieną kanalą pasiekiamas pasiekiamas net 15KB/s srautas daugiau kaip 1 kilometro atstumu (jeigu tarp "`Master"' ir "`Slave"' įrenginių nėra kliūčių).
@@ -283,31 +290,53 @@ Dėl šių priežaščių modulis "`Checker"' gali būti paliktas įjungtas net 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 %Ko pasiekiau per tą laiką
 \section{Rezultatai}
 
+UAB "`Elektromotus"' jau dirbu ketverius metus, nepaisant to, praktikos laikotarpiu buvo atlikti svarbūs testavimo procedūrų patobulinimai, kurie leido ne tik pagerinti įmonės programuotojų efektyvumą, bet leido man asmeniškai daug išmokti apie darbo bei testavimo procesus įterptinėse sistemose.
 
-\subsection{Vidutinis klaidų paieškos laikas}
+\paragraph{Praktikos rezultatai}
 
-\subsection{Sugauti defektai regresinio vienetų testavimo metu}
+Praktikos laikotarpiu buvo atnaujinta vienetų testavimo procedūra leidžianti efektyviau pritaikyti testais vedamo programavimo (Ang.: Test Driven Development), bei judriojo kūrimo metodus (Ang. "`Agile development"').
+Naujas "`Checker"' modulis suteikia galimybe atlikti gilią diagnostiką ne tik testinėje ar programavimo aplinkoje, bet ir produkcinėje, kartu stipriai sumažindama derinimui skirtą laiką.
+Pritaikius šiuos principus įmonės kuriama sensorių tinklo sistema sėkmingai atliko matavimus Melhus geležinkelio stotyje Norvegijoje, naujų kritinių defektų nebuvo rasta.
+
+
+Vilniaus Universitete Matematikos ir Informatikos fakultete Programų sistemu kurse dėmesys skiriamas įterptinėms sistemos yra gana ribotas.
+Pateikiami metodai nevisada gali būti tiesiogiai pritaikomi įterptinių sistemų programavimo srityje, tačiau dėstytojų geranoriškumas ir aktyvumas padeda išspręsti šias problemas ir surasti sprendimus ne tik abstraktesniem principam, bet ir konkrečiom situacijom.
+Norėčiau atskirai padėkoti lektoriui A. Adamoniui už aktyvią pagalbą ieškant sprendimų įterptinių sistemų testavimo problemoms spręsti.
 
 
 
-\section{Išvados}
+
+\paragraph{Pasiūlymai UAB "`Elektromotus"' bei Universitetui}
+
+Įmonėje programavimo bei testavimo procedūros tobulėja, produktų kokybė gerėja, tačiau vidiniuose procesuose dar daug neapibrėžtumų, nevisada aišku, kokių veiksmų reikia imtis tam tikrose situacijose, nevisada aiškios atsakomybių ribos.
+Neretai projektų įvykdymas vėluoja.
+Nėra tiesioginių motyvatorių darbotuojam gerai atlikti projektus, išleisti naujus produktus.
+Tad apibendrinant pateikiu pasiūlymus įmonei:
+
+\begin{itemize}
+	\item Sustiprinti projektų valdymą, pasamdyti projektų vadovą.
+	\item Sustiprinti projektų portfilio valdymą ir projektų išsirinkimą.
+	\item Pateikti pasiūlymų, kurie pakeltų darbuotojų motyvaciją gerai vykdyti projektus.
+\end{itemize}
+
+
+Vilniaus Universitete Matematikos ir Informatikos fakultete dažnai vykdomos apklausos išreikšti savo nuomuonei, todėl aktyvių studentų nuomonė nelieka neišsakyta.
+Taip pat studentai, norintys daugaiu sužinoti konkretesnėse srityse, turi pakankamai platų įvairių dalykų pasirinkimą.
+Konkrečiu atveju, man pasirodė, kad Programų Sistemų kurse buvo mažokai informacijos apie įterptines sistemas, jų programavimą, testavimą, taip pat projektų susijusių su įterptinėm sistemo valdymą.
+
+Tad apibendrinant pateikiu pasiūlymus Universitetui
+\begin{itemize}
+	\item Įterpti daugiau galimybių sužinoti apie įterptines sistemas ir jų programavimą, bei testavimą.
+	\item Kituose kursuose pateikti daugiau pavyzdžių kaip pritaikyti dėstomus principus įterptinių sistemų kūrimo procese.
+	\item Labiau paskatinti studentų aktyvumą domėtis nestandartinėm temom.
+\end{itemize}
+
+
+
+
 
 \bibliography{Bibliografija}
 \begin{itemize}
