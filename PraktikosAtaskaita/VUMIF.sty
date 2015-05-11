@@ -37,23 +37,27 @@
   \def\@outputtitle{%
   \begin{center}
   \null\vfil
-  \vskip 4cm
+  \vskip 3cm
   \@ifundefined{@vumifpaper}{\vskip 3ex}{%
     {\@vumifpaper \par}%
     \vskip 2ex%
   }
     {\Large \textbf{\@title} \par}%
   \end{center}
-    \vskip 4cm%
+    \vskip 3cm%
   \begin{flushright}
     { \begin{tabular}[t]{l}%
         Atliko: \@author \hfill \@signatureplace \\
         \\
-        Darbo vadovas: \\
+        Universiteto praktikos vadovas: \\
         \@supervisor \hfill \@signatureplace
         \@ifundefined{@reviewer}{}{%
           \\ \\
-          Recenzentas: \\
+          Organizacijos praktikos vadovo įvertinimas: \\
+		  \\ \\
+          \hfill \_\_\_\_\_\_\_\_\_\_\_\_\_\_\
+          \\ \\
+          Organizacijos praktikos vadovas: \\
           \@reviewer \hfill \@signatureplace
           }%
       \end{tabular} \par}%
