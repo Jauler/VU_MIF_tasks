@@ -1,0 +1,116 @@
+\documentclass[12pt, a4paper, lithuanian, final]{article}
+
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{gensymb}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{textgreek}
+\usepackage{mathtools}
+\usepackage[obeyFinal]{easy-todo}
+\usepackage[utf8]{inputenc}
+\def\LTfontencoding{L7x}
+\usepackage[\LTfontencoding]{fontenc}
+\usepackage[lithuanian]{babel}
+%\usepackage{times}
+
+%\renewcommand{\sfdefault}{uhv}
+%\renewcommand{\rmdefault}{utm}
+%\renewcommand{\ttdefault}{ucr}
+
+\usepackage{VUMIF}
+
+%Kodo highlitinimo configas
+\lstset{basicstyle=\ttfamily,
+	showstringspaces=false,
+	commentstyle=\color{red},
+	keywordstyle=\color{blue}
+	}
+
+
+% Titulinio puslapio reikalai
+\vumifdept{Programų sistemų katedra}
+\vumifpaper{Bakalaurinis darbas}
+\title{Autonominis ketursraigčio skrydžio valdymas\\Autonomus Control of Quadcopter Flight}
+\author{
+    4 kurso 1 grupės studentas \\
+    Rytis Karpuška
+}
+
+\supervisor{Irus Grinis, lekt.}
+\reviewer{Vytautas Valaitis}
+\date{Vilnius \\
+	2014}
+
+
+\begin{document}
+
+%titulinis ir turinys
+\maketitle
+\tableofcontents
+
+
+
+\vumifsectionnonum{Įvadas}
+
+
+
+\section{Ketursraigčio techninė įranga}
+\subsection{Rėmas, varikliai ir propeleriai}
+\subsection{Valdymo elektronika}
+
+
+
+\section{Fizikinis modelis}
+\subsection{Lokali ir globali koordinačių sistemos}
+\subsection{Keliamoji bei sukamoji jėgos}
+\subsection{Bendras judėjimo modelis}
+
+
+
+\section{Kampinės padėties skaičiavimas}
+\subsection{Kvaternionai}
+\subsection{Kampinės padėties skaičiavimas pagal giroskopą}
+\subsection{Kampinės padėties skaičiavimas pagal akselerometrą}
+\subsection{Galutinės kampinės padėties radimas}
+
+
+
+\section{Kampinės padėties valdymo algoritmas}
+\subsection{PID valdymo algoritmas}
+\subsection{PID pritaikymas ketursraigčio valdymui}
+
+
+
+\section{Skrydžio valdymas}
+\subsection{Atviro-ciklo valdymas}
+\subsection{Kampinės pozicijos tikslų lentelė}
+\subsection{Atviro-ciklo valdymo trūkumai}
+
+
+
+\section{Programinė įranga}
+\subsection{Bendroji architektūra}
+\subsection{Kompiuteriui skirtas klientas}
+\subsection{Retransmitorius}
+\subsection{Ketursraigčio pagrindinis valdiklis}
+
+\vumifsectionnonum{Išvados}
+
+
+
+\bibliography{Bibliografija}
+\begin{itemize}%TODO: fixme
+	\item [[AAJ+01]] - \textit{Implementing a Sensor Fusion Algorithm for 3D Orientation Detection with Inertial/Magnetic Sensors}, \url{http://franciscoraulortega.com/pubs/Algo3DFusionsMems.pdf}
+	\item [[SSF+11]] - \textit{A sensor fusion algorithm for an integrated angular position estimation with inertial measurement units}, \url{http://www.date-conference.com/proceedings/PAPERS/2011/DATE11/PDFFILES/IP1_06.PDF}
+	\item [[MS11]] - \textit{Modeling, Design and Experimental Study for a Quadcopter System Construction}, \url{http://brage.bibsys.no/xmlui/bitstream/id/86811/uiareport.pdf}
+\end{itemize}
+
+
+\end{document}
+
+
+
