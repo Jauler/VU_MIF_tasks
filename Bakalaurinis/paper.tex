@@ -59,8 +59,59 @@
 
 
 \section{Ketursraigčio techninė įranga}
+Įprasto ketursraigčio techninė struktūra yra palyginus lengvai suprojektuojama bei pagaminama tačiau to negalima pasakyti apie programinę įrangą, bei algoritmus valdančius skrydį.
+
+
+
 \subsection{Rėmas, varikliai ir propeleriai}
+Ketursraigtis susideda iš "`X"' formos rėmo, kurio galuose yra po elektrinį bešepetėlinį variklį su propeleriu.
+Priešingai nei įprastuose sraigtasparniuose, šių propelerių atakos kampas nėra reguliuojamas, o tai leidžia stipriai supaprastinti skraidyklės techninę struktūrą ir atsisakyti sudėtingų mechaninių dalių.
+Varikliai skirstomi į dvi grupes iš kurių viena sukasi pagal laikrodžio rodyklę, kita -- prieš laikrodžio rodyklę.
+Šių variklių sukimosi greitis yra reguliuojamas siekiant išgauti tinkamą sukamąją bei keliamąją jėgas.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.5\textwidth]{img/rotor-direction.png}
+\caption{Ketursraigčio rėmo ir variklių išdėstymas. Jų sukimosi kryptys.}
+\end{center}
+\end{figure}
+
+Šio darbo tikslams pasiekti buvo nupirktas "`HobbyKing x525"' 600mm skersmens rėmas, pagamintas iš aliuminio ir stiklo pluošto.
+Taip pat elektriniai bešepetėliniai 160W galios varikliai "`Turnigy D2822"' ir 8 colių ilgio, bei 4 laipsnių atakos kampo propeleriai.
+
+
 \subsection{Valdymo elektronika}
+Stabilaus skrydžio išlaikymas ketursraigtyje yra per sudėtinga užduotis žmogui (pilotui) todėl pasitelkiama pagalbinė elektronika palengvinanti ketursraigčio valdymą.
+
+Valdymo elektronikai išskiriami tokie uždaviniai:
+\begin{itemize}
+	\item Skrydžio stabilizavimas bei kontrolė
+	\item Ryšio su pilotu arba valdančia sistema palaikymas
+	\item Sugeneruoti galios signalus reikalingus varikliams
+\end{itemize}
+
+\paragraph{Skrydžio stabilizavimas bei kontrolė}
+Skrydžio stabilizavimui bei kontrolei atlikti naudojami sensoriai pagal kurių duomenis yra paskaičiuojami kokių korekcinių veiksmų reikia imtis norint įgyvendinti piloto ar valdančios sistemos komandas.
+Išskiriami svarbiausi parametrai yra tikslumas bei greitis.
+
+Atsižvelgiant į rekalavimus šiems parametrams, buvo parinktas kompanijos "`STMicroelectronics"' procesorius "`STM32F401"' bei kompanijos "`InvenSense"' sensorius "`MPU6050"'
+
+\paragraph{Ryšio su pilotu arba valdančia sistema palaikymas}
+Ryšio palaikymas parametrizuojamas pagal duomenų persiuntimo greitį ir latenciją, bei veikimo ribas.
+Ketursaigčio atveju persiunčami duomenys yra tik valdymo signalai iš piloto arba valdančios sistemos, todėl buvo pasirinktas GSM ryšys.
+Taip pat "`Raspberry pi"' kompiuteris su "`Linux"' operacine sistema atlikdavo viską kas reikalinga GSM ryšiui palaikyti.
+
+\paragraph{Galios signalų generavimas}
+Bešepetėliniai varikliai reikalauja trijų galio signalų jų sukimuisi palaikyti.
+Šiam tiklui buvo nupirkti 18A elektroniniai greičio valdikliai galintys suvaldyti apie 200W galios, tad puikiai tinkantys 160W galios varikliams.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.5\textwidth]{img/elektronikosSchema.png}
+\caption{Ketursraigčio elektronikos sudedamųjų dalių schema.}
+\end{center}
+\end{figure}
+
 
 
 
@@ -75,7 +126,7 @@
 \subsection{Kvaternionai}
 \subsection{Kampinės padėties skaičiavimas pagal giroskopą}
 \subsection{Kampinės padėties skaičiavimas pagal akselerometrą}
-\subsection{Galutinės kampinės padėties radimas}
+\subsection{Galutinis kampinės padėties radimas}
 
 
 
