@@ -115,9 +115,102 @@ Bešepetėliniai varikliai reikalauja trijų galio signalų jų sukimuisi palaik
 
 
 
-\section{Fizikinis modelis}
+\section{Matematinis skrydžio modelis}
+
+
+
 \subsection{Lokali ir globali koordinačių sistemos}
-\subsection{Keliamoji bei sukamoji jėgos}
+Pravartu apibrėžti lokalią ir globalią koordinačių sistemas, kuriose nagrinėsime ketursraigčio dinamiką.
+Lokalioje koordinačių sistemoje x ir y ašis yra sulygiuota su ketursraigčio rėmo strypais, kur $X$ rodo pirmojo variklio kryptimi, $Y$ - antrojo.
+Globali sistema yra susieta su žemės gravitaciniu laiku, ir toje sistemoje gravitacinio lauko vektorius nukreiptas priešinga $Z$ ašiai kryptimi.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{img/Quadcopter_Coordinates.png}
+\caption{Lokalios ir Globalios koordinačių sistemos palyginimas.}
+\end{center}
+\end{figure}
+
+
+Konvertavimas tarp šių koordinačių sistemų bus vykdomas kvaternionų pagalba (žr.: TODO\_SKYR\_NR):
+
+\begin{equation}
+	q_{l} = q_{p} * q_{g} * q_{p}^{-1}
+\end{equation}
+
+ir į priešingą pusę:
+
+\begin{equation}
+	q_{g} = q_{p}^{-1} * q_{l} * q_{p}
+\end{equation}
+
+Čia $q_{g}$ -- tašką arba vektorių globalioje koordinačių sistemoje atvaizduojantis kvaternionas, $q_{l}$ -- tašką arba vektorių lokalioje koordinačių sistemoje atvaizduojantis kvaternionas, $q_{p}$ -- kampinės pozicijos kvaternionas (žr.: TODO\_SKYR\_NR).
+
+
+
+
+
+\subsection{Keliamoji jėga}
+
+Ketursaigtis sukuria keliamąją jėgą priversdamas judėti orą žemyn.
+Pagal trečią niutono dėsnį, kokia jėga ketursraigtis veikia, orą, tokio pačio dydžio, tik priešingos krypties jėga oras veikia ketursraigtį.
+
+\begin{equation}
+	F_{qa} = -F_{aq}
+\end{equation}
+
+Čia $F_{qa}$ jėga, kuria ketursraigtis veikia orą, o $F_{aq}$ jėga, kuria oras veikia ketursraigtį.
+Darome prielaidą, kad oras iki ketursraigčiui jį pajudinant nejudėjo, o iš to seka:
+
+\begin{equation}
+	F = m * a
+\end{equation}
+
+Čia $F = |F_{qa}|$, $m$ - oro, kuriam suteikiamas pagreidis, masė, o $a$ pagreitis suteikiamas orui.
+
+
+Propelerio prastumamas oro kiekis yra tiesiogiai proporcingas propelerio sukimosi greičiui:
+\begin{equation}
+	A = \omega * C
+\end{equation}
+
+Čia $A$ yra oro tūris prastumtas per vieną apsisukimą, $\omega$ yra propelerio sukimosi greitis, o $C$ - konstanta priklausanti tik nuo propelerio savybių susiejanti sukimosį greitį su tūriu.
+
+Pagal prielaidą, kad oras prieš propeleriui jį pasiekiant nejudėjo, skaičiuojame propelerio sukuriamą oro pagreitį:
+\begin{equation}
+	a = \dfrac{V}{\delta t}
+\end{equation}
+
+kur $V$ yra įgyjamas oro greitis prasisukus propeleriui
+
+\begin{equation}
+	a = \dfrac{ \omega * C}{\delta t}
+\end{equation}
+
+Čia C yra konstata priklausanti tik nuo nekintančių propelerio savybių.
+
+\begin{equation}
+	a = \dfrac{\omega * C}{ 1 / \omega}
+\end{equation}
+\begin{equation}
+	a = \omega ^ 2 * C
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+\subsection{Sukamoji jėga}
+
+
+
+
+
 \subsection{Bendras judėjimo modelis}
 
 
