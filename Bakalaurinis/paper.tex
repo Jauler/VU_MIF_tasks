@@ -153,59 +153,88 @@ ir į priešingą pusę:
 \subsection{Keliamoji jėga}
 
 Ketursaigtis sukuria keliamąją jėgą priversdamas judėti orą žemyn.
-Pagal trečią niutono dėsnį, kokia jėga ketursraigtis veikia, orą, tokio pačio dydžio, tik priešingos krypties jėga oras veikia ketursraigtį.
-
+Kadangi naudojami nekintamo atakos kampo propeleriai, keliamoji jėga reguliuojama valdant propelerių sukimosi greitį.
+pagal (TODO\_REFERENCE) keliamoji jėga gali būti apskaičiuota:
 \begin{equation}
-	F_{qa} = -F_{aq}
+	T = C * \omega^2
 \end{equation}
 
-Čia $F_{qa}$ jėga, kuria ketursraigtis veikia orą, o $F_{aq}$ jėga, kuria oras veikia ketursraigtį.
-Darome prielaidą, kad oras iki ketursraigčiui jį pajudinant nejudėjo, o iš to seka:
+Kur $T$ yra keliamoji jėga niutonais vienam varikliui, $C$ yra konstanta priklausanti tik nuo propelerio nekintamų savybių, o $\omega$ yra variklių sukimosi greitis.
+
+Taip pat galime paskaičiuoti bendrąją keliamąją jėga visiems varikliams.
 
 \begin{equation}
-	F = m * a
+	T = \displaystyle\sum_{i=1}^{4} T_i = \left[
+		\begin{array}{c}
+			0\\
+			0\\
+			\displaystyle\sum_{i=1}^{4} C_i * \omega_i^2
+		\end{array}
+	\right]
 \end{equation}
 
-Čia $F = |F_{qa}|$, $m$ - oro, kuriam suteikiamas pagreidis, masė, o $a$ pagreitis suteikiamas orui.
+Šiuo atveju $T$ yra keliamosios galios vektorius lokalioje koordinačių sistemoje.
 
-
-Propelerio prastumamas oro kiekis yra tiesiogiai proporcingas propelerio sukimosi greičiui:
-\begin{equation}
-	A = \omega * C
-\end{equation}
-
-Čia $A$ yra oro tūris prastumtas per vieną apsisukimą, $\omega$ yra propelerio sukimosi greitis, o $C$ - konstanta priklausanti tik nuo propelerio savybių susiejanti sukimosį greitį su tūriu.
-
-Pagal prielaidą, kad oras prieš propeleriui jį pasiekiant nejudėjo, skaičiuojame propelerio sukuriamą oro pagreitį:
-\begin{equation}
-	a = \dfrac{V}{\delta t}
-\end{equation}
-
-kur $V$ yra įgyjamas oro greitis prasisukus propeleriui
+Ir skaičiuojant globalioje koordinačių sistemoje:
 
 \begin{equation}
-	a = \dfrac{ \omega * C}{\delta t}
-\end{equation}
-
-Čia C yra konstata priklausanti tik nuo nekintančių propelerio savybių.
-
-\begin{equation}
-	a = \dfrac{\omega * C}{ 1 / \omega}
+	q_{tl} = [0, T_x, T_y, T_z]
 \end{equation}
 \begin{equation}
-	a = \omega ^ 2 * C
+	q_{tg} = q_{p}^{-1} * q_{tl} * q_{p}
+\end{equation}
+\begin{equation}
+	T_g = \left[
+		\begin{array}{c}
+			q_{tg_x} \\
+			q_{tg_y} \\
+			q_{tg_z}
+		\end{array}
+	\right]
 \end{equation}
 
-
-
-
-
+Čia $q_{tl}$ yra kvaternionas reprezentuojantis keliamosios jėgos vektorių lokalioje koordinačių sistemoje, $q_{p}$ kvaternionas reprezentuojantis pasukimą nuo globalios iki lokalios koordinačių sistemos (žr.: TODO\_SECT\_NR), $q_{tg}$ -- keliamosios jėgos vektorių atvaizduojantis kvaternionas globalioje koordinačių sistemoje, $T_g$ -- keliamosios jėgos vektorius globalioje koordinačių sistemoje.
 
 
 
 
 
 \subsection{Sukamoji jėga}
+
+Besisukant propeleriams oro trintis į mentes sukelia papildomą jėgą, kuri veikia ketursraigčio rėmą.
+Kiekvienam iš variklių ši jėga yra nukreipta priešinga kryptimi nei sukasi variklis.
+Norint išvengti nevaldomo ketursraigčio sukimosi, parenkami du propeleriai skirti suktis pagal laikrodžio rodyklę ir du propeleriai skirti suktis prieš laikrodžio rodyklę, varikliai sujungiami taip, kad jų sukimosi kryptis atitiktų propelerį ir oro srautas būtų nukreiptas žemyn.
+Konkrečiu atveju varikliai 1 ir 4 sukasi prieš laikrodžio rodyklę, o varikliai 2 ir 3 -- pagal.
+
+Šią jėgą modeliuosime tiesiškai priklausančią nuo sukimosi greičio:
+\begin{equation}
+	F = -\omega * C
+\end{equation}
+
+Čia $C$ yra konstata priklausanti tik nuo propelerio savybių. Taip pat tai yra pasipriešinimo jėga, todėl ji yra priešinga judėjimo krypčiai ir iš čia yra neigiama $\omega$.
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.75\textwidth]{img/quadcopter-torque.png}
+\caption{Jėgos sukeliamos dėl oro trinties į propelerius.}
+\end{center}
+\end{figure}
+
+Verta pastebėti, kad varikliai skaidomi grupėmis pagal sukimosi kryptį. Tos pačios sukimosi krypties variklis sukuria tos pačios krypties sukamąją jėgą, tik centras kitoje vietoje. Tačiau rėmo atžvilgiu šias grupes galima nagrinėti kaip vieną jėga.
+Tokiu atveju turime dvi jėgas priešingų krypčių (žr.: TODO\_PAV\_REFERENCE).
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.75\textwidth]{img/quadcopter-torque-grouped.png}
+\caption{Jėgos sukeliamos dėl oro trinties į propelerius.}
+\end{center}
+\end{figure}
+
+Šiuo atveju vidinės rodyklės rodo 2 ir 3 variklių sukamąsias jėgas, o išorinis -- 1 ir 4 (žr.: TODO\_REFERENCE\_I\_IMAGE). Verta pastebėti, kad rodyklių storis nėra susijęs su jėgos dydžiu.
+
+
+
 
 
 
@@ -248,9 +277,10 @@ kur $V$ yra įgyjamas oro greitis prasisukus propeleriui
 
 \bibliography{Bibliografija}
 \begin{itemize}%TODO: fixme
-	\item [[AAJ+01]] - \textit{Implementing a Sensor Fusion Algorithm for 3D Orientation Detection with Inertial/Magnetic Sensors}, \url{http://franciscoraulortega.com/pubs/Algo3DFusionsMems.pdf}
-	\item [[SSF+11]] - \textit{A sensor fusion algorithm for an integrated angular position estimation with inertial measurement units}, \url{http://www.date-conference.com/proceedings/PAPERS/2011/DATE11/PDFFILES/IP1_06.PDF}
-	\item [[MS11]] - \textit{Modeling, Design and Experimental Study for a Quadcopter System Construction}, \url{http://brage.bibsys.no/xmlui/bitstream/id/86811/uiareport.pdf}
+	\item [[AAJ+01]] -- \textit{Implementing a Sensor Fusion Algorithm for 3D Orientation Detection with Inertial/Magnetic Sensors}, \url{http://franciscoraulortega.com/pubs/Algo3DFusionsMems.pdf}
+	\item [[SSF+11]] -- \textit{A sensor fusion algorithm for an integrated angular position estimation with inertial measurement units}, \url{http://www.date-conference.com/proceedings/PAPERS/2011/DATE11/PDFFILES/IP1_06.PDF}
+	\item [[MS11]] -- \textit{Modeling, Design and Experimental Study for a Quadcopter System Construction}, \url{http://brage.bibsys.no/xmlui/bitstream/id/86811/uiareport.pdf}
+	\item [[----] -- \textit{Quadcopter Dynamics, Simulation, and Control} \url{http://andrew.gibiansky.com/downloads/pdf/Quadcopter\%20Dynamics,\%20Simulation,\%20and\%20Control.pdf}
 \end{itemize}
 
 
