@@ -356,6 +356,8 @@ o daugindami kiekvieną elementą su kiekvienu gauname tokį sąryšį:
 \end{tabular}
 \end{center}
 
+
+\textbf{TODO: daugiau papasakoti apie kvaternionus ir jų išreiškimo būdą}
 Toliau kvaternionai bus apibrėžti taip:
 
 \begin{equation}
@@ -374,16 +376,160 @@ kur $w$ yra sveikoji dalis, $x$, $y$, $z$ yra sveikieji daugikliai, o $i$, $j$, 
 
 \paragraph{Daugyba}
 
+Kvaternionų daugyba matematiškai išreiškiama kaip jo elementų sudauginimas prastinant pagal distributyvumo taisyklę, ir tai vadinama Hamiltono produktu.
+
+\begin{equation}
+	q_1 * q_2 = \left[ w_1, x_1 i_1, y_1j_1, z_1k_1 \right] * \left[ w_1, x_1 i_1, y_1j_1, z_1k_1 \right]
+\end{equation}
+
+Verta pastebėti, kad čia nėra paprasta vektorinė daugyba.
+Daugyba apibrėžiama taip:
+
+\begin{equation}
+	q_1 * q_2 = \left[
+		\begin{array}{c}
+			w_1 w_2 - x_1 x_2 - y_1 y_2 - z_1 z_2 \\
+			(w_1 x_2 + x_1 w_2 + y_1 z_2 - z_1 y_2) i \\
+			(w_1 y_1 - x_1 z_2 + y_1 w_1 + z_1 x_1) j \\
+			(w_1 z_1 + x_1 y_2 - y_1 x_1 + z_1 w_1) k
+		\end{array}
+	\right]
+\end{equation}
+
 \paragraph{Invertavimas}
 
+Invertuotas kvaternionas yra kvaternionas atvaizduojantis pasukimą į priešingą pusę ir žymimas:
+
+\begin{equation}
+	q^{-1}
+\end{equation}
+
+Invertuoti kvaternioną galima dvejopai, arba invertuojant sveikąją dalį
+\begin{equation}
+	q^{-1} = \left[
+		\begin{array}{c}
+			-q_{w} \\
+			q_{x} \\
+			q_{y} \\
+			q_{z}
+		\end{array}
+	\right]
+\end{equation}
+
+arba invertuojant visus tris menamuosius daugiklius
+\begin{equation}
+	q^{-1} = \left[
+		\begin{array}{c}
+			q_{w} \\
+			-q_{x} \\
+			-q_{y} \\
+			-q_{z}
+		\end{array}
+	\right]
+\end{equation}
+
+Šis metodas ir bus naudojamas toliau.
+
+
+\paragraph{Taško erdvėje atvaizdavimas kvaternionu}
+
+Taškas erdvėje pagal jo $X$, $Y$, $Z$ koordinates kvaternionu atvaizduojamas taip:
+
+\begin{equation}
+	q = \left[
+		\begin{array}{c}
+			0\\
+			X\\
+			Y\\
+			Z
+		\end{array}
+	\right]
+\end{equation}
+
+
+\paragraph{Erdvinio pasukimo atvaizdavimas kvaternionu}
+
+Įprastą pasukimą kuomet žinomas kampas $\phi$ kuriuo pasukama ir ašis $X$, $Y$, $Z$, aplink kurią (prieš laikrodžio rodyklę) yra sukama, atvaizduojamas taip:
+
+\begin{equation}
+	q = \left[
+		\begin{array}{c}
+			cos(\dfrac{\phi}{2})\\
+			X * sin(\dfrac{\phi}{2}) \\
+			Y * sin(\dfrac{\phi}{2}) \\
+			Z * sin(\dfrac{\phi}{2})
+		\end{array}
+	\right]
+\end{equation}
+Jeigu koordinatės $X$, $Y$, $Z$ nebuvo normalizuotos, pasukimo kvaternionas turi būti normalizuotas.
+
+Tuomet taško erdvėje pozicija po pasukimo kvaternionu $q$ randama taip:
+
+\begin{equation}
+	q_{tp} = q * q_{t} * q^{-1}
+\end{equation}
+
+Čia $q_{tp}$ yra tašką atvaizduojantis kvaternionas po pasukimo, $q_{t}$ yra tašką atvaizduiojantis kvaternions prieš pasukimą.
+
+
+
 \paragraph{Lerp}
+
+Lerp yra trumpinys tiesinei interpoliacijai (ang.: \textit{Linear Interpolation}).
+Trimačių pasukimo kontekste, Lerp yra aproksimacija Slerp (ang.: \textit{Spherical Interpolation}).
+
+Darant prielaidą, kad kvaternionas išreiškia pasukimą taip kaip nurodoma pastraipoje "`Erdvinio pasukimo atvaizdavimas kvaternionu"' tuomet funkcija Slerp išreiškiama taip:
+\begin{equation}
+	Slerp(q_0, q_1, t) = (q_1 q_0^{-1})^{t}q_0
+\end{equation}
+
+Slerp funckija randa kvaternioną atvaizduojantį pasukimą proporcingą pateiktam skaliarui su ribomis nuo pirmo pateikto kvaterniono iki antro.
+Pavyzdžiui jeigu turime kvaternioną $q_0$ sukanti 90\degree dešinėn, ir kvaternioną $q_1$ sukantį 90\degree kairėn, tai gautume tokius rezultatus priklausomai nuo skaliaro
+
+\begin{center}
+\begin{tabular}{ | c | c | c | }
+	\hline
+	\textbf{skaliaras} & \textbf{pasukimo kryptis} & \textbf{pasukimo kampas} \\
+	\hline
+	0.0 & dešinėn & 90\degree \\
+	\hline
+	0.25 & dešinėn & 45\degree \\
+	\hline
+	0.5 & & 0\degree \\
+	\hline
+	0.75 & kairėn & 45\degree \\
+	\hline
+	1.0 & kairėn & 90\degree \\
+	\hline
+\end{tabular}
+\end{center}
+
+Lerp funkcija apibrėžiama taip:
+\begin{equation}
+	lerp(q_0, q_1, t) = \left[
+		\begin{array}{c}
+			q_{0_w} + (q_{1_w} - q_{0_w}) * t \\
+			(q_{0_x} + (q_{1_x} - q_{0_x}) * t) i \\
+			(q_{0_y} + (q_{1_y} - q_{0_y}) * t) j \\
+			(q_{0_z}+ (q_{1_z} - q_{0_Z}) * t) k \\
+		\end{array}
+	\right]
+\end{equation}
+
+Slerp funkcija suteikia vienodą judėjimo greitį nuo kvaterniono $q_0$ prie $q_1$ priklausomai nuo skaliaro, tačiau reikalauja bent trijų kvaternionų daugybų ir kėlimo laipsniu.
+Tuo tarpu funkcija lerp, nors ir nesutekia, vienodo judėjimo greičio nuo vieno kvaterniono prie kito, bet ji šį judėjimą aproksimuoja pakankamai tiksliai ketursraigčio kampinės pozicijos skaičiavimo tikslams.
+Taip pat lerp galima apskaičiuoti tik su 4 skaliarinės daugybos operacijom, bei keleta atimčių ir sudėčių.
+
+
+
+
 
 
 
 
 \subsection{Sensoriai}
 
-Kampinė pozicija skaičiuojama pagal du sensorius: giroskopą ir akselerometrą.
+Ketursraigčio kampinė pozicija skaičiuojama pagal du sensorius: giroskopą ir akselerometrą.
 
 \paragraph{Giroskopas} yra sensorius matuojantis ketursraigčio kampinį greitį (visomis trimis ašimis)
 
