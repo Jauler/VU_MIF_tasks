@@ -166,19 +166,27 @@ Taip pat galime paskaičiuoti bendrąją keliamąją jėga visiems varikliams.
 \begin{equation}
 	T = \displaystyle\sum_{i=1}^{4} T_i = \left[
 		\begin{array}{c}
-			0\\
-			0\\
+			C_{1} * \omega_{1}^2 - C_{4} * \omega_{4}^2 \\
+			C_{2} * \omega_{2}^2 - C_{3} * \omega_{3}^2\\
 			\displaystyle\sum_{i=1}^{4} C_i * \omega_i^2
 		\end{array}
 	\right]
 \end{equation}
 
 Šiuo atveju $T$ yra keliamosios galios vektorius lokalioje koordinačių sistemoje.
+Verta pastebėti, kad esant nevienodiems $\omega_{1}, \omega_{4}$ arba $\omega_{2}, \omega_{3}$ sukuriama jėga sukanti ketursraigtį apie jo lokalią $Y$ arba $X$ ašį atitinkamai.
 
-Ir skaičiuojant globalioje koordinačių sistemoje:
+O skaičiuojant globalioje koordinačių sistemoje:
 
 \begin{equation}
-	q_{tl} = [0, T_x, T_y, T_z]
+q_{tl} = \left[
+		\begin{array}{c}
+			0\\
+			T_x\\
+			T_y\\
+			T_z\\
+		\end{array}
+		\right]
 \end{equation}
 \begin{equation}
 	q_{tg} = q_{p}^{-1} * q_{tl} * q_{p}
@@ -205,13 +213,14 @@ Besisukant propeleriams oro trintis į mentes sukelia papildomą jėgą, kuri ve
 Kiekvienam iš variklių ši jėga yra nukreipta priešinga kryptimi nei sukasi variklis.
 Norint išvengti nevaldomo ketursraigčio sukimosi, parenkami du propeleriai skirti suktis pagal laikrodžio rodyklę ir du propeleriai skirti suktis prieš laikrodžio rodyklę, varikliai sujungiami taip, kad jų sukimosi kryptis atitiktų propelerį ir oro srautas būtų nukreiptas žemyn.
 Konkrečiu atveju varikliai 1 ir 4 sukasi prieš laikrodžio rodyklę, o varikliai 2 ir 3 -- pagal.
+Šitaip vienos krypties jėga kompensuoja kitą ir tampa įmanomas skrydis be sukimosi apie $Z$ ašį lokalioje koordinačių sistemoje.
 
 Šią jėgą modeliuosime tiesiškai priklausančią nuo sukimosi greičio:
 \begin{equation}
-	F = -\omega * C
+	F_{tq} = -\omega * C
 \end{equation}
 
-Čia $C$ yra konstata priklausanti tik nuo propelerio savybių. Taip pat tai yra pasipriešinimo jėga, todėl ji yra priešinga judėjimo krypčiai ir iš čia yra neigiama $\omega$.
+Čia $C$ yra konstata priklausanti tik nuo propelerio savybių. Sukamoji jėga yra sukeliama oro pasipriešinimo, todėl ji yra priešinga judėjimo krypčiai $\omega$.
 
 
 \begin{figure}[H]
@@ -231,21 +240,178 @@ Tokiu atveju turime dvi jėgas priešingų krypčių (žr.: TODO\_PAV\_REFERENCE
 \end{center}
 \end{figure}
 
-Šiuo atveju vidinės rodyklės rodo 2 ir 3 variklių sukamąsias jėgas, o išorinis -- 1 ir 4 (žr.: TODO\_REFERENCE\_I\_IMAGE). Verta pastebėti, kad rodyklių storis nėra susijęs su jėgos dydžiu.
+Šiuo atveju vidinės rodyklės rodo 2 ir 3 variklių sukamąsias jėgas, o išorinis -- 1 ir 4 (žr.: TODO\_REFERENCE\_I\_IMAGE).
+Verta pastebėti, kad rodyklių storis nėra susijęs su jėgos dydžiu.
 
+Sukamosios jėgos neturi vieningos krypties, kuri nepriklausytų nuo stebėjimo pozicijos, todėl ji bus išreikšta ne vektorine forma, todėl nagrinėsime sukamosios jėgos dydį ties varikliais.
+Taip pat, sakysime, kad jėga yra teigiama kai sukamasi apie lokalią $Z$ ašį pagal laikrodžio rodyklę.
+Tada gauname, kad sukamoji jėga:
+\begin{equation}
+	F_{tq_{1,4}} = C * (\omega_{1} + \omega_{4})
+\end{equation}
+\begin{equation}
+	F_{tq_{2,3}} = -C * (\omega_{2} + \omega_{3})
+\end{equation}
 
+Ir bendra jėga:
+\begin{equation}
+	F_{tq} = F_{tq_{1,4}} - F_{tq_{2,3}} = C * (\omega_{1} - \omega_{2} - \omega_{3} + \omega_{4})
+\end{equation}
 
-
-
-
-
+Šias jėgų kryptis atitinkamai galime pasukti pagal $q_{p}$ tik priešinga kryptimi, ir gausime jėgą globalioje koordinačių sistemoje.
+Verta pastebėti, kad šių jėgų kryptys visada sutaps su propelerių plokštuma.
 
 \subsection{Bendras judėjimo modelis}
+
+Ketursraigčio skrydžio judėjimai apibrėžti reikia įsivesti gravitacijos kryptį.
+
+\begin{equation}
+	g_{g} =  \left[
+		\begin{array}{c}
+			0 \\
+			0 \\
+			-9.8
+		\end{array}
+	\right]
+\end{equation}
+
+$g_{g}$ yra apibrėžtas globalioje koordinačių sistemoje.
+
+Tuomet bendra jėga veikianti ketursraigtį:
+
+\begin{equation}
+	F_{g} = T_{g} - m*g_{g}
+\end{equation}
+
+Čia $m$  yra ketusraigčio bendra masė.
+
+Toliau pagal antrąjį Niutono dėsnį:
+\begin{equation}
+	a_{g} = \dfrac{F_{g}}{m}
+\end{equation}
+
+kur $a$ yra pagreičio vektorius globalioje koordinačių sistemoje.
+
+Toliau randamas greitis bei pozicijos priklausomybė nuo laiko:
+\begin{equation}
+	v_{g} = a_{g} * \Delta t
+\end{equation}
+\begin{equation}
+	x_{g} = a_{g} * \Delta t ^2
+\end{equation}
+
+Tais pačiais principais randama ir kampinė pozicija.
+
+
+
+
+%TODO:%
+\textbf{IDEA::: perrašyti modelį įvedant funkcijų priklausomybę nuo laiko t}
 
 
 
 \section{Kampinės padėties skaičiavimas}
+
+Ketursraigčio valdymo algoritmai yra tiesiogiai priklausomi nuo kampinės padėties, bet nėra sensorių leidžiančių tai išmatuoti tiesiogiai, todėl šiame skyrelyje apibūdinami principai pagal kuriuos yra apskaičiuojama ketursraigčio kampinė pozicija globalios koordinačių sistemos atžvilgiu.
+
 \subsection{Kvaternionai}
+
+Kvaternionai matematikoje yra skaičių sistema kurį išplėčia įprastus kompleksinius skaičius.
+Kvaternionas tai yra keturmatis vektorius
+
+\begin{equation}
+	q = \left[
+		\begin{array}{c}
+			w \\
+			i \\
+			j \\
+			k
+		\end{array}
+	\right]
+\end{equation}
+
+kur $w$ yra sveikoji dalis, o $i$, $j$, $k$, yra menamosios.
+
+
+Menamosios dalys tarpusavyje susiejamos pagal:
+\begin{equation}
+	i^2 = j^2 = k^2 = ijk = -1
+\end{equation}
+
+o daugindami kiekvieną elementą su kiekvienu gauname tokį sąryšį:
+
+\begin{center}
+\begin{tabular}{ | c | c | c | c | c | }
+	\hline
+	\textbf{x} & \textbf{1} & \textbf{i} & \textbf{j} & \textbf{k} \\
+	\hline
+	\textbf{1} & 1 & i & j & k \\
+	\hline
+	\textbf{i} & i & -1 & k & -j \\
+	\hline
+	\textbf{j} & j & -k & -1 & i \\
+	\hline
+	\textbf{k} & k & j & -i & -1 \\
+	\hline
+\end{tabular}
+\end{center}
+
+Toliau kvaternionai bus apibrėžti taip:
+
+\begin{equation}
+	q = \left[
+		\begin{array}{c}
+			w \\
+			x * i \\
+			y * j \\
+			z * k
+		\end{array}
+	\right]
+\end{equation}
+
+kur $w$ yra sveikoji dalis, $x$, $y$, $z$ yra sveikieji daugikliai, o $i$, $j$, $k$ yra menamosios kvaterniono dalys.
+
+
+\paragraph{Daugyba}
+
+\paragraph{Invertavimas}
+
+\paragraph{Lerp}
+
+
+
+
+\subsection{Sensoriai}
+
+Kampinė pozicija skaičiuojama pagal du sensorius: giroskopą ir akselerometrą.
+
+\paragraph{Giroskopas} yra sensorius matuojantis ketursraigčio kampinį greitį (visomis trimis ašimis)
+
+\begin{equation}
+	\omega_{gyro} = \left[
+		\begin{array}{c}
+			\omega_{gyro_x} \\
+			\omega_{gyro_y} \\
+			\omega_{gyro_z}
+		\end{array}
+	\right]
+\end{equation}
+
+Verta pastebėti, kad visi matavimai atliekami lokalioje koordinačių sistemoje.
+
+\paragraph{Akselerometras} yra sensorius matuojantis akseleracijas visomis trimis ašimis lokalioje koordinačių sistemoje
+\begin{equation}
+	a_{acc} = \left[
+		\begin{array}{c}
+			a_{acc_x} \\
+			a_{acc_y} \\
+			a_{acc_z}
+		\end{array}
+	\right]
+\end{equation}
+
+
+
 \subsection{Kampinės padėties skaičiavimas pagal giroskopą}
 \subsection{Kampinės padėties skaičiavimas pagal akselerometrą}
 \subsection{Galutinis kampinės padėties radimas}
