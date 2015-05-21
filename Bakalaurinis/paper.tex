@@ -531,7 +531,7 @@ Taip pat lerp galima apskaičiuoti tik su 4 skaliarinės daugybos operacijom, be
 
 Ketursraigčio kampinė pozicija skaičiuojama pagal du sensorius: giroskopą ir akselerometrą.
 
-\paragraph{Giroskopas} yra sensorius matuojantis ketursraigčio kampinį greitį (visomis trimis ašimis)
+\paragraph{Giroskopas} Giroskopas yra sensorius matuojantis ketursraigčio kampinį greitį (visomis trimis ašimis)
 
 \begin{equation}
 	\omega_{gyro} = \left[
@@ -543,24 +543,174 @@ Ketursraigčio kampinė pozicija skaičiuojama pagal du sensorius: giroskopą ir
 	\right]
 \end{equation}
 
-Verta pastebėti, kad visi matavimai atliekami lokalioje koordinačių sistemoje.
+Verta pastebėti, kad visi matavimai atliekami lokalioje koordinačių sistemoje, o mažos paklaidos dėl netikslumų montuojant giroskopą yra ignoruojamos.
 
-\paragraph{Akselerometras} yra sensorius matuojantis akseleracijas visomis trimis ašimis lokalioje koordinačių sistemoje
+\paragraph{Akselerometras} Akselerometras yra sensorius matuojantis akseleracijas visomis trimis ašimis lokalioje koordinačių sistemoje.
+Verta pastebėti, kad žemės gravitacija sensorių veikia lygiai taip pat, kaip akseleracija priešinga kryptimi.
+Kadangi žemės graviacijos kryptis yra visada nukreipta žemyn, todėl jos kryptis gali būti naudojama kampinės padėties apskaičiavimui.
+
 \begin{equation}
 	a_{acc} = \left[
 		\begin{array}{c}
-			a_{acc_x} \\
-			a_{acc_y} \\
-			a_{acc_z}
+			a_{acc_x} + g_x \\
+			a_{acc_y} + g_y \\
+			a_{acc_z} + g_z
 		\end{array}
 	\right]
 \end{equation}
 
+Kaip ir giroskopo atveju, akselerometras atlieka matavimus lokalioje koordinačių sistemoje, o mažos paklaidos dėl netikslumų montuojant akselerometrą yra ignoruojamos.
+$g_x$, $g_y$, $g_z$, yra gravitacijos vektoriaus komponentės lokalioje koordinačių sistemoje.
+
 
 
 \subsection{Kampinės padėties skaičiavimas pagal giroskopą}
+
+Kaip jau aptarta ankščiau, giroskopas matuoja kampinį greitį, todėl norėdami rasti poziciją turime jį integruoti.
+
+\begin{equation}
+	x = \int \omega
+\end{equation}
+
+tačiau realus giroskopas atlieka matavimus diskretiškai, todėl daroma prielaida, kad išmatuotas kampinis greitis $\omega_t$ yra toks viso laiko momento $t$ metu, tada:
+
+\begin{equation}
+	x_t = x_{t-1} + \omega_t * \Delta t
+\end{equation}
+
+Kur $x_t$ yra kampinė pozicija laiko momentu $t$, o $\omega_t$ yra kampinis greitis laiko momentu $t$.
+
+Tą patį išreiškus kvaternionais:
+
+\begin{equation}
+	q_{pg_{t}} = q_{p_{t - 1}} * q_{g_{t}}
+\end{equation}
+
+Čia $q_{pg_{t}}$ kvaternionas laiko momentu $t$ reprezentuojantis pasukimą nuo globalios iki lokalios koordinačių sistemos ir paskaičiuotas pagal giroskopą, $q_{g_{t}}$ kvaternionas reprezentuojantis pasisukimą laiko momentu $t$.
+$q_{p_{t-1}}$ yra galutinės kampinės pozicijos kvaternionas pasukantis globalią koordinačių sistemą iki lokalios laiko momentu $t-1$ (žr.: TODO\_REFERENCE).
+
+Kvaternionas $q_{g_{t}}$ yra sudaromas pagal principus apibūdintus skyrelyje \textbf{TODO: reference}, kuomet sukimo kampas $\phi$ yra giroskopo išmatuoto vektoriaus ilgis:
+
+\begin{equation}
+	q_{g_{t}} = \left[
+		\begin{array}{c}
+			cos(\dfrac{\sqrt{\omega_x^2 + \omega_y^2 + \omega_z^2}}{2}) \\
+			\dfrac{\omega_x}{\sqrt{\omega_x^2 + \omega_y^2 + \omega_z^2}} * sin(\dfrac{\sqrt{\omega_x^2 + \omega_y^2 + \omega_z^2}}{2}) \\
+			\dfrac{\omega_y}{\sqrt{\omega_x^2 + \omega_y^2 + \omega_z^2}} * sin\dfrac{\sqrt{\omega_x^2 + \omega_y^2 + \omega_z^2}}{2}) \\
+			\dfrac{\omega_z}{\sqrt{\omega_x^2 + \omega_y^2 + \omega_z^2}} * sin(\dfrac{\sqrt{\omega_x^2 + \omega_y^2 + \omega_z^2}}{2}) \\
+		\end{array}
+	\right]
+\end{equation}
+
+Čia $\omega_x$, $\omega_y$, $\omega_z$, yra giroskopo atlikti matavimai.
+
+
 \subsection{Kampinės padėties skaičiavimas pagal akselerometrą}
+
+Akselerometro matavimai, neesant išorinių akseleracijų, leidžia tiesiogiai apskaičiuoti kampinę sensoriaus poziciją, tačiau šis matavimas turi palyginus dideles paklaidas ir triukšmo lygį.
+Taip pat esant išorinėms akseleracijoms paklaidų pasiskirstimas gali būti necentruotas su tikrąja reikšme.
+Todėl filtravimas yra būtinas ir jis įgyveninamas apjungiant kampines pozicijas apskaičiuotas pagal giroskopą ir pagal akselerometrą (žr.: TODO\_REFERENCE)
+
+Patogumo dėlei bus skaičiuojama ne absoliuti kampinė pozicija, o pasukimas, kuris pasuka dabartinę poziciją iki akselerometro išmatuotos pozicijos.
+Tam tikslui pradžioje surandame vektorių lokalioje koordinačių sistemoje, kuris globalioje koordinačių sistemoje yra nukreiptas tiesiai aukštyn.
+
+\begin{equation}
+	q_{up_g} = \left[
+		\begin{array}{c}
+			0 \\
+			0 * i \\
+			0 * j \\
+			1 * k
+		\end{array}
+	\right]
+\end{equation}
+
+pasukame:
+
+\begin{equation}
+	q_{up_l} = q_{p} * q_{up_g} * q_{p}^{-1}
+\end{equation}
+
+Išskiriame vektorių viršun
+\begin{equation}
+	v_{up} = \left[
+		\begin{array}{c}
+			q_{{up_l}_x} \\
+			q_{{up_l}_y} \\
+			q_{{up_l}_z}
+		\end{array}
+	\right]
+\end{equation}
+
+Ir sudarome kvaternioną pavaizduojantį pasukimą nuo dabartinės apskaičiuotos kampinės pozicijos iki akselerometro išmatuotos pozicijos.
+
+\begin{equation}
+	q_{acc_{diff}} = \left[
+		\begin{array}{c}
+			\sqrt{ ||v_{up}||^2 * ||a_{up}||^2 } * (a_{up} \cdot v_{up}) \\
+			a_{up_y} * v_{up_z} - a_{up_z} * v_{up_y}  \\
+			a_{up_z} * v_{up_x} - a_{up_x} * v_{up_z}  \\
+			a_{up_x} * v_{up_y} - a_{up_y} * v_{up_x}  \\
+		\end{array}
+	\right]
+\end{equation}
+
+Čia $\cdot$ reiškia "`dot"' produktą, $a_{up}$ yra akselerometro išmatuotas vektorius. O $||v||$ žymi vektoriaus $v$ ilgį.
+
+
 \subsection{Galutinis kampinės padėties radimas}
+
+Pagal giroskopą apskaičiuota pozicija yra palyginus tiksli, bet ilgainiui gali krypti nuo tikrosios pozicijos, t.y. dreifuoti.
+Tuo tarpu pagal akselerometrą paskaičiuota pozicija yra palyginus triukšminga, bet negali dreifuoti, todėl skaičiuodami galutinę pozicija imame rezultatus, kuriuos duoda giroskopas ir pritaikome papildomąjį (ang.: \textit{complementary}) filtrą.
+
+\begin{equation}
+	q_{pg_t} = q_{p_{t-1}} * q_{g_t}
+\end{equation}
+
+Tuomet sudaromas kvaternionas reprezentuojantis 0\degree pasukimą.
+
+\begin{equation}
+	q_{0} = \left[
+		\begin{array}{c}
+			1.0 \\
+			0.0 \\
+			0.0 \\
+			0.0
+		\end{array}
+	\right]
+\end{equation}
+
+paskaičiuojamas svorio koeficientą pagal akselerometrą paskaičiuotai kampinei pozicijai taip, kad šis coeficientas esant $||a|| = 1.0g$ būtų lygus $C_{max}$ ir atitinkamai mažėtų iki $C_{cutoff}$.
+
+\begin{equation}
+	W_{acc} = C_{max} - | ||a|| - 1.0 | * (\dfrac{C_{max}}{C_{cutoff}^2 - 1} )
+\end{equation}
+
+Šis svoris $W_{acc}$ yra apribojimas žemutine riba 0.
+
+\begin{equation}
+	W = \begin{cases}
+		W_{acc}, & \text{Jeigu } W_{acc} \geq 1\\
+		0, & \text{ Kitu atveju}
+	\end{cases}
+\end{equation}
+
+
+Toliau yra apskaičiuojamas kvaternionas kuriuo pasukus $q_{pg_t}$ bus atliktas kompensavimas pagal akselerometro duomenis
+
+\begin{equation}
+	q_{diff} = lerp(q_{0}, q_{acc_{diff}}, W)
+\end{equation}
+
+Ir pasukame $q_{pg_t}$
+
+\begin{equation}
+	q_{p} = q_{pg_t} * q_{diff}
+\end{equation}
+
+$q_{p}$ yra galutinis pozicijos kvaternionas naudojamas ketursraigčio skrydžio valdymo algoritmuose.
+
+
 
 
 
