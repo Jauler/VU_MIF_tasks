@@ -690,8 +690,8 @@ paskaičiuojamas svorio koeficientą pagal akselerometrą paskaičiuotai kampine
 
 \begin{equation}
 	W = \begin{cases}
-		W_{acc}, & \text{Jeigu } W_{acc} \geq 1\\
-		0, & \text{ Kitu atveju}
+		W_{acc}, & \text{Jeigu } W_{acc} \geq 0\\
+		0, & \text{Kitu atveju}
 	\end{cases}
 \end{equation}
 
@@ -715,23 +715,346 @@ $q_{p}$ yra galutinis pozicijos kvaternionas naudojamas ketursraigčio skrydžio
 
 
 \section{Kampinės padėties valdymo algoritmas}
+
+Ketursraigčio kampinės padėties valdymui buvo parinktas PID algoritmas.
+
 \subsection{PID valdymo algoritmas}
+
+PID valymo algoritmas yra uždaro ciklo valdymo algoritmas.
+PID operuoja skaičiuodamas skirtumą tarp matuojamo kintamojo (vadinamo proceso kintamuoju) ir pateikto tikslo (ang.: \textit{setpoint}).
+Toliau PID algoritmas reguliuoja proceso kintamąjį "`stengdamasis"' sumažinti skirtumą tarp matuojamo kintamojo ir pateikto tikslo.
+PID yra parametrizuojamas trimis konstantomis:
+
+\begin{itemize}
+	\item P -- Proporcinis koeficientas;
+	\item I -- Integracinis koeficientas;
+	\item D -- Diferencinis koeficientas;
+\end{itemize}
+
+Bendroji valdymo lygtis PID algoritmui:
+
+\begin{equation}
+	PID(t) = K_p e(t) + K_i \int_0^t e(t) dt + K_d \dfrac{d}{dt} e(t)
+\end{equation}
+
+Čia $PID(t)$ yra proceso kintamasis, $e(t)$ -- proceso ir tikslo kintamųjų skirtumas.
+$K_p$, $K_i$, $K_d$, PID algoritmo konstantos.
+
+Verta pastebėti, kad skaitmeninio procesoriaus aplinkoje PID algoritmas dirba diskretiškai, todėl integracija ir diferenciacija išreiškiama atitinkamai suma bei skirtumu
+
+\begin{equation}
+	\int_0^t x(t) \widehat{=} x_t + x_{t - 1} + x_{t - 2} + ... + x_{1} + x_{0}
+\end{equation}
+
+\begin{equation}
+	\dfrac{d}{dt}x(t) \widehat{=} x_t - x_{t - 1}
+\end{equation}
+
+
+
 \subsection{PID pritaikymas ketursraigčio valdymui}
 
+PID algorimtai pasiekia geriausių rezultatų dirbdami tiesinėse sistemose, todėl pirma bus išvedama kampinės pozicijos priklausomybė nuo proceso kintamojo, arba konkrečiu atveju -- propelerių greičio.
+
+\begin{equation}
+	F = \omega^2 * C
+\end{equation}
+
+Šiuo atveju $\omega$ yra tai, kas yra valdoma PID algoritmo, norėdami tiesiškumo, ištraukiame šaknį iš PID išeities.
+Iš to yra formuojamas signalas greičio valdikliams, kurių atsakas yra tiesiškas.
+
+\begin{equation}
+	u = \sqrt{PID_{speed}(t)}
+\end{equation}
+
+tuomet
+
+\begin{equation}
+	F = \sqrt{u}^2 * C
+\end{equation}
+
+Kadangi variklio valdiklių valdymo signalai niekada nebūna neigiami:
+
+\begin{equation}
+	F = u * C
+\end{equation}
+
+Iš antrojo niutono desnio:
+
+\begin{equation}
+	a = \dfrac{F}{m}
+\end{equation}
+
+Taigi:
+
+\begin{equation}
+	a = \dfrac{u * C}{m}
+\end{equation}
+
+Kadangi masė $m$ yra nekintantis dydis skrydžio metu, konstantą $C$ pervadiname į:
+
+\begin{equation}
+	C \widehat{=} \dfrac{C}{m}
+\end{equation}
+
+Čia dešinėje lygties senoji konstanta $C$, kairėje lygties pusėje - naujoji konstanta $C$.
+
+Įvedame laiko priklausomybę:
+
+\begin{equation}
+	\omega = a * t
+\end{equation}
+\begin{equation}
+	\omega = u * t * C
+\end{equation}
+
+Šioje vietoje turimas tiesinis modelis, kuriam taikomas PID algoritmas ketursraigčio kampinio greičio valdymui.
+Tačiau tikslas yra valdyti kampinę poziciją, o ne greitį, todėl reikia išsivesti greičio priklausomybė nuo laiko:
+
+\begin{equation}
+	x =  \omega * t
+\end{equation}
+
+Pozicija nuo greičio priklauso tiesiškai, todėl čia naudojamas antrasis PID algoritmas nuosekliai jungiamas su kampinį greitį valdančiuoju PID algoritmu (žr.: TODO\_REFERENCE\_IMAGE).
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{img/PID-chaining.png}
+\caption{Nuoseklus PID jungimas greičiui ir kampiniai pozicijai valdyti. PID valdikliai vaizduojami su rodykle iš kairės reiškiančią matuojamą proceso kintamąjį, iš viršaus tikslo kintamąjį, dešinėje -- PID išeitis.}
+\end{center}
+\end{figure}
 
 
-\section{Skrydžio valdymas}
+\paragraph{PID paklaidos skaičiavimas}
+Ketursraigčio kampinės padėties valdymui naudojami du tokie PID valdikliai.
+Vienas valdo sukimąsi apie lokalią $X$ ašį, valdydamas apie $Y$ ašį išdėliotus variklius, kitas valdo sukimąsi apie $Y$ ašį valdydamas apie $X$ ašį išdėliotus variklius.
+Matuojamas proceso kintamasis yra kampas nuo horizontalios padėties.
+O PID paklaida yra skirtumas tarp matuojamo kintamojo (kampo nuo horizontalios pozicijos) ir piloto (arba autopiloto) nustatytos reikšmės.
+
+PID paklaidą skaičiuojama pagal $q_p$ kvaternioną (žr.: TODO\_REFERENCE):
+
+Iš pradžių apskaičiuojamas aukštis, kuriame yra atitinkamas $X$ arba $Y$ variklis.
+Tam sudaromas kvaternionas žymintis variklio poziciją lokalioje koordinačių sistemoje.
+
+\begin{equation}
+	q_{eng_x} = \left[
+		\begin{array}{c}
+			0 \\
+			1 \\
+			0 \\
+			0
+		\end{array}
+	\right]
+\end{equation}
+
+Šis kvaternionas pasukamas pozicijos kvaternionu:
+
+\begin{equation}
+	q_{{eng_x}_h} = q_p * q_{eng_x} * q_p^{-1}
+\end{equation}
+
+Ir jo pozicija projektuojama į $Z$ ašį.
+
+\begin{equation}
+	h_x = q_{{{eng_x}_h}_z}
+\end{equation}
+
+Tuomet apskaičiuojamas kampas:
+
+\begin{equation}
+	\alpha = asin(h_x)
+\end{equation}
+
+$\alpha$ jau gali būti naudojamas kaip matuojamas proceso kintamasis pozicijos PID valdikliui, taip pat $\dfrac{d}{dt}\alpha$ naudojamas greičio PID valdikliui, tik diskretizuota versija:
+\begin{equation}
+	\dfrac{d}{dt}\alpha \widehat{=} \alpha_t - \alpha_{t-1}
+\end{equation}
+
+
+Verta pastebėti, kad šitoks skaičiavimas teisingai paklaidas skaičiuoja tik iki tol, kol jos neviršyja 90\degree, bet ketursraigtis negali išsilaikyti ore palinkęs tokiais stipriais kampais, todėl atvejai su tokiais kampais nėra nagrinėjami.
+
+PID valdiklio išeitis yra naudojama modifikuoti dabartiniam galios tikslui (ang.: \textit{setpoint}), jeigu tai yra PID valdiklis valdantis pasisukimą pagal $X$ ašį, tuomet antram varikliui galia ir didinama tiek, kokia yra PID išeitis, o trečiam atitinkamai mažinama.
+Analogiškai veikia yra $Y$ ašis.
+
+\subsection{Pasisukimo pagal lokalią $Z$ ašį valdymas}
+
+Ketursraigčių pasisukimas apie $Z$ ašį remiasi tuo, kad iš keturių propelerių du sukasi pagal ir du prieš laikrodžio rodyklę.
+Oro pasipriešinimas sukelia jėgą verčiančią ketursraigtį suktis priešingą kryptimi negu propeleriai.
+Kol bendras jėgų didumas propeleriams besisukantiems pagal laikrodžio rodyklę yra panašus į jėgų didumą propeleriams besisukandiems prieš laikrodžio rodyklę, tol šios jėgos viena kitą kompensuoja ir ketursraigtis nesisuka apie savo lokalią $Z$ ašį.
+Pakeitus šį balansą galima priversti ketursraigtį suktis viena ar kita kryptimi, tačiau šia ašimi ketursraigčiai yra kur kas mažiau manevringesni negu $X$ ar $Y$ todėl valdymo algoritmas yra kur ka paprastesnis.
+
+Kaip ir PID kontrolerio atveju, čia skaičiuojama pasisukimo pagal $Z$ ašies paklaida.
+
+Sugeneruojamas kvaternionas atitinkantis $X$ variklio poziciją lokalioje koordinačių sistemoje.
+
+\begin{equation}
+	q_{eng_x} = \left[
+		\begin{array}{c}
+			0 \\
+			1 \\
+			0 \\
+			0
+		\end{array}
+	\right]
+\end{equation}
+
+Pasukamas pagal esamą poziciją
+
+\begin{equation}
+	q_{{eng_x}_l} = q_p * q_{eng_x} * q_p^{-1}
+\end{equation}
+
+Čia imamas $X$, $Y$ vektorius ir normalizuojamas.
+
+\begin{equation}
+	x_{nenorm} = \left[
+		\begin{array}{c}
+			q_{{{eng_x}_l}_x} \\
+			q_{{{eng_x}_l}_y}
+		\end{array}
+	\right]
+\end{equation}
+
+\begin{equation}
+	x = \dfrac{x_{nenorm}}{||x_{nenorm}||}
+\end{equation}
+
+Ir skaičiuojamas kampas
+
+\begin{equation}
+	\alpha_z = \begin{cases}
+		acos(x_x), & \text{Jeigu } x_y \geq 0\\
+		-acos(x_x), & \text{Kitu atveju}
+	\end{cases}
+\end{equation}
+
+Valdymo signalai yra gaunami: 
+\begin{equation}
+	u_z = \alpha_z * K_{p_z}
+\end{equation}
+
+Šis valdymo signalas yra pridedamas prie variklių galios besisukančių pagal laikrodžio rodyklę, ir atimamas iš variklių, besisukančių prieš laikrodžio rodyklę.
+
+
+
+
+\section{Skrydžio autonomiškumas}
+
+Skrydžio autonomiškumas pasiekiamas atviro ciklo valdikliu, siunčiant valdymo komandas žemesniame valdymo lygmenyje esantiems PID valdikliams.
+
 \subsection{Atviro-ciklo valdymas}
+
+Atviro ciklo valdiklis tai yra valdiklis, kuris skaičiuoja valdymo parametrus tik pagal dabartinę būseną ir neatlieka valdomo objekto matavimų.
+Šio tipo valdiklis ketursraigčiui buvo parinktas dėl fizinių sensorių nebuvimo, kurie galėtų matuoti ketursraigčio poziciją.
+
 \subsection{Kampinės pozicijos tikslų lentelė}
+
+Ketursraigčio valdymas atliekamas valdant bendrąją galią bei kampą pagal $X$, $Y$, $Z$ ašis.
+Šiuos duomenis priima PID ir P valdikliai, kaip tikslo kintamuosius, ir nustato atitinkamas variklių galias.
+
+Ketursraigčio valdymui sudaroma šių tikslų lentelė ir jie yra siunčiami ketursraigčiui periodiškai.
+
+\begin{center}
+\begin{table}[h]
+\begin{tabular}{ | c | c | c | c | c | }
+	\hline
+	\textbf{galia} & \textbf{kampas $X$} & \textbf{Kampas $Y$} & \textbf{Kampas $Z$} & \textbf{Galiojimo laikas} \\
+	\hline
+	20 \% & 0\degree & 0\degree & 0\degree & 2s \\
+	\hline
+	40 \% & 0\degree & 5\degree & 0\degree & 1s \\
+	\hline
+	40 \% & 0\degree & -5\degree & 0\degree & 1s \\
+	\hline
+	40 \% & -5\degree & 0\degree & 0\degree & 1s \\
+	\hline
+	40 \% & 5\degree & 0\degree & 0\degree & 1s \\
+	\hline
+	20 \% & 0\degree & 0\degree & 0\degree & 2s \\
+	\hline
+\end{tabular}
+\caption{Supaprastintas tikslų lentelės pavizdys}
+\end{table}
+\end{center}
+
+Nepriklausomai nuo galiojimo laiko, tikslai yra siunčiami 10Hz dažniu, jeigu galiojimo laikas yra ilgesnis -- siunčiamas tas pats tikslas, kol galiojimo laikas pasibaigia.
+Taip ketursraigtis turi galimybę atpažinti ar nenutrūko ryšys su pilotu ar pilotojančia programa (žr.: TODO\_REFERENCE).
+
 \subsection{Atviro-ciklo valdymo trūkumai}
 
+Vertinant šį algoritmą pagal pozicijos paklaidas (lyginant du skrydžius vieną su kitu), yra labai didelės paklaidos dėl šio algoritmo nesugebėjimo prisitaikyti prie nenumatytų išorinių ir vidinių veiksnių (pvz.: Vėjo).
+Taip pat PID valdikliai nėra tikslūs, o tai dar labiau padidina paklaidas.
+
+TODO\_DIAGRAM\_OF\_ANGLE\_ERROR
+
+TODO\_DISTURBANCE\_EXAMPLE
 
 
 \section{Programinė įranga}
 \subsection{Bendroji architektūra}
+
+Ketursraigtis susideda iš trijų esminių fizinių dalių:
+\begin{itemize}
+	\item Kompiuterio -- Formuojančio ir siunčiančio valdymo komandas.
+	\item Retransmitoriaus -- Persiunčiančio valdymo komandas ketursraigčiui.
+	\item Pagrindinės valdymo elektronikos -- Valdančios ketursraigčio skrydį.
+\end{itemize}
+
+Kiekviena iš šių dalių turi savo programinę įrangą.
+
 \subsection{Kompiuteriui skirtas klientas}
+
+Kompiuteriui skirto kliento buvo paruoštos dvi versijos, viena skirta rankiniam ketursraigčio valdymui vairalazde, kita įgyvendinanti TODO\_REFERENCE\_OPEN\_LOOP aptartą atviro ciklo valdymo algoritmą.
+
+Abiejais atvejais tai yra "`python"' kalba parašyta programėlė, 10Hz dažniu nuskaitydama tikslo vertes (ar iš lentelės ar iš vairalazdės) ir suformuodama UDP paketą (žr.: TODO\_REFERENCE)
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{img/ctrl_packet.png}
+\caption{Valdymo paketas siunčiamas valdymo elektronikai. Skaičius apačioje rodo lauko ilgį baitais, viršuje lauko poslinkį nuo paketo pradžios}
+\end{center}
+\end{figure}
+
+
+
 \subsection{Retransmitorius}
+
+Retransmitorius kartu yra ir fizinis įrenginys.
+Tai yra raspberry pi kompiuteris su Linux operacine sistema.
+Šis kompiueris prisijungia prie 3G/4G tinklų ir klausosi UDP paketų siunčiamų jo adresu.
+Visą gautą informaciją jis tiesiog persiunčia per USB sąsają valdymo elektronikai.
+
 \subsection{Ketursraigčio pagrindinis valdiklis}
+
+Pagrindinės valdymo elektronika sudaro GY-86 sensorių plokštė, su giroskopu ir akselerometrų, keturi vienetai greičio valdiklių, ir STM32F401 procesoriumi.
+Iš šitų elementų vienintelis STM procesorius reikalauja programavimo, tad jam buvo parašyta programinė įranga įgyvendinanti visus sukurtus algoritmus ir vykdanti skrydžio kontrolę.
+STM programinė įranga yra išskaidyta į modulius.
+
+\begin{itemize}
+	\item I2C -- modulis skirtas palaikyti komunikacijai su sensoriais.
+	\item MPU6050 -- sensorių tvarkyklės modulis.
+	\item Quaternion -- kvaternionų algebrą įgyveninantis modulis.
+	\item IMU\_Horizon -- pozicijos kvaternioną skaičiuojantis modulis.
+	\item AttitudeCtrl -- kampinės pozicijos valdymo modulis.
+	\item PWM\_OUT -- modulis generuojantis signalą variklių valdikliams.
+	\item Connection -- USB komandų palaikymo modulis.
+	\item ConfigParam -- abstraktus konfiguracijos parametru modulis.
+\end{itemize}
+
+
+Verta pastebėti, kad kodas rašytas C kalba, bet šiek tiek mėgdžiojami kai kurie OOP principai.
+Todėl toliau pateikiama klasių diagrama atitinkanti programinės įrangos struktūrą, jei ji būtų rašoma objektine programavimo kalba.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{img/classDiagram.png}
+\caption{Vidinė pagrindinio valdiklio programinė struktūra.}
+\end{center}
+\end{figure}
+
+
+
+
 
 \vumifsectionnonum{Išvados}
 
