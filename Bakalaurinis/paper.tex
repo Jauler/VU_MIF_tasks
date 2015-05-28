@@ -117,24 +117,24 @@ TODO: stendo nuotrauka
 
 Paskutiniu metu ketursaigčių valdymo sistemos irgi susilaukė palyginus nemažai mokslininkų ir tyrėjų dėmesio.
 
-AAJ+01 pateikia kampinės padėties skaičiavimus pagal inercinius ir magnetinius sensorius, paaiškina sensorių savybes, ir pasiūlo oilerio kampais grysta kampinės pozicijos įvertinimo būdą.
+\cite{abyarjoo2015implementing} pateikia kampinės padėties skaičiavimus pagal inercinius ir magnetinius sensorius, paaiškina sensorių savybes, ir pasiūlo oilerio kampais grysta kampinės pozicijos įvertinimo būdą.
 Taip pat sumodeliuoja kalmano filtrą giroskopo dreifavimo problemai spręsti.
 
 
-NT04 pateikia sensorių modelį, bei kalibravimo procedūras, nors jų IMU nebuvo taikomas ketursraigčiuose.
+\cite{kumar2004estimation} pateikia sensorių modelį, bei kalibravimo procedūras, nors jų IMU nebuvo taikomas ketursraigčiuose.
 Taip pat pasiūlomas kampinės padėties įvertinimo algoritmas naudojant kalmano filtrą su statiniu stiprinimo koeficientu.
 
-ECM+08 pateikia papildamojo (ang.: \textit{complementary}) filtro panaudojima skaičiuojant kampinę poziciją fiksuoto sparno lėktuvui.
+\cite{euston2008complementary} pateikia papildamojo (ang.: \textit{complementary}) filtro panaudojima skaičiuojant kampinę poziciją fiksuoto sparno lėktuvui.
 Atlikti tyrimai parodo akselerometro triukšmo lygius, bei filtravimo būdus.
 
-Gib13 pateikia teorinę ketursraigčio valdymo sistemą, fizikinį ketursraigčio modelį, bei atlieka ketursraigčio simuliacijas pagal šį modelį.
-Gib13 darbu buvo remtasi išvedant fizikinį ketursraigčio modelį šiame darbe.
+\cite{gibiansky2010quadcopter} pateikia teorinę ketursraigčio valdymo sistemą, fizikinį ketursraigčio modelį, bei atlieka ketursraigčio simuliacijas pagal šį modelį.
+\cite{gibiansky2010quadcopter} darbu buvo remtasi išvedant fizikinį ketursraigčio modelį šiame darbe.
 
-MS11 pateikia valdymo sistemą sistemą valdomą FPGA valdiklio.
-Nors FPGA ir gali pasiūlyti greitesnį duomenų apdorojimą, tačiau MS11 kontroleris dirbo 100Hz dažniu, tuo tarpu, kai šiame darbe atnaujinimai vykdomi 500Hz dažniu, nors ir naudojamas ne FPGA, bet ARM procesorius.
-Taip pat MS11 naudoja oilerio kampus kampinės pozicijos skaičiavimui, todėl kampinė pozicija potencialiai gali užsirakinti (ang.: "`gimbal lock"').
+\cite{magnussen2011modeling} pateikia valdymo sistemą sistemą valdomą FPGA valdiklio.
+Nors FPGA ir gali pasiūlyti greitesnį duomenų apdorojimą, tačiau \cite{magnussen2011modeling} kontroleris dirbo 100Hz dažniu, tuo tarpu, kai šiame darbe atnaujinimai vykdomi 500Hz dažniu, nors ir naudojamas ne FPGA, bet ARM procesorius.
+Taip pat \cite{magnussen2011modeling} naudoja oilerio kampus kampinės pozicijos skaičiavimui, todėl kampinė pozicija potencialiai gali užsirakinti (ang.: "`gimbal lock"').
 Skrydžio kampinės padėties valdymo algoritmui buvo naudojamas P valdiklis ir kampinės padėties greičio kompensavimas, tačiau išvadose rašoma, kad ore ketursraigtis negalėjo išsilaikyti.
-Tačiau MS11 atliko labai naudingus ESC tiesiškumo, traukos bei sukimo momento priklausomybių empirinius testus.
+Tačiau \cite{magnussen2011modeling} atliko labai naudingus ESC tiesiškumo, traukos bei sukimo momento priklausomybių empirinius testus.
 
 
 
@@ -1217,16 +1217,7 @@ Tam irgi turėtų būti sukurtas modelis, bei valdymo algoritmai.
 
 
 
-
-\bibliography{Bibliografija}
-\begin{itemize}%TODO: fixme
-	\item [[AAJ+01]] -- \textit{Implementing a Sensor Fusion Algorithm for 3D Orientation Detection with Inertial/Magnetic Sensors}, \url{http://franciscoraulortega.com/pubs/Algo3DFusionsMems.pdf}
-	\item [[ECM+08]] -- \textit{A Complementary Filter for Attitude Estimation of a Fixed-Wing UAV}, \url{http://users.cecs.anu.edu.au/~Jonghyuk.Kim/pdf/2008_Euston_iros_v1.04.pdf}
-	\item [[MS11]] -- \textit{Modeling, Design and Experimental Study for a Quadcopter System Construction}, \url{http://brage.bibsys.no/xmlui/bitstream/id/86811/uiareport.pdf}
-	\item [[NT04]] -- \textit{Estimation of attitudes from a low-cost miniaturized inertial platform using Kalman Filter-based sensor fusion algorithm}, \url{http://www.ias.ac.in/sadhana/Pdf2004Apr/Pe1161.pdf}
-	\item [[Gib13]] -- \textit{Quadcopter Dynamics, Simulation, and Control} \url{http://andrew.gibiansky.com/downloads/pdf/Quadcopter Dynamics,Simulation, and Control.pdf}
-\end{itemize}
-
+\bibliography{paper}
 
 \end{document}
 

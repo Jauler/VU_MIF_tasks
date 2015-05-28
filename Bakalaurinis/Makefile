@@ -6,6 +6,9 @@ all: pdf
 
 pdf: paper.tex
 	pdflatex $(SOURCE).tex
+	bibtex $(SOURCE).aux
+	pdflatex $(SOURCE).tex
+
 
 clean:
 	rm $(SOURCE).aux
