@@ -52,9 +52,22 @@
 \maketitle
 
 \vumifsectionnonum{Santrauka}
+Šio darbo metu buvo sukurti ir išbandyti algoritmai ketursraigčio autonominiam skrydžiui palaikyti, bandymus atliekant su realiu ketursraigčiu.
+Ši užduotis buvo išskaidyta į tris dalis: kampinės pozicijos įvertinimas, kampinės pozicijos valdymas bei abosliučios pozicijos valdymas.
+Kampinė pozicija yra skaičiuojama pasitelkiant kvaternionus, šitaip efektyviai atliekant skaičiavimus įterptinės sistemos aplinkoje, bei išvengiant užrakinimo (ang.: \textit{gimbal lock}) problemos.
+Kampinės pozicijos valdymas atliekamas naudojant du PID valdiklius sujungtus nuosekliai.
+O absoliuti pozicija valdoma atviro-ciklo valdiklio, kuriam yra saugoma tam tikrų kampinių pozicijų lentelė ir jos duomenys yra persiunčiami kampinės pozicijos valdikliams tam tikru laiko momentu.
+
 
 
 \vumifsectionnonum{Summary}
+During this thesis algorithms for autonomus quatcopter control has been developed and tested in a real environment.
+Autonomus control of quadcopter has been divided into three parts: Angular position estimation, angular position control and absolute position control.
+Angular position estimation is being performed with the help of quaternions in order to exrpess 3D rotations efficiently and avoid gimbal lock problem.
+Angular position control is achieved using two PID controllers connected in series.
+And absoulte position control is achieved by using open-loop controller where a table of certain angular positions are saved and at apropriate times sent to the angular position controller algorithms.
+
+
 
 \newpage
 \tableofcontents
