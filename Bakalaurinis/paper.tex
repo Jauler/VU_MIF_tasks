@@ -33,7 +33,7 @@
 
 % Titulinio puslapio reikalai
 \vumifdept{Programų sistemų katedra}
-\vumifpaper{Bakalaurinis darbas}
+\vumifpaper{Bakalaurino baigiamasis darbas}
 \title{Autonominis ketursraigčio skrydžio valdymas\\Autonomus Control of Quadcopter Flight}
 \author{
     4 kurso 1 grupės studentas \\
@@ -50,11 +50,22 @@
 
 %titulinis ir turinys
 \maketitle
+
+\vumifsectionnonum{Santrauka}
+
+
+\vumifsectionnonum{Summary}
+
+\newpage
 \tableofcontents
 
 
-
 \vumifsectionnonum{Įvadas}
+
+
+Ateityje ketursraigčiai galės 
+Ketursraigčiai labai greitai populiarieja, taigi jų ir jų valdymo algoritmų poreikis auga kartu.
+
 
 
 
@@ -1103,6 +1114,37 @@ Laukas "`Length"' nurodo viso paketo ilgį (įskaitant ir "`Magic"' bei "`Length
 
 \vumifsectionnonum{Išvados}
 
+Šiame darbe buvo sukurta fizikiniu modeliu besiremianti ketursraigčio skrydžio valdymo sistema, bei algoritmai kuriais ši sistema vadovaujasi.
+
+
+Darbe buvo išvestas supaprastintas fizikinis ketursraigčio skrydžio modelis, sukurtas kvaternionais grystas algoritmas leidžiantis rasti ketursraigčio kampinę poziciją pasinaudojant nebrangiais MEMS giroskopo bei akselerometro sensoriais.
+Toliau pritaikomi uždaro-ciklo PID algoritmai ketursraigčio kampinės pozicijos valdymui, taip pat pateikiamas atviro-ciklo valdymo algoritmas ketursraigčio pozicijos valdymui.
+Visa tai buvo suprogramuota ir išbandyta realaus ketursraigčio skrydžio metu.
+
+
+\paragraph{Rezultatai}
+
+Šiame darbe buvo sukurti bei išbandyti trys esminiai algoritmai: ketursraigčio kampinės pozicijos skaičiavimo, ketursraigčio kampinės pozicijos valdymo bei ketursaigčio pozicijos valdymo algoritmas.
+Kampinės pozicijos algoritmas parodė gerus rezultatus, net ir sunkiomis darbo sąlygomis, kuomet sensoriai dirbo stiprios vibracijos sąlygomis.
+Sensoriui dirbant normaliomis sąlygomis (vibracijų dažnis žemesnis nei ketvirtadalis matavimų dažnio, ir akseleracijos bei sukimo greičiai neviršyja sensoriaus matavimo ribų), buvo pasiekta mažesnė nei 1\degree paklaida, taip pat nebuvo aptikta jokių užrakinimo (ang.: \textit{gimbal lock}) pozicijų, būdingų panašiems algoritmams besiremiantiems oilerio kampais.
+Tuo tarpu PID algoritmas parodė šiek tiek prastesnius rezultatus.
+Esant mažoms kampinės pozicijos paklaidoms buvo pastebimos lengvas ketursraigčio kampinės padėties svyravimas.
+Taip pat nebuvo rastas tinkamas parametrų rinkinys, kuris tenkintų reakcijos greitį bei sistemos stabilumo reikalavimus.
+Atviro ciklo pozicijos valdymas turėjo stiprias paklaidas, ir tiksliam autonominiam skrydžiui palaikyti -- reikėtų ieškoti kito algoritmo.
+
+
+\paragraph{Tolimesni darbai, patobulinimai}
+
+PID algoritmai nesuteikia optimalaus valdymo, ypač kai jų parametrai yra nustatomi rankiniu būdu ir randamas tik "`pakankamai-geras"' parametrų derinys.
+Tuo tarpų tiesinis-kvadratinis reguliatorius (ang.: \textit{linear-quadratic regulator} arba \textit{LQG}), nors ir lieka šiek tiek rankinio algoritmo reguliavimo, teoriškai galėtų pasiekti geresnius rezultatus.
+Taip pat specialūs fizika paremti modeliai valdymui galėtų būti sukurti agresyviam ketursraigčio valdymui.
+
+Pozicijos valdymas galėtų būti išreikštas uždaro-ciklo valdymo algoritmu, įtaisius tikslius GPS įtaisus, sukūrus modelį bei algoritmus pozicijos valdymui.
+Tokie patobulinimai pozicijos valdymo tikslumą galėtų pagerinti dešimtis ar net šimtus kartų.
+Taip pat oro slėgio sensoriai galėtų būti naudojami automatiniam skrydžio aukščio valdymui.
+Tam irgi turėtų būti sukurtas modelis, bei valdymo algoritmai.
+
+
 
 
 \bibliography{Bibliografija}
@@ -1110,7 +1152,7 @@ Laukas "`Length"' nurodo viso paketo ilgį (įskaitant ir "`Magic"' bei "`Length
 	\item [[AAJ+01]] -- \textit{Implementing a Sensor Fusion Algorithm for 3D Orientation Detection with Inertial/Magnetic Sensors}, \url{http://franciscoraulortega.com/pubs/Algo3DFusionsMems.pdf}
 	\item [[SSF+11]] -- \textit{A sensor fusion algorithm for an integrated angular position estimation with inertial measurement units}, \url{http://www.date-conference.com/proceedings/PAPERS/2011/DATE11/PDFFILES/IP1_06.PDF}
 	\item [[MS11]] -- \textit{Modeling, Design and Experimental Study for a Quadcopter System Construction}, \url{http://brage.bibsys.no/xmlui/bitstream/id/86811/uiareport.pdf}
-	\item [[----] -- \textit{Quadcopter Dynamics, Simulation, and Control} \url{http://andrew.gibiansky.com/downloads/pdf/Quadcopter\%20Dynamics,\%20Simulation,\%20and\%20Control.pdf}
+	\item [[----]] -- \textit{Quadcopter Dynamics, Simulation, and Control} \url{http://andrew.gibiansky.com/downloads/pdf/Quadcopter\%20Dynamics,\%20Simulation,\%20and\%20Control.pdf}
 \end{itemize}
 
 
