@@ -34,7 +34,7 @@
 % Titulinio puslapio reikalai
 \vumifdept{Programų sistemų katedra}
 \vumifpaper{Bakalauro baigiamasis darbas}
-\title{Autonominis ketursraigčio skrydžio valdymas\\Autonomus Control of Quadcopter Flight}
+\title{Autonominis ketursraigčio skrydžio valdymas\\Autonomous Control of Quadcopter Flight}
 \author{
     4 kurso 1 grupės studentas \\
     Rytis Karpuška
@@ -43,7 +43,7 @@
 \supervisor{Irus Grinis, lekt.}
 \reviewer{Vytautas Valaitis, lekt.}
 \date{Vilnius \\
-	2014}
+	2015}
 
 
 \begin{document}
@@ -54,22 +54,22 @@
 \vumifsectionnonum{Santrauka}
 Šio darbo metu buvo sukurti ir išbandyti algoritmai ketursraigčio autonominiam skrydžiui palaikyti, bandymus atliekant su realiu ketursraigčiu.
 Ši užduotis buvo išskaidyta į tris dalis: kampinės pozicijos įvertinimas, kampinės pozicijos valdymas bei abosliučios pozicijos valdymas.
-Kampinė pozicija yra skaičiuojama pasitelkiant kvaternionus, šitaip efektyviai atliekant skaičiavimus įterptinės sistemos aplinkoje, bei išvengiant užrakinimo (ang.: \textit{gimbal lock}) problemos.
-Kampinės pozicijos valdymas atliekamas naudojant du PID valdiklius sujungtus nuosekliai.
-O absoliuti pozicija valdoma atviro-ciklo valdiklio, kuriam yra saugoma tam tikrų kampinių pozicijų lentelė ir jos duomenys yra persiunčiami kampinės pozicijos valdikliams tam tikru laiko momentu.
+Kampinė pozicija yra skaičiuojama pasitelkiant kvaternionus, šitaip efektyviai atliekant skaičiavimus įterptinės sistemos aplinkoje bei išvengiant užrakinimo (ang.: \textit{gimbal lock}) problemos.
+Kampinės pozicijos valdymas atliekamas naudojant du PID nuosekliai sujungtus valdiklius.
+O absoliuti pozicija valdoma atviro-ciklo (ang.: \textit{open-loop}) valdiklio, kuriam yra saugoma tam tikrų kampinių pozicijų lentelė ir jos duomenys yra persiunčiami kampinės pozicijos valdikliams tam tikru laiko momentu.
 
-\paragraph{Raktiniai žodžiai} Ketursraigtis, Inercinis matavimo įrenginys, kvaternionai, kampinė pozicija, PID, uždaro-ciklo valdiklis, atviro-ciklo valdiklis, autonominis
+\paragraph{Raktiniai žodžiai} Ketursraigtis, inercinis matavimo įrenginys, kvaternionai, kampinė pozicija, PID, uždaro-ciklo valdiklis, atviro-ciklo valdiklis, autonominis
 
 
 
 \vumifsectionnonum{Summary}
-During this thesis algorithms for autonomus quatcopter control has been developed and tested in a real environment.
-Autonomus control of quadcopter has been divided into three parts: Angular position estimation, angular position control and absolute position control.
-Angular position estimation is being performed with the help of quaternions in order to exrpess 3D rotations efficiently and avoid gimbal lock problem.
+During this thesis algorithms for autonomous quadcopter control has been developed and tested in a real environment.
+Autonomus control of quadcopter has been divided into three parts: angular position estimation, angular position control and absolute position control.
+Angular position estimation is being performed using quaternions in order to exrpess 3D rotations efficiently and to avoid gimbal lock problem.
 Angular position control is achieved using two PID controllers connected in series.
 And absoulte position control is achieved by using open-loop controller where a table of certain angular positions are saved and at apropriate times sent to the angular position controller algorithms.
 
-\paragraph{Keywords} Quadcopter, Inertial Measurement Unit, Quaternion, Attitude, PID, closed-loop controller, open-loop controller, autonomus
+\paragraph{Keywords} Quadcopter, inertial measurement unit, quaternion, attitude, PID, closed-loop controller, open-loop controller, autonomous
 
 
 
@@ -80,11 +80,11 @@ And absoulte position control is achieved by using open-loop controller where a 
 
 \vumifsectionnonum{Įvadas}
 
-Ketursraigčiai per keletą paskutinių metų pradėjo stipiriai populiarėti, ypač akadėminėje ir hobistų aplinkoje.
-Tačiau jie yra ir gali būti taikomi labai plačiose srityse, pradedant nuo pirmo-asmens vaizdo įrenginių hobistų skraidymui, įvairių renginių ar įvykių filmavimu ir baigiant paskutinio kilometro vaistų pristatymu sunkiai prieinamiems ligoniams ar
-"`Search and Rescue"' tipo operacijose.
-Tobulėjančios akumuliatorių bei elektrinių variklių technologijos leidžia išlaikyti ketursraigtį ore vis ilgiau, ir užkrauti vis sunkesnius krovinius.
-Tačiau ketursraigčių valdymas yra persudėtingas, kad pilotas galėtų vadyti ketursraigčio skrydį tiesiogiai, todėl elektroninių sistemų pagalba yra būtina.
+Ketursraigčiai per keletą paskutinių metų pradėjo stipiriai populiarėti, ypač akadėminėje ir mėgėjų aplinkoje.
+Tačiau jie yra ir gali būti taikomi labai plačiose srityse, pradedant nuo pirmo-asmens vaizdo (ang.: \textit{first-person-view}) įrenginių mėgėjų skraidymui, įvairių renginių ar įvykių filmavimu ir baigiant vaistų pristatymu sunkiai prieinamiems ligoniams ar
+gelbėjimo ir paieškos tipo operacijose.
+Tobulėjančios akumuliatorių bei elektrinių variklių technologijos leidžia išlaikyti ketursraigtį ore vis ilgiau ir užkrauti vis sunkesnius krovinius.
+Tačiau ketursraigčių valdymas yra perdaug sudėtingas, kad pilotas galėtų vadyti ketursraigčio skrydį tiesiogiai, todėl elektroninių sistemų pagalba yra būtina.
 Ši sistema priima paprastesnes žmogui komandas iš piloto, pavyzdžiui "`skristi pirmyn"', "`skristi šonan"' ir t.t. ir paskui paverčia jas elektriniais variklių signalais.
 Šio darbo tikslas yra sukurti, suprogramuoti ir išbandyti tokią ketursraigčio skrydžio valdymo sistemą.
 Tam buvo surinktas vidutinio dydžio ketursraigtis, ir paruošta elektroninė įranga.
@@ -92,7 +92,7 @@ Tam buvo surinktas vidutinio dydžio ketursraigtis, ir paruošta elektroninė į
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=0.75\textwidth]{img/quad.jpg}
-\caption{Ketursraigčio rėmo ir variklių išdėstymas. Jų sukimosi kryptys.}
+\caption{Ketursraigtis.}
 \end{center}
 \end{figure}
 
@@ -101,7 +101,7 @@ Tam buvo surinktas vidutinio dydžio ketursraigtis, ir paruošta elektroninė į
 
 Ketursraigčio valdymo algoritmų kūrimas yra labai apsunkinamas, dėl sudėtingų testavimo sąlygų.
 Neištestavus pakeitimų kode negalima leisti ketursraigčiui laisvai skristi, nes klaidos atveju, ketursraigtis gali atsitrenkti į kliūtį, sulaužyti savo dalis, ar blogiausiu atveju, dėl daugiau kaip 10,000 sūkių per minutę besisukančių propelerių -- stipriai sužeisti aplink esančius žmones ar gyvūnus.
-Tačiau duomenų surinkimas apie algoritmų darbą negali įvykti, kol šie algoritmai nebuvo įdarbinti realioje aplinkoje, o dėl sudėtingos ketursraigčių dinamikos bei aerodinamikos -- realistiškos simuliacijos atlikimas yra persudėtinga užduotis.
+Tačiau duomenų surinkimas apie algoritmų darbą negali įvykti, kol šie algoritmai nebuvo įdarbinti realioje aplinkoje, o dėl sudėtingos ketursraigčių dinamikos bei aerodinamikos -- realistiškos simuliacijos atlikimas yra perdaug sudėtinga užduotis.
 Susiduriama su "`vištos ir kiaušinio"' problema, algoritmai negali būti tobulinami, kol jie nebuvo paleisti darbui, bet algoritmų negalima paleisti darbui, kol jie neištobulinti.
 
 Šiai problemai spręsti buvo sumontuotas specialus stendas, apribojantis ketursraigčio judėjimo laisvę.
@@ -112,13 +112,13 @@ Konkrečiu atveju buvo ištiesta plieninė styga, išilgai kurios buvo tvirtinam
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=0.75\textwidth]{img/frame.jpg}
-\caption{Ketursraigčio rėmo ir variklių išdėstymas. Jų sukimosi kryptys.}
+\caption{Ketursraigčio stendas.}
 \end{center}
 \end{figure}
 
 
 
-Šis stendas išsprendė testavimo sudėtingumo problemą ir leido algoritmų testavimo metu prijungti įvairius komunikacijos ar galios laidus prie ketursraigčio, tad supaprastėjo duomenų kaupimas, derinimas, taip pat galima buvo atlikti testavimus su išoriniu maitinimo šaltiniu vietoj baterijų, o leido sutaupyti laiko, dėl netrumpo baterijos krovimosi laiko.
+Šis stendas išsprendė testavimo sudėtingumo problemą ir leido algoritmų testavimo metu prijungti įvairius komunikacijos ar galios laidus prie ketursraigčio, tad supaprastėjo duomenų kaupimas, derinimas, taip pat galima buvo atlikti testavimus su išoriniu maitinimo šaltiniu vietoj baterijų, o tai leido sutaupyti laiko, dėl ilgo baterijos krovimosi laiko.
 
 
 
@@ -127,18 +127,19 @@ Konkrečiu atveju buvo ištiesta plieninė styga, išilgai kurios buvo tvirtinam
 
 Paskutiniu metu ketursaigčių valdymo sistemos irgi susilaukė palyginus nemažai mokslininkų ir tyrėjų dėmesio.
 
-\cite{abyarjoo2015implementing} pateikia kampinės padėties skaičiavimus pagal inercinius ir magnetinius sensorius, paaiškina sensorių savybes, ir pasiūlo oilerio kampais grysta kampinės pozicijos įvertinimo būdą.
+\cite{abyarjoo2015implementing} pateikia kampinės padėties skaičiavimus pagal inercinius ir magnetinius sensorius, paaiškina sensorių savybes, ir pasiūlo oilerio kampais grystą kampinės pozicijos įvertinimo būdą.
 Taip pat sumodeliuoja kalmano filtrą giroskopo dreifavimo problemai spręsti.
 
 
-\cite{kumar2004estimation} pateikia sensorių modelį, bei kalibravimo procedūras, nors jų IMU nebuvo taikomas ketursraigčiuose.
+Straipsnyje \cite{kumar2004estimation} autoriai pateikia sensorių modelį, bei kalibravimo procedūras, nors jų IMU nebuvo taikomas ketursraigčiuose.
 Taip pat pasiūlomas kampinės padėties įvertinimo algoritmas naudojant kalmano filtrą su statiniu stiprinimo koeficientu.
 
-\cite{euston2008complementary} pateikia papildamojo (ang.: \textit{complementary}) filtro panaudojima skaičiuojant kampinę poziciją fiksuoto sparno lėktuvui.
+
+Papildomasis (ang.: \textit{complementary}) filtras panaudojamas \cite{euston2008complementary} skaičiuojant kampinę poziciją fiksuoto sparno lėktuvui.
 Atlikti tyrimai parodo akselerometro triukšmo lygius, bei filtravimo būdus.
 
-\cite{gibiansky2010quadcopter} pateikia teorinę ketursraigčio valdymo sistemą, fizikinį ketursraigčio modelį, bei atlieka ketursraigčio simuliacijas pagal šį modelį.
-\cite{gibiansky2010quadcopter} darbu buvo remtasi išvedant fizikinį ketursraigčio modelį šiame darbe.
+Teorinė ketursraigčio valdymo sistema analizuojama \cite{gibiansky2010quadcopter}, kartu su fizikinių ketursraigčio modeliu, bei atliekama simuliacija.
+\cite{gibiansky2010quadcopter} buvo remtasi išvedant fizikinį modelį šiame darbe.
 
 \cite{magnussen2011modeling} pateikia valdymo sistemą sistemą valdomą FPGA valdiklio.
 Nors FPGA ir gali pasiūlyti greitesnį duomenų apdorojimą, tačiau \cite{magnussen2011modeling} kontroleris dirbo 100Hz dažniu, tuo tarpu, kai šiame darbe atnaujinimai vykdomi 500Hz dažniu, nors ir naudojamas ne FPGA, bet ARM procesorius.
