@@ -39,6 +39,7 @@ stip-riais
 kom-piu-te-ris
 sen-so-riais
 au-to-no-mi-niam
+grei-čiai
 }
 
 \usepackage{VUMIF}
@@ -834,6 +835,9 @@ Ir pasukame $q_{pg_t}$
 
 $q_{p}$ yra galutinis pozicijos kvaternionas, naudojamas ketursraigčio skrydžio valdymo algoritmuose.
 
+\subsection{Kampinės padėties tikslumas}
+Empiriniais testais buvo nustatyta, kad aplinkos vibracijų dažniui neviršyjant ketvirtadalio matavimo dažnio (konkrečiu atveju matavimo dažnis: 500Hz, ketvirtadalis: 125Hz) ir kampiniam greičiui neviršyjant 200\degree/s, apskaičiuotos kampinės pozicijos $q_{p}$ paklaida neviršyja 2\degree.
+Taip pat nebuvo rasta jokių pozicijų, kuriose pasireikštų užrakinimo (ang: \textit{gimbal lock}) problema.
 
 
 
@@ -1059,6 +1063,37 @@ Valdymo signalai yra gaunami:
 
 Šis valdymo signalas yra pridedamas prie variklių galios besisukančių pagal laikrodžio rodyklę, ir atimamas iš variklių, besisukančių prieš laikrodžio rodyklę.
 
+\subsection{PID algoritmų tikslumas}
+
+PID algoritmų tikslumas buvo išbandytas empiriškai ant stendo.
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.5\textwidth]{img/NoDisturbancePID.png}
+\caption{PID algoritmo empiriniai testai. Šame grafike $X$ ašis rodo laiką sekundėmis, $Y$ -- kampinės pozicijos paklaidą radianais.}
+\label{pav-emp-nodisturb}
+\end{center}
+\end{figure}
+
+Pav. \ref{pav-emp-nodisturb} rodomas PID algoritmų veikimas ketursraigčiui esant ant stendo kuomet nustatytas pozicijos tikslas yra 0\degree pasisukimas.
+Yra matomi lengvi svyravimai, bet jų amplitudė nėra didelė.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.5\textwidth]{img/Disturbance.png}
+\caption{PID algoritmo empiriniai testai. Šame grafike $X$ ašis rodo laiką sekundėmis, $Y$ -- kampinės pozicijos paklaidą radianais.}
+\label{pav-emp-disturb}
+\end{center}
+\end{figure}
+
+Pav. \ref{pav-emp-disturb} rodomas PID veikimas tomis pačiomis sąlygomis, tik šį kartą apytiksliai ties antra sekunde ketursraigtis buvo pajudintas ranka.
+Matomas ryškus tikslo pozicijos prašovimas (ang: \textit{overshoot}), bet per 2-3 sekundes grįžtama iki tikslo pozicijos.
+
+
+Bandymai atlikti skrydžius ne ant stendo parodė, kad paklaidos ore yra nemažiau kaip 3 kartus didesnės.
+
+
 
 
 
@@ -1107,12 +1142,8 @@ Taip ketursraigtis turi galimybę atpažinti ar nenutrūko ryšys su pilotu ar p
 
 \subsection{Atviro-ciklo valdymo trūkumai}
 
-Vertinant šį algoritmą pagal pozicijos paklaidas (lyginant du skrydžius vieną su kitu), yra labai didelės paklaidos dėl šio algoritmo nesugebėjimo prisitaikyti prie nenumatytų išorinių ir vidinių veiksnių (pvz.: Vėjo).
-Taip pat PID valdikliai nėra tikslūs, o tai dar labiau padidina paklaidas.
+Vertinant šį algoritmą pagal pozicijos tikslumą (lyginant du skrydžius vieną su kitu), buvo pastebėtos labai didelės paklaidos dėl šio algoritmo nesugebėjimo prisitaikyti prie nenumatytų išorinių ir vidinių veiksnių (pvz.: Vėjo).
 
-TODO\_DIAGRAM\_OF\_ANGLE\_ERROR
-
-TODO\_DISTURBANCE\_EXAMPLE
 
 
 \section{Programinė įranga}
@@ -1233,11 +1264,10 @@ Visa tai buvo suprogramuota ir išbandyta realaus ketursraigčio skrydžio metu.
 \paragraph{Rezultatai}
 
 Šiame darbe buvo sukurti bei išbandyti trys esminiai algoritmai: ketursraigčio kampinės pozicijos skaičiavimo, ketursraigčio kampinės pozicijos valdymo bei ketursaigčio pozicijos valdymo algoritmas.
-Kampinės pozicijos algoritmas parodė gerus rezultatus, net ir sunkiomis darbo sąlygomis, kuomet sensoriai dirbo stiprios vibracijos sąlygomis.
-Sensoriui dirbant normaliomis sąlygomis (vibracijų dažnis žemesnis nei ketvirtadalis matavimų dažnio, ir akseleracijos bei sukimo greičiai neviršyja sensoriaus matavimo ribų), buvo pasiekta mažesnė nei 1\degree paklaida, taip pat nebuvo aptikta jokių užrakinimo (ang.: \textit{gimbal lock}) pozicijų, būdingų panašiems algoritmams besiremiantiems oilerio kampais.
-Tuo tarpu PID algoritmas parodė šiek tiek prastesnius rezultatus.
-Esant mažoms kampinės pozicijos paklaidoms buvo pastebimas lengvas ketursraigčio kampinės padėties svyravimas.
-Atviro ciklo pozicijos valdymas turėjo stiprias paklaidas, ir tiksliam autonominiam skrydžiui palaikyti -- reikėtų ieškoti kito algoritmo.
+Kampinės pozicijos algoritmas parodė gerus rezultatus.
+Sensoriui dirbant normaliomis sąlygomis (vibracijų dažnis žemesnis nei ketvirtadalis matavimų dažnio, ir akseleracijos bei sukimo greičiai neviršyja sensoriaus matavimo ribų), buvo pasiekta mažesnė nei 2\degree paklaida.
+PID algoritmai parodė gerus rezultatus ant stendo, tačiau skrydžio ore metu, paklaidos stipriai išaugo.
+Atviro-ciklo algoritmas nesugebėjo suvaldyti ketursraigčio pozicijos norimu tikslumu.
 
 
 \paragraph{Tolimesni darbai, patobulinimai}
