@@ -484,17 +484,18 @@ kur $w$, $x$, $y$, $z$ yra realioji skaičiai, o $i$, $j$, $k$ yra menamosios kv
 
 Kvaternionų daugyba atliekama pagal Hamiltono taisykles:
 
-TODO sužiūrėti newlinenus
 \begin{equation}
-	q_1 * q_2 = \left[ w_1, x_1 i_1, y_1j_1, z_1k_1 \right] * \left[ w_1, x_1 i_1, y_1j_1, z_1k_1 \right] = \\
-	q_1 * q_2 = \left[
-		\begin{array}{c}
-			w_1 w_2 - x_1 x_2 - y_1 y_2 - z_1 z_2 \\
-			(w_1 x_2 + x_1 w_2 + y_1 z_2 - z_1 y_2) i \\
-			(w_1 y_1 - x_1 z_2 + y_1 w_1 + z_1 x_1) j \\
-			(w_1 z_1 + x_1 y_2 - y_1 x_1 + z_1 w_1) k
-		\end{array}
-	\right]
+	\begin{array}{c}
+		q_1 * q_2 = \left[ w_1, x_1 i_1, y_1j_1, z_1k_1 \right] * \left[ w_1, x_1 i_1, y_1j_1, z_1k_1 \right] = \\
+		= \left[
+			\begin{array}{c}
+				w_1 w_2 - x_1 x_2 - y_1 y_2 - z_1 z_2 \\
+				(w_1 x_2 + x_1 w_2 + y_1 z_2 - z_1 y_2) i \\
+				(w_1 y_1 - x_1 z_2 + y_1 w_1 + z_1 x_1) j \\
+				(w_1 z_1 + x_1 y_2 - y_1 x_1 + z_1 w_1) k
+			\end{array}
+		\right]
+	\end{array}
 \end{equation}
 
 \paragraph{Invertavimas}
