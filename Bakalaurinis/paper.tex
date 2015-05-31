@@ -42,8 +42,7 @@
 
 \supervisor{Irus Grinis, lekt.}
 \reviewer{Vytautas Valaitis, lekt.}
-\date{Vilnius \\
-	2015}
+\date{Vilnius 2015}
 
 
 \begin{document}
@@ -142,6 +141,7 @@ Teorinė ketursraigčio valdymo sistema analizuojama \cite{gibiansky2010quadcopt
 \cite{gibiansky2010quadcopter} buvo remtasi išvedant fizikinį modelį šiame darbe.
 
 \cite{magnussen2011modeling} pateikia valdymo sistemą sistemą valdomą FPGA valdiklio.
+
 Nors FPGA ir gali pasiūlyti greitesnį duomenų apdorojimą, tačiau \cite{magnussen2011modeling} kontroleris dirbo 100Hz dažniu, tuo tarpu, kai šiame darbe atnaujinimai vykdomi 500Hz dažniu, nors ir naudojamas ne FPGA, bet ARM procesorius.
 Taip pat \cite{magnussen2011modeling} naudoja oilerio kampus kampinės pozicijos skaičiavimui, todėl kampinė pozicija potencialiai gali užsirakinti (ang.: "`gimbal lock"').
 Skrydžio kampinės padėties valdymo algoritmui buvo naudojamas P valdiklis ir kampinės padėties greičio kompensavimas, tačiau išvadose rašoma, kad ore ketursraigtis negalėjo išsilaikyti.
@@ -153,7 +153,7 @@ Tačiau \cite{magnussen2011modeling} atliko labai naudingus ESC tiesiškumo, tra
 
 \section{Ketursraigčio techninė įranga}
 \label{skyr-hardware}
-Įprasto ketursraigčio techninė struktūra yra palyginus lengvai suprojektuojama bei pagaminama tačiau to negalima pasakyti apie programinę įrangą, bei algoritmus valdančius skrydį.
+Įprasto ketursraigčio techninė struktūra yra palyginus lengvai suprojektuojama bei pagaminama, tačiau to negalima pasakyti apie programinę įrangą, bei algoritmus valdančius skrydį.
 
 
 
@@ -170,8 +170,8 @@ Varikliai skirstomi į dvi grupes iš kurių viena sukasi pagal laikrodžio rody
 \end{center}
 \end{figure}
 
-Šio darbo tikslams pasiekti buvo nupirktas "`HobbyKing x525"' 600mm skersmens rėmas, pagamintas iš aliuminio ir stiklo pluošto.
-Taip pat elektriniai bešepetėliniai 160W galios varikliai "`Turnigy D2822"' ir 8 colių ilgio, bei 4 laipsnių atakos kampo propeleriai.
+Šio darbo tikslams pasiekti buvo nupirktas "`HobbyKing x525"' 600 mm skersmens rėmas, pagamintas iš aliuminio ir stiklo pluošto.
+Taip pat elektriniai bešepetėliniai 160 W galios varikliai "`Turnigy D2822"' ir 8 colių ilgio, bei 4 laipsnių atakos kampo propeleriai.
 
 
 \subsection{Valdymo elektronika}
@@ -179,9 +179,9 @@ Stabilaus skrydžio išlaikymas ketursraigtyje yra per sudėtinga užduotis žmo
 
 Valdymo elektronikai išskiriami tokie uždaviniai:
 \begin{itemize}
-	\item Skrydžio stabilizavimas bei kontrolė;
-	\item Ryšio su pilotu arba valdančia sistema palaikymas;
-	\item Galios signalų, reikalingų varikliams, generavimas;
+	\item skrydžio stabilizavimas bei kontrolė;
+	\item ryšio su pilotu arba valdančia sistema palaikymas;
+	\item galios signalų, reikalingų varikliams, generavimas.
 \end{itemize}
 
 \paragraph{Skrydžio stabilizavimas bei kontrolė}
@@ -191,13 +191,13 @@ Išskiriami svarbiausi parametrai yra tikslumas bei greitis.
 Atsižvelgiant į rekalavimus šiems parametrams, buvo parinktas kompanijos "`STMicroelectronics"' procesorius "`STM32F401"' bei kompanijos "`InvenSense"' sensorius "`MPU6050"'
 
 \paragraph{Ryšio su pilotu arba valdančia sistema palaikymas}
-Ryšio palaikymas parametrizuojamas pagal duomenų persiuntimo greitį ir latenciją, bei veikimo ribas.
+Ryšio palaikymas parametrizuojamas pagal duomenų persiuntimo greitį ir uždelsimą, bei veikimo ribas.
 Ketursaigčio atveju persiunčami duomenys yra tik valdymo signalai iš piloto arba valdančios sistemos, todėl buvo pasirinktas GSM ryšys.
 Taip pat "`Raspberry pi"' kompiuteris su "`Linux"' operacine sistema atlikdavo viską kas reikalinga GSM ryšiui palaikyti.
 
 \paragraph{Galios signalų generavimas}
 Bešepetėliniai varikliai reikalauja trijų galios signalų jų sukimuisi palaikyti.
-Šiam tiklui buvo nupirkti 18A elektroniniai greičio valdikliai galintys suvaldyti apie 200W galios, tad puikiai tinkantys 160W galios varikliams.
+Šiam tiklui buvo nupirkti 18 A elektroniniai greičio valdikliai galintys suvaldyti apie 200 W galios, tad puikiai tinkantys 160 W galios varikliams.
 
 \begin{figure}[H]
 \begin{center}
@@ -214,15 +214,15 @@ Bešepetėliniai varikliai reikalauja trijų galios signalų jų sukimuisi palai
 
 
 
-\subsection{Lokali ir globali koordinačių sistemos}
-Pravartu apibrėžti lokalią ir globalią koordinačių sistemas, kuriose bus nagrinėjama ketursraigčio dinamika.
-Lokalioje koordinačių sistemoje $X$ ir $Y$ ašis yra sulygiuota su ketursraigčio rėmo strypais, kur $X$ rodo pirmojo variklio kryptimi, $Y$ - antrojo.
-Globali sistema yra susieta su žemės gravitaciniu lauku, ir toje sistemoje gravitacinio lauko vektorius nukreiptas priešinga $Z$ ašiai kryptimi.
+\subsection{Lokalioji ir globalioji koordinačių sistemos}
+Pravartu apibrėžti lokaliają ir globaliąją koordinačių sistemas, kuriose bus nagrinėjama ketursraigčio dinamika.
+Lokaliojoje koordinačių sistemoje $X$ ir $Y$ ašis yra sulygiuota su ketursraigčio rėmo strypais, kur $X$ rodo pirmojo variklio kryptimi, $Y$ - antrojo.
+Globalioji sistema yra susieta su žemės gravitaciniu lauku, ir toje sistemoje gravitacinio lauko vektorius nukreiptas priešinga $Z$ ašiai kryptimi.
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=1.0\textwidth]{img/Quadcopter_Coordinates.png}
-\caption{Lokalios ir Globalios koordinačių sistemos palyginimas.}
+\caption{Lokalioji ir globalioji koordinačių sistemos palyginimas.}
 \end{center}
 \end{figure}
 
@@ -239,7 +239,7 @@ ir į priešingą pusę:
 	q_{g} = q_{p}^{-1} * q_{l} * q_{p}
 \end{equation}
 
-Čia $q_{g}$ -- tašką arba vektorių globalioje koordinačių sistemoje atvaizduojantis kvaternionas, $q_{l}$ -- tašką arba vektorių lokalioje koordinačių sistemoje atvaizduojantis kvaternionas, $q_{p}$ -- kampinės pozicijos kvaternionas (žr.: \ref{subskyr-quaternion}).
+Čia $q_{g}$ -- tašką arba vektorių globaliojoje koordinačių sistemoje atvaizduojantis kvaternionas, $q_{l}$ -- tašką arba vektorių lokaliojoje koordinačių sistemoje atvaizduojantis kvaternionas, $q_{p}$ -- kampinės pozicijos kvaternionas (žr.: \ref{subskyr-quaternion}).
 
 
 
@@ -256,7 +256,7 @@ pagal \cite{gibiansky2010quadcopter,magnussen2011modeling} keliamoji jėga gali 
 
 Kur $T$ yra keliamoji jėga niutonais vienam varikliui, $C$ yra konstanta priklausanti tik nuo propelerio nekintamų savybių, o $\omega$ yra variklių sukimosi greitis.
 
-Taip pat galime apskaičiuoti bendrąją keliamąją jėga visiems varikliams.
+Taip pat galime apskaičiuoti bendrąją keliamąją jėgą visiems varikliams.
 
 \begin{equation}
 	T = \left[
@@ -268,10 +268,10 @@ Taip pat galime apskaičiuoti bendrąją keliamąją jėga visiems varikliams.
 	\right]
 \end{equation}
 
-Šiuo atveju $T$ yra keliamosios galios vektorius lokalioje koordinačių sistemoje.
+Šiuo atveju $T$ yra keliamosios galios vektorius lokaliojoje koordinačių sistemoje.
 Verta pastebėti, kad esant nevienodiems $\omega_{1}, \omega_{4}$ arba $\omega_{2}, \omega_{3}$ sukuriama jėga sukanti ketursraigtį apie jo lokalią $Y$ arba $X$ ašį atitinkamai.
 
-O skaičiuojant globalioje koordinačių sistemoje:
+O skaičiuojant globaliojoje koordinačių sistemoje:
 
 \begin{equation}
 q_{tl} = \left[
@@ -296,7 +296,7 @@ q_{tl} = \left[
 	\right]
 \end{equation}
 
-Čia $q_{tl}$ yra kvaternionas reprezentuojantis keliamosios jėgos vektorių lokalioje koordinačių sistemoje, $q_{p}$ kvaternionas reprezentuojantis pasukimą nuo globalios iki lokalios koordinačių sistemos (žr.: \ref{skyr-attitude}), $q_{tg}$ -- keliamosios jėgos vektorių atvaizduojantis kvaternionas globalioje koordinačių sistemoje, $T_g$ -- keliamosios jėgos vektorius globalioje koordinačių sistemoje.
+Čia $q_{tl}$ yra kvaternionas, reprezentuojantis keliamosios jėgos vektorių lokaliojoje koordinačių sistemoje, $q_{p}$ kvaternionas reprezentuojantis pasukimą nuo globaliosios iki lokaliosios koordinačių sistemos (žr.: \ref{skyr-attitude}), $q_{tg}$ -- keliamosios jėgos vektorių atvaizduojantis kvaternionas globaliojoje koordinačių sistemoje, $T_g$ -- keliamosios jėgos vektorius globaliojoje koordinačių sistemoje.
 
 
 
@@ -320,7 +320,7 @@ Konkrečiu atveju varikliai 1 ir 4 sukasi prieš laikrodžio rodyklę, o varikli
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=0.75\textwidth]{img/quadcopter-torque.png}
+\includegraphics[width=0.6\textwidth]{img/quadcopter-torque.png}
 \caption{Jėgos sukeliamos dėl oro trinties į propelerius.}
 \end{center}
 \end{figure}
@@ -354,12 +354,12 @@ Ir bendra jėga:
 	F_{tq} = F_{tq_{1,4}} - F_{tq_{2,3}} = C * (\omega_{1} - \omega_{2} - \omega_{3} + \omega_{4})
 \end{equation}
 
-Šias jėgų kryptis atitinkamai galime pasukti priešingu kvaternionu $q_{p}$, ir gausime jėgą globalioje koordinačių sistemoje.
-Verta pastebėti, kad šių jėgų kryptys visada sutaps su propelerių plokštuma.
+Šias jėgų kryptis atitinkamai galime pasukti priešingu kvaternionu $q_{p}$, ir gausime jėgą globaliojoje koordinačių sistemoje.
+Verta pastebėti, kad šių jėgų kryptys visada bus lygiagračios su propelerių plokštuma.
 
 \subsection{Bendras judėjimo modelis}
 
-Ketursraigčio skrydžio judėjimai apibrėžti reikia įsivesti gravitacijos kryptį.
+Ketursraigčio skrydžio judėjimui apibrėžti reikia įsivesti gravitacijos kryptį.
 
 \begin{equation}
 	g_{g} =  \left[
@@ -388,7 +388,7 @@ Toliau pagal antrąjį Niutono dėsnį:
 
 kur $a$ yra pagreičio vektorius globalioje koordinačių sistemoje.
 
-Toliau randamas greitis bei pozicijos priklausomybė nuo laiko:
+Toliau randamas greičio bei pozicijos priklausomybė nuo nykstamai mažo laiko pokyčio $\Delta$ t:
 \begin{equation}
 	v_{g} = a_{g} * \Delta t
 \end{equation}
@@ -396,7 +396,7 @@ Toliau randamas greitis bei pozicijos priklausomybė nuo laiko:
 	x_{g} = a_{g} * \Delta t ^2
 \end{equation}
 
-Tais pačiais principais randama ir kampinė pozicija.
+Tais pačiais principais randama ir kampinė padėtis.
 
 
 
@@ -407,16 +407,16 @@ Tais pačiais principais randama ir kampinė pozicija.
 \section{Kampinės padėties skaičiavimas}
 \label{skyr-attitude}
 
-Ketursraigčio valdymo algoritmai yra tiesiogiai priklausomi nuo kampinės padėties, bet nėra sensorių leidžiančių tai išmatuoti tiesiogiai, todėl šiame skyrelyje apibūdinami sukurti principai pagal kuriuos yra skaičiuojama ketursraigčio kampinė pozicija globalios koordinačių sistemos atžvilgiu.
+Ketursraigčio valdymo algoritmai yra tiesiogiai priklausomi nuo kampinės padėties, bet nėra sensorių leidžiančių tai išmatuoti tiesiogiai, todėl šiame skyrelyje apibūdinami sukurti principai, pagal kuriuos yra skaičiuojama ketursraigčio kampinė pozicija globaliosios koordinačių sistemos atžvilgiu.
 
 Ketursraigčių kampinės padėties skaičiavimui buvo parinkta matematinė skaičiavimo sistema vadinama kvaternionais.
-Šioje sistemoje trimačiai pasukimai gali būti atvaizduoti labai efektyviai ir patogiai.
+Šioje sistemoje trimačiai posūkiai gali būti atvaizduoti labai efektyviai ir patogiai.
 
 \subsection{Kvaternionai}
 \label{subskyr-quaternion}
 
-Kvaternionai matematikoje yra skaičių sistema kurį išplėčia įprastus kompleksinius skaičius.
-Kvaternionas tai yra vektorius:
+Kvaternionai matematikoje yra skaičių sistema, kuri išplėčia įprastus kompleksinius skaičius.
+Kvaternionas yra vektorius:
 
 \begin{equation}
 	q = \left[
@@ -432,17 +432,17 @@ Kvaternionas tai yra vektorius:
 kur $w$ yra sveikoji dalis, o $i$, $j$, $k$, yra menamosios.
 
 
-Menamosios dalys tarpusavyje susiejamos pagal:
+Menamosios dalys tarpusavyje siejamos pagal:
 \begin{equation}
 	i^2 = j^2 = k^2 = ijk = -1
 \end{equation}
 
-o daugindami kiekvieną elementą su kiekvienu gauname tokį sąryšį:
+Dauginimui kiekvieno elemento su kiekvienu naudojamas toks sąryšis:
 
 \begin{center}
 \begin{tabular}{ | c | c | c | c | c | }
 	\hline
-	\textbf{x} & \textbf{1} & \textbf{i} & \textbf{j} & \textbf{k} \\
+	\textbf{*} & \textbf{1} & \textbf{i} & \textbf{j} & \textbf{k} \\
 	\hline
 	\textbf{1} & 1 & i & j & k \\
 	\hline
@@ -461,37 +461,31 @@ o daugindami kiekvieną elementą su kiekvienu gauname tokį sąryšį:
 	q = w + xi + yj + zk
 \end{equation}
 
-kur $w$ yra sveikoji dalis, $x$, $y$, $z$ yra sveikieji daugikliai, o $i$, $j$, $k$ yra menamosios kvaterniono dalys.
+kur $w$, $x$, $y$, $z$ yra realioji skaičiai, o $i$, $j$, $k$ yra menamosios kvaterniono dalys.
 
-Bet šiame darbe kvaternionai bus nagrinėjami vektorine forma:
+Šiame darbe kvaternionai bus nagrinėjami naudojant vektorine forma:
 
 \begin{equation}
 	q = \left[
 		\begin{array}{c}
 			w \\
-			x * i \\
-			y * j \\
-			z * k
+			xi \\
+			yj \\
+			zk
 		\end{array}
 	\right]
 \end{equation}
 
-Taip pat kai kur kvaternionas bus nagrinėjamas jo sudedamosiomis dalimis, todėl $q_w$ atitinka kvaterniono sveikąją dalį, $q_x$ atitinka $i$ sveikajį daugiklį, $q_y$ -- $j$ sveikajį daugiklį, $q_z$ -- k sveikajį daugiklį.
-
+Šio vektoriaus atskiras komponentes bus žymimos $q_w$, $q_x$, $q_y$, $q_z$.
 
 
 \paragraph{Daugyba}
 
-Kvaternionų daugyba matematiškai išreiškiama kaip jo elementų sudauginimas prastinant pagal distributyvumo taisyklę, ir tai vadinama Hamiltono produktu.
+Kvaternionų daugyba atliekama pagal Hamiltono taisykles:
 
+TODO sužiūrėti newlinenus
 \begin{equation}
-	q_1 * q_2 = \left[ w_1, x_1 i_1, y_1j_1, z_1k_1 \right] * \left[ w_1, x_1 i_1, y_1j_1, z_1k_1 \right]
-\end{equation}
-
-Verta pastebėti, kad čia nėra paprasta vektorinė daugyba.
-Daugyba apibrėžiama taip:
-
-\begin{equation}
+	q_1 * q_2 = \left[ w_1, x_1 i_1, y_1j_1, z_1k_1 \right] * \left[ w_1, x_1 i_1, y_1j_1, z_1k_1 \right] = \\
 	q_1 * q_2 = \left[
 		\begin{array}{c}
 			w_1 w_2 - x_1 x_2 - y_1 y_2 - z_1 z_2 \\
@@ -510,7 +504,7 @@ Invertuotas kvaternionas yra kvaternionas atvaizduojantis pasukimą į priešing
 	q^{-1}
 \end{equation}
 
-Invertuoti kvaternioną galima dvejopai, arba invertuojant sveikąją dalį
+Invertuoti kvaternioną galima dvejopai, arba invertuojant realiąją dalį
 \begin{equation}
 	q^{-1} = \left[
 		\begin{array}{c}
@@ -555,19 +549,20 @@ Taškas erdvėje pagal jo $X$, $Y$, $Z$ koordinates kvaternionu atvaizduojamas t
 
 \paragraph{Erdvinio pasukimo atvaizdavimas kvaternionu}
 
-Įprastą pasukimą kuomet žinomas kampas $\phi$ kuriuo pasukama ir ašis $X$, $Y$, $Z$, aplink kurią (prieš laikrodžio rodyklę) yra sukama, atvaizduojamas taip:
+Žinant kampą $\phi$ ir ašies kryptį ($X$, $Y$, $Z$), aplink kurią sukuama, kvaternioną atvaizduojamas taip:
 
 \begin{equation}
 	q = \left[
 		\begin{array}{c}
 			cos(\dfrac{\phi}{2})\\
-			X * sin(\dfrac{\phi}{2}) * i\\
-			Y * sin(\dfrac{\phi}{2}) * j \\
-			Z * sin(\dfrac{\phi}{2}) * k
+			Xsin(\dfrac{\phi}{2})i\\
+			Ysin(\dfrac{\phi}{2})j \\
+			Zsin(\dfrac{\phi}{2})k
 		\end{array}
 	\right]
+\label{for-quat}
 \end{equation}
-Po suformavimo kvaternionas turi būti normalizuotas.
+Po formulėje \ref{for-quat} kvaterniono suformavimo jis turi būti normalizuotas.
 
 Tuomet taško erdvėje pozicija po pasukimo kvaternionu $q$ randama taip:
 
@@ -579,18 +574,18 @@ Tuomet taško erdvėje pozicija po pasukimo kvaternionu $q$ randama taip:
 
 
 
-\paragraph{Lerp}
+\paragraph{Funkcija $Lerp$}
 
-Lerp yra trumpinys tiesinei interpoliacijai (ang.: \textit{Linear Interpolation}).
-Trimačių pasukimo kontekste, Lerp yra aproksimacija Slerp (ang.: \textit{Spherical Interpolation}).
+Šios funkcijos pavadinimas yra trumpinys tiesinei interpoliacijai (ang.: \textit{Linear Interpolation}).
+Trimačių pasukimo kontekste, $Lerp$ yra aproksimacija $Slerp$ (ang.: \textit{Spherical Interpolation}).
 
-Darant prielaidą, kad kvaternionas išreiškia pasukimą taip kaip nurodoma pastraipoje "`Erdvinio pasukimo atvaizdavimas kvaternionu"' tuomet funkcija Slerp išreiškiama taip:
+Darant prielaidą, kad kvaternionas išreiškia pasukimą taip kaip nurodoma pastraipoje "`Erdvinio pasukimo atvaizdavimas kvaternionu"', tuomet funkcija $Slerp$ išreiškiama taip:
 \begin{equation}
 	Slerp(q_0, q_1, t) = (q_1 q_0^{-1})^{t}q_0
 \end{equation}
 
-Slerp funkcija randa kvaternioną atvaizduojantį pasukimą proporcingą pateiktam skaliarui su ribomis nuo pirmo pateikto kvaterniono iki antro.
-Pavyzdžiui jeigu turime kvaternioną $q_0$ sukanti 90\degree dešinėn, ir kvaternioną $q_1$ sukantį 90\degree kairėn, tai gautume tokius rezultatus priklausomai nuo skaliaro
+$Slerp$ funkcija randa kvaternioną atvaizduojantį pasukimą proporcingą pateiktam skaliarui su ribomis nuo pirmo pateikto kvaterniono iki antro.
+Pavyzdžiui jeigu turime kvaternioną $q_0$ sukanti 90\degree dešinėn, ir kvaternioną $q_1$ sukantį 90\degree kairėn, tai gautume tokius rezultatus priklausomai nuo skaliaro $t$
 
 \begin{center}
 \begin{tabular}{ | c | c | c | }
@@ -610,20 +605,20 @@ Pavyzdžiui jeigu turime kvaternioną $q_0$ sukanti 90\degree dešinėn, ir kvat
 \end{tabular}
 \end{center}
 
-Lerp funkcija apibrėžiama taip:
+$Lerp$ funkcija apibrėžiama taip:
 \begin{equation}
-	lerp(q_0, q_1, t) = \left[
+	Lerp(q_0, q_1, t) = \left[
 		\begin{array}{c}
-			q_{0_w} + (q_{1_w} - q_{0_w}) * t \\
-			(q_{0_x} + (q_{1_x} - q_{0_x}) * t) i \\
-			(q_{0_y} + (q_{1_y} - q_{0_y}) * t) j \\
-			(q_{0_z}+ (q_{1_z} - q_{0_Z}) * t) k \\
+			q_{0_w} + (q_{1_w} - q_{0_w})t \\
+			(q_{0_x} + (q_{1_x} - q_{0_x})t) i \\
+			(q_{0_y} + (q_{1_y} - q_{0_y})t) j \\
+			(q_{0_z}+ (q_{1_z} - q_{0_Z})t) k \\
 		\end{array}
 	\right]
 \end{equation}
 
-Slerp funkcija suteikia vienodą judėjimo greitį nuo kvaterniono $q_0$ prie $q_1$ priklausomai nuo skaliaro, tačiau reikalauja bent trijų kvaternionų daugybų ir kėlimo laipsniu.
-Tuo tarpu funkcija lerp, nors ir nesutekia, vienodo judėjimo greičio, bet ji šį judėjimą aproksimuoja pakankamai tiksliai ketursraigčio kampinės pozicijos skaičiavimo tikslams.
+$Slerp$ funkcija suteikia vienodą judėjimo greitį nuo kvaterniono $q_0$ prie $q_1$ priklausomai nuo skaliaro, tačiau reikalauja bent trijų kvaternionų daugybų ir kėlimo laipsniu.
+Tuo tarpu funkcija $Lerp$, nors ir nesutekia vienodo judėjimo greičio, bet ji šį judėjimą aproksimuoja pakankamai tiksliai ketursraigčio kampinės pozicijos skaičiavimo tikslams.
 Taip pat lerp galima apskaičiuoti tik su 4 skaliarinės daugybos operacijom, bei keleta atimčių ir sudėčių.
 
 
@@ -649,9 +644,9 @@ Ketursraigčio kampinė pozicija skaičiuojama pagal du sensorius: giroskopą ir
 	\right]
 \end{equation}
 
-Verta pastebėti, kad visi matavimai atliekami lokalioje koordinačių sistemoje, o mažos paklaidos dėl netikslumų montuojant giroskopą yra ignoruojamos.
+Verta pastebėti, kad visi matavimai atliekami lokaliojoje koordinačių sistemoje, o mažos paklaidos dėl netikslumų montuojant giroskopą yra ignoruojamos.
 
-\paragraph{Akselerometras} Akselerometras yra sensorius matuojantis akseleracijas visomis trimis ašimis lokalioje koordinačių sistemoje.
+\paragraph{Akselerometras} Akselerometras yra sensorius matuojantis pagreičius visomis trimis ašimis lokaliojoje koordinačių sistemoje.
 Verta pastebėti, kad žemės gravitacija sensorių veikia lygiai taip pat, kaip akseleracija priešinga kryptimi.
 Kadangi žemės graviacijos kryptis yra visada nukreipta žemyn, todėl jos kryptis gali būti naudojama kampinės padėties apskaičiavimui.
 
@@ -665,7 +660,6 @@ Kadangi žemės graviacijos kryptis yra visada nukreipta žemyn, todėl jos kryp
 	\right]
 \end{equation}
 
-Kaip ir giroskopo atveju, akselerometras atlieka matavimus lokalioje koordinačių sistemoje, o mažos paklaidos dėl netikslumų montuojant akselerometrą yra ignoruojamos.
 $g_x$, $g_y$, $g_z$, yra gravitacijos vektoriaus komponentės lokalioje koordinačių sistemoje.
 
 
@@ -675,10 +669,10 @@ $g_x$, $g_y$, $g_z$, yra gravitacijos vektoriaus komponentės lokalioje koordina
 Kaip jau aptarta ankščiau, giroskopas matuoja kampinį greitį, todėl norėdami rasti poziciją turime jį integruoti.
 
 \begin{equation}
-	x = \int \omega
+	x_t = \int_0^t \omega(\tau) d\tau
 \end{equation}
 
-tačiau realus giroskopas atlieka matavimus diskretiškai, todėl daroma prielaida, kad išmatuotas kampinis greitis $\omega_t$ yra toks viso laiko momento $t$ metu, tada:
+tačiau realus giroskopas atlieka matavimus diskretiškai, todėl daroma prielaida, kad išmatuotas kampinis greitis $\omega_t$ yra konstanta viso laiko momento $t$ metu, tada:
 
 \begin{equation}
 	x_t = x_{t-1} + \omega_t * \Delta t
@@ -692,42 +686,43 @@ Tą patį išreiškus kvaternionais:
 	q_{pg_{t}} = q_{p_{t - 1}} * q_{g_{t}}
 \end{equation}
 
-Čia $q_{pg_{t}}$ kvaternionas laiko momentu $t$ reprezentuojantis pasukimą nuo globalios iki lokalios koordinačių sistemos ir paskaičiuotas pagal giroskopą, $q_{g_{t}}$ kvaternionas reprezentuojantis pasisukimą laiko momentu $t$.
-$q_{p_{t-1}}$ yra galutinės kampinės pozicijos kvaternionas pasukantis globalią koordinačių sistemą iki lokalios laiko momentu $t-1$ (žr.: \ref{subskyr-final-quaternion}).
+Čia $q_{pg_{t}}$ kvaternionas laiko momentu $t$, reprezentuojantis pasukimą nuo globaliosios iki lokaliosios koordinačių sistemos ir paskaičiuotas pagal giroskopą, o $q_{g_{t}}$ kvaternionas reprezentuojantis pasisukimą laiko momentu $t$.
+$q_{p_{t-1}}$ yra galutinės kampinės pozicijos kvaternionas pasukantis globaliąją koordinačių sistemą iki lokaliosios laiko momentu $t-1$ (žr.: \ref{subskyr-final-quaternion}).
 
-Kvaternionas $q_{g_{t}}$ yra sudaromas pagal principus apibūdintus skyrelyje \ref{subskyr-quaternion} kuomet sukimo kampas $\phi$ yra giroskopo išmatuoto vektoriaus ilgis:
+Kvaternionas $q_{g_{t}}$ yra sudaromas pagal principus apibūdintus skyrelyje \ref{subskyr-quaternion}, kuomet sukimo kampas $\phi$ yra giroskopo išmatuoto vektoriaus ilgis:
 
 \begin{equation}
 	q_{g_{t}} = \left[
 		\begin{array}{c}
-			cos(\dfrac{\sqrt{\omega_x^2 + \omega_y^2 + \omega_z^2}}{2}) \\
-			\dfrac{\omega_x}{\sqrt{\omega_x^2 + \omega_y^2 + \omega_z^2}} * sin(\dfrac{\sqrt{\omega_x^2 + \omega_y^2 + \omega_z^2}}{2}) \\
-			\dfrac{\omega_y}{\sqrt{\omega_x^2 + \omega_y^2 + \omega_z^2}} * sin\dfrac{\sqrt{\omega_x^2 + \omega_y^2 + \omega_z^2}}{2}) \\
-			\dfrac{\omega_z}{\sqrt{\omega_x^2 + \omega_y^2 + \omega_z^2}} * sin(\dfrac{\sqrt{\omega_x^2 + \omega_y^2 + \omega_z^2}}{2}) \\
+			cos\left(\dfrac{\sqrt{\omega_x^2 + \omega_y^2 + \omega_z^2}}{2}\right) \\
+			\dfrac{\omega_x}{\sqrt{\omega_x^2 + \omega_y^2 + \omega_z^2}} sin\left(\dfrac{\sqrt{\omega_x^2 + \omega_y^2 + \omega_z^2}}{2}\right) \\
+			\dfrac{\omega_y}{\sqrt{\omega_x^2 + \omega_y^2 + \omega_z^2}} sin\left(\dfrac{\sqrt{\omega_x^2 + \omega_y^2 + \omega_z^2}}{2}\right) \\
+			\dfrac{\omega_z}{\sqrt{\omega_x^2 + \omega_y^2 + \omega_z^2}} sin\left(\dfrac{\sqrt{\omega_x^2 + \omega_y^2 + \omega_z^2}}{2}\right) \\
 		\end{array}
 	\right]
+\label{for-gyro-quat}
 \end{equation}
 
 Čia $\omega_x$, $\omega_y$, $\omega_z$, yra giroskopo atlikti matavimai.
-Sudarytas kvaternionas $q_{g_t}$ turi būti normalizuojamas po suformavimo.
+\ref{for-gyro-quat} Sudarytas kvaternionas $q_{g_t}$ jau yra normalizuotas.
 
 
 \subsection{Kampinės padėties skaičiavimas pagal akselerometrą}
 
-Akselerometro matavimai, neesant išorinių akseleracijų, leidžia tiesiogiai apskaičiuoti kampinę sensoriaus poziciją, tačiau šis matavimas turi palyginus dideles paklaidas ir triukšmo lygį.
-Taip pat esant išorinėms akseleracijoms paklaidų pasiskirstimas gali būti necentruotas su gravitacijos vektoriaus reikšme.
+Akselerometro matavimai, nesant išorinių akseleracijų, leidžia tiesiogiai apskaičiuoti kampinę sensoriaus poziciją, tačiau šis matavimas turi palyginus dideles paklaidas ir triukšmo lygį.
+Taip pat esant išorinėms akseleracijoms paklaidų pasiskirstimas gali būti nekoreliuotas su gravitacijos vektoriaus reikšme.
 Todėl filtravimas yra būtinas ir jis įgyveninamas apjungiant kampines pozicijas apskaičiuotas pagal giroskopą ir pagal akselerometrą (žr.: \ref{subskyr-final-quaternion})
 
 Patogumo dėlei bus skaičiuojama ne absoliuti kampinė pozicija, o pasukimas, kuris pasuka dabartinę poziciją $q_p$ iki akselerometro išmatuotos pozicijos.
-Tam tikslui pradžioje surandame vektorių lokalioje koordinačių sistemoje, kuris globalioje koordinačių sistemoje yra nukreiptas tiesiai aukštyn.
+Tam tikslui pradžioje surandame vektorių lokaliojoje koordinačių sistemoje, kuris globalioje koordinačių sistemoje yra nukreiptas tiesiai aukštyn.
 
 \begin{equation}
 	q_{up_g} = \left[
 		\begin{array}{c}
 			0 \\
-			0 * i \\
-			0 * j \\
-			1 * k
+			0 \\
+			0 \\
+			k
 		\end{array}
 	\right]
 \end{equation}
@@ -738,7 +733,7 @@ pasukame:
 	q_{up_l} = q_{p} * q_{up_g} * q_{p}^{-1}
 \end{equation}
 
-Išskiriame vektorių viršun
+Išskiriame vektorių į viršų
 \begin{equation}
 	v_{up} = \left[
 		\begin{array}{c}
@@ -749,20 +744,20 @@ Išskiriame vektorių viršun
 	\right]
 \end{equation}
 
-Ir sudarome kvaternioną pavaizduojantį pasukimą nuo dabartinės apskaičiuotos kampinės pozicijos iki akselerometro išmatuotos pozicijos.
+Toliau sudarome kvaternioną pavaizduojantį pasukimą nuo dabartinės apskaičiuotos kampinės pozicijos iki akselerometro išmatuotos pozicijos.
 
 \begin{equation}
 	q_{acc_{diff}} = \left[
 		\begin{array}{c}
-			\sqrt{ ||v_{up}||^2 * ||a_{up}||^2 } * (a_{up} \cdot v_{up}) \\
-			a_{up_y} * v_{up_z} - a_{up_z} * v_{up_y}  \\
-			a_{up_z} * v_{up_x} - a_{up_x} * v_{up_z}  \\
-			a_{up_x} * v_{up_y} - a_{up_y} * v_{up_x}  \\
+			\sqrt{ ||v_{up}||^2 ||a_{up}||^2 } (a_{up} \cdot v_{up}) \\
+			a_{up_y}v_{up_z} - a_{up_z}v_{up_y}  \\
+			a_{up_z}v_{up_x} - a_{up_x}v_{up_z}  \\
+			a_{up_x}v_{up_y} - a_{up_y}v_{up_x}  \\
 		\end{array}
 	\right]
 \end{equation}
 
-Čia $\cdot$ reiškia "`dot"' produktą, $a_{up}$ yra akselerometro išmatuotas vektorius. O $||v||$ žymi vektoriaus $v$ ilgį.
+Čia $\cdot$ reiškia skaliarinę sandauga, $a_{up}$ yra akselerometro išmatuotas vektorius. O $||v||$ žymi vektoriaus $v$ ilgį.
 
 
 \subsection{Galutinis kampinės padėties radimas}
@@ -788,13 +783,13 @@ Tuomet sudaromas kvaternionas reprezentuojantis 0\degree pasukimą.
 	\right]
 \end{equation}
 
-apskaičiuojamas svorio koeficientas pagal akselerometrą apskaičiuotai kampinei pozicijai filtruoti taip, kad šis koeficientas esant $||a|| = 1.0g$ būtų lygus $C_{max}$ ir atitinkamai mažėtų iki $C_{cutoff}$.
+Toliau apskaičiuojamas svorio koeficientas akselerometro išmatuotai kampinei pozicijai filtruoti taip, kad šis koeficientas esant $||a|| = 1.0g$ būtų lygus systemos parametruis $C_{max}$ ir atitinkamai mažėtų iki parametro $C_{cutoff}$.
 
 \begin{equation}
-	W_{acc} = C_{max} - | ||a|| - 1.0 | * (\dfrac{C_{max}}{C_{cutoff}^2 - 1} )
+	W_{acc} = C_{max} - | ||a|| - 1.0 | \left(\dfrac{C_{max}}{C_{cutoff} - 1} \right)
 \end{equation}
 
-Šis svoris $W_{acc}$ yra apribojimas žemutine riba 0.
+Šis svorio koeficientas $W_{acc}$ yra apribojimas žemutine riba 0.
 
 \begin{equation}
 	W = \begin{cases}
@@ -804,10 +799,10 @@ apskaičiuojamas svorio koeficientas pagal akselerometrą apskaičiuotai kampine
 \end{equation}
 
 
-Toliau yra apskaičiuojamas kvaternionas kuriuo pasukus $q_{pg_t}$ bus atliktas kompensavimas pagal akselerometro duomenis
+Toliau yra apskaičiuojamas kvaternionas, kuriuo pasukus $q_{pg_t}$ bus atliktas kompensavimas pagal akselerometro duomenis
 
 \begin{equation}
-	q_{diff} = lerp(q_{0}, q_{acc_{diff}}, W)
+	q_{diff} = Lerp(q_{0}, q_{acc_{diff}}, W)
 \end{equation}
 
 Ir pasukame $q_{pg_t}$
@@ -816,7 +811,7 @@ Ir pasukame $q_{pg_t}$
 	q_{p} = q_{pg_t} * q_{diff}
 \end{equation}
 
-$q_{p}$ yra galutinis pozicijos kvaternionas naudojamas ketursraigčio skrydžio valdymo algoritmuose.
+$q_{p}$ yra galutinis pozicijos kvaternionas, naudojamas ketursraigčio skrydžio valdymo algoritmuose.
 
 
 
@@ -830,14 +825,14 @@ Ketursraigčio kampinės padėties valdymui buvo parinktas PID algoritmas.
 \subsection{PID valdymo algoritmas}
 
 PID valymo algoritmas yra uždaro ciklo valdymo algoritmas.
-ID operuoja skaičiuodamas skirtumą tarp matuojamo kintamojo ir pateikto tikslo (ang.: \textit{setpoint}).
+PID operuoja skaičiuodamas skirtumą tarp matuojamo kintamojo ir pateikto tikslo (ang.: \textit{setpoint}).
 Toliau PID algoritmas reguliuoja proceso kintamąjį "`stengdamasis"' sumažinti skirtumą tarp matuojamo kintamojo ir pateikto tikslo.
 PID yra parametrizuojamas trimis konstantomis:
 
 \begin{itemize}
-	\item P -- Proporcinis koeficientas;
-	\item I -- Integracinis koeficientas;
-	\item D -- Diferencinis koeficientas;
+	\item P -- proporcinis koeficientas;
+	\item I -- integralinis koeficientas;
+	\item D -- diferencialinis koeficientas.
 \end{itemize}
 
 Bendroji valdymo lygtis PID algoritmui:
@@ -847,16 +842,16 @@ Bendroji valdymo lygtis PID algoritmui:
 \end{equation}
 
 Čia $PID(t)$ yra proceso kintamasis, $e(t)$ -- matuojamo ir tikslo kintamųjų skirtumas.
-$K_p$, $K_i$, $K_d$, PID algoritmo parametrai.
+$K_p$, $K_i$, $K_d$ -- PID algoritmo parametrai.
 
-Verta pastebėti, kad skaitmeninio procesoriaus aplinkoje PID algoritmas dirba diskretiškai, todėl integracija ir diferenciacija išreiškiama atitinkamai suma bei skirtumu
+Verta pastebėti, kad skaitmeninio procesoriaus aplinkoje PID algoritmas dirba diskretiškai, todėl integravimas ir diferencijavimas aproksimuojami titinkamai suma bei skirtumu
 
 \begin{equation}
-	\int_0^t x(t) \widehat{=} x_t + x_{t - 1} + x_{t - 2} + ... + x_{1} + x_{0}
+	\int_0^t x_{\tau}d\tau \approx x_t + x_{t - 1} + x_{t - 2} + ... + x_{1} + x_{0}
 \end{equation}
 
 \begin{equation}
-	\dfrac{d}{dt}x(t) \widehat{=} x_t - x_{t - 1}
+	\dfrac{d}{dt}x_t \approx x_t - x_{t - 1}
 \end{equation}
 
 
@@ -869,11 +864,11 @@ PID algorimtai pasiekia geriausių rezultatų dirbdami tiesinėse sistemose, tod
 	F = \omega^2 * C
 \end{equation}
 
-Šiuo atveju $\omega$ yra tai, kas yra valdoma PID algoritmo, tiesiškumui pasiekti, ištraukiama šaknis iš PID išeities.
+Šiuo atveju $\omega$ yra tai, kas yra valdoma PID algoritmo. Tam kad sistema būtų tiesiška -- ištraukiama šaknis iš PID išeities.
 Iš to yra formuojamas signalas greičio valdikliams, kurių atsakas yra tiesiškas.
 
 \begin{equation}
-	u = \sqrt{PID_{speed}(t)}
+	u = \sqrt{PID(t)}
 \end{equation}
 
 tuomet
@@ -903,28 +898,26 @@ Taigi:
 Kadangi masė $m$ yra nekintantis dydis skrydžio metu, konstantą $C$ pervadiname į:
 
 \begin{equation}
-	C \widehat{=} \dfrac{C}{m}
+	C \leftarrow \dfrac{C}{m}
 \end{equation}
-
-Čia dešinėje lygties senoji konstanta $C$, kairėje lygties pusėje - naujoji konstanta $C$.
 
 Įvedame laiko priklausomybę:
 
 \begin{equation}
-	\omega = a * t
+	\omega = at
 \end{equation}
 \begin{equation}
-	\omega = u * t * C
+	\omega = utC
 \end{equation}
 
 Šioje vietoje turimas tiesinis modelis, kuriam taikomas PID algoritmas ketursraigčio kampinio greičio valdymui.
-Tačiau tikslas yra valdyti kampinę poziciją, o ne greitį, todėl reikia išsivesti greičio priklausomybė nuo laiko:
+Tačiau tikslas yra valdyti kampinę poziciją, o ne greitį, todėl reikia išsivesti kampinės pozicijos priklausomybę nuo laiko:
 
 \begin{equation}
 	x =  \omega * t
 \end{equation}
 
-Pozicija nuo greičio priklauso tiesiškai, todėl čia naudojamas antrasis PID algoritmas nuosekliai jungiamas su kampinį greitį valdančiuoju PID algoritmu (žr.: pav. \ref{pav-PID-series}).
+Pozicija nuo greičio priklauso tiesiškai, todėl čia naudojamas antrasis PID algoritmas nuosekliai jungiamas su kampinį greitį valdančiu PID algoritmu (žr.: pav. \ref{pav-PID-series}).
 
 \begin{figure}[H]
 \begin{center}
@@ -936,12 +929,12 @@ Pozicija nuo greičio priklauso tiesiškai, todėl čia naudojamas antrasis PID 
 
 
 \paragraph{PID paklaidos skaičiavimas}
-Ketursraigčio kampinės padėties valdymui naudojami du tokie PID valdikliai.
+Ketursraigčio kampinės padėties valdymui naudojami du valdikliai apibūdinti ankstesniame skyrelyje.
 Vienas valdo sukimąsi apie lokalią $X$ ašį, valdydamas apie $Y$ ašį išdėliotus variklius, kitas valdo sukimąsi apie $Y$ ašį valdydamas apie $X$ ašį išdėliotus variklius.
 Matuojamas proceso kintamasis yra kampas nuo horizontalios padėties.
 O PID paklaida (ang.: \textit{error}) yra skirtumas tarp matuojamo kintamojo (kampo nuo horizontalios pozicijos) ir piloto (arba autopiloto) nustatytos reikšmės.
 
-PID paklaidą skaičiuojama pagal $q_p$ kvaternioną (žr.: \ref{subskyr-final-quaternion}):
+PID paklaidą skaičiuojama pagal $q_p$ kvaternioną (žr.: \ref{subskyr-final-quaternion})
 
 Iš pradžių apskaičiuojamas aukštis, kuriame yra atitinkamas $X$ arba $Y$ variklis.
 Tam sudaromas kvaternionas žymintis variklio poziciją lokalioje koordinačių sistemoje.
@@ -972,7 +965,7 @@ Ir jo pozicija projektuojama į $Z$ ašį.
 Tuomet apskaičiuojamas kampas:
 
 \begin{equation}
-	\alpha = asin(h_x)
+	\alpha = arcsin(h_x)
 \end{equation}
 
 $\alpha$ jau gali būti naudojamas kaip matuojamas proceso kintamasis pozicijos PID valdikliui, taip pat $\dfrac{d}{dt}\alpha$ naudojamas greičio PID valdikliui, tik diskretizuota versija:
@@ -986,11 +979,11 @@ Verta pastebėti, kad šitoks skaičiavimas teisingai paklaidas skaičiuoja tik 
 PID valdiklio išeitis yra naudojama modifikuoti dabartiniam galios tikslui (ang.: \textit{setpoint}), jeigu tai yra PID valdiklis valdantis pasisukimą pagal $X$ ašį, tuomet antram varikliui galia yra didinama tiek, kokia yra PID išeitis, o trečiam atitinkamai mažinama.
 Analogiškai veikia ir $Y$ ašis.
 
-\subsection{Pasisukimo pagal lokalią $Z$ ašį valdymas}
+\subsection{Pasisukimo pagal lokaliąją $Z$ ašį valdymas}
 
 Ketursraigčių pasisukimas apie $Z$ ašį remiasi tuo, kad iš keturių propelerių du sukasi pagal ir du prieš laikrodžio rodyklę.
 Oro pasipriešinimas sukelia jėgą verčiančią ketursraigtį suktis priešingą kryptimi negu propeleriai.
-Kol bendras jėgų didumas propeleriams besisukantiems pagal laikrodžio rodyklę yra panašus į jėgų didumą propeleriams besisukandiems prieš laikrodžio rodyklę, tol šios jėgos viena kitą kompensuoja ir ketursraigtis nesisuka apie savo lokalią $Z$ ašį.
+Kol bendras jėgų didumas propeleriams besisukantiems pagal laikrodžio rodyklę yra panašus į jėgų didumą propeleriams besisukandiems prieš laikrodžio rodyklę, tol šios jėgos viena kitą kompensuoja ir ketursraigtis nesisuka apie savo lokaliąją $Z$ ašį.
 Pakeitus šį balansą galima priversti ketursraigtį suktis viena ar kita kryptimi, tačiau šia ašimi ketursraigčiai yra kur kas mažiau manevringesni negu $X$ ar $Y$ todėl valdymo algoritmas yra kur kas paprastesnis.
 
 Kaip ir PID kontrolerio atveju, čia skaičiuojama pasisukimo pagal $Z$ ašies paklaida.
@@ -1033,8 +1026,8 @@ Ir skaičiuojamas kampas
 
 \begin{equation}
 	\alpha_z = \begin{cases}
-		acos(x_x), & \text{Jeigu } x_y \geq 0\\
-		-acos(x_x), & \text{Kitu atveju}
+		arccos(x_x), & \text{jeigu } x_y \geq 0\\
+		-arccos(x_x), & \text{kitu atveju}
 	\end{cases}
 \end{equation}
 
@@ -1061,7 +1054,7 @@ Atviro ciklo valdiklis tai yra valdiklis, kuris skaičiuoja valdymo parametrus t
 \subsection{Kampinės pozicijos tikslų lentelė}
 
 Ketursraigčio valdymas atliekamas valdant bendrąją galią bei kampą pagal $X$, $Y$, $Z$ ašis.
-Šiuos duomenis priima PID ir P valdikliai, kaip tikslo kintamuosius, ir nustato atitinkamas variklių galias.
+Šiuos duomenis priima kampinės pozicijos valdikliai, kaip tikslo kintamuosius, ir nustato atitinkamas variklių galias.
 
 Ketursraigčio valdymui sudaroma šių tikslų lentelė ir jie yra siunčiami ketursraigčiui periodiškai.
 
@@ -1069,7 +1062,7 @@ Ketursraigčio valdymui sudaroma šių tikslų lentelė ir jie yra siunčiami ke
 \begin{table}[h]
 \begin{tabular}{ | c | c | c | c | c | }
 	\hline
-	\textbf{galia} & \textbf{kampas $X$} & \textbf{Kampas $Y$} & \textbf{Kampas $Z$} & \textbf{Galiojimo laikas} \\
+	\textbf{galia} & \textbf{kampas $X$} & \textbf{kampas $Y$} & \textbf{kampas $Z$} & \textbf{galiojimo laikas} \\
 	\hline
 	20 \% & 0\degree & 0\degree & 0\degree & 2s \\
 	\hline
@@ -1107,9 +1100,9 @@ TODO\_DISTURBANCE\_EXAMPLE
 
 Ketursraigtis susideda iš trijų esminių fizinių dalių:
 \begin{itemize}
-	\item Kompiuterio -- Formuojančio ir siunčiančio valdymo komandas.
-	\item Retransmitoriaus -- Persiunčiančio valdymo komandas ketursraigčiui.
-	\item Pagrindinės valdymo elektronikos -- Valdančios ketursraigčio skrydį.
+	\item kompiuterio -- formuojančio ir siunčiančio valdymo komandas;
+	\item retransmitoriaus -- persiunčiančio valdymo komandas ketursraigčiui;
+	\item pagrindinės valdymo elektronikos -- valdančios ketursraigčio skrydį.
 \end{itemize}
 
 Kiekviena iš šių dalių turi savo programinę įrangą.
@@ -1118,12 +1111,12 @@ Kiekviena iš šių dalių turi savo programinę įrangą.
 
 Kompiuteriui skirto kliento buvo paruoštos dvi versijos, viena skirta rankiniam ketursraigčio valdymui vairalazde, kita įgyvendinanti aptartą atviro ciklo valdymo algoritmą (žr.: \ref{skyr-autonomus}).
 
-Abiejais atvejais tai yra "`python"' kalba parašyta programėlė, 10Hz dažniu nuskaitydama tikslo vertes (ar iš lentelės ar iš vairalazdės) ir suformuodama UDP paketą (žr.: pav. \ref{pav-ctrl-packet})
+Abiejais atvejais tai yra "`python"' kalba parašyta programa, 10Hz dažniu nuskaitydama tikslo vertes (ar iš lentelės ar iš vairalazdės) ir suformuodama UDP paketą (žr.: pav. \ref{pav-ctrl-packet})
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=1.0\textwidth]{img/ctrl_packet.png}
-\caption{Valdymo paketas siunčiamas valdymo elektronikai. Skaičius apačioje rodo lauko ilgį baitais, viršuje lauko poslinkį nuo paketo pradžios}
+\caption{Valdymo paketas siunčiamas valdymo elektronikai. Skaičius apačioje rodo lauko dydį baitais, viršuje lauko poslinkį nuo paketo pradžios}
 \label{pav-ctrl-packet}
 \end{center}
 \end{figure}
@@ -1133,8 +1126,8 @@ Abiejais atvejais tai yra "`python"' kalba parašyta programėlė, 10Hz dažniu 
 \subsection{Retransmitorius}
 
 Retransmitorius kartu yra ir fizinis įrenginys.
-Tai yra raspberry pi kompiuteris su Linux operacine sistema.
-Šis kompiueris prisijungia prie 3G/4G tinklų ir klausosi UDP paketų siunčiamų jo adresu.
+Tai yra Raspberry Pi kompiuteris su Linux operacine sistema.
+Šis kompiueris sukonfigūruotas prisijungti prie 3G/4G tinklų ir klausosi UDP paketų siunčiamų jo adresu.
 Visą gautą informaciją jis tiesiog persiunčia per USB sąsają valdymo elektronikai.
 
 \subsection{Ketursraigčio pagrindinis valdiklis}
@@ -1170,22 +1163,22 @@ Todėl toliau pateikiama klasių diagrama atitinkanti programinės įrangos stru
 "`Connection"' yra modulis, kuris jungiasi su visomis klasėmis, dėl to atskirai nebuvo pavaizduotas diagramoje.
 Jis turi tik vieną "`Init"' metodą.
 "`Connection"' modulis yra atsakingas už informacijos paėmimą iš USB sąsajos ir jos perdavimą atskiriems moduliams pagal jų ID.
-Komunikacija per USB sąsaja palaikoma pagal serverio-kliento principus.
+Komunikacija per USB sąsają palaikoma pagal serverio-kliento principus.
 Kompiuteris būdamas klientu siunčia užklausas ir sulaukia atsakymo kiekvienai užklausai.
 
-"Connection"' modulis palaiko šias komandas:
+"`Connection"' modulis palaiko šias komandas:
 \begin{enumerate}
-	\item Reset - perkrauna įrenginį;
-	\item Enable device - aktyvuoja modulį;
-	\item Disable device - deaktyvuoja modulį;
-	\item SetConfig - nustato parametro reikšmę;
-	\item ListActive - pateikia aktyvių modulių sąrašą;
-	\item ListSupported - pateikia palaikomų modulių sąrašą;
-	\item ListParam - Pateikia konkretaus akyvaus modulio parametrų sąrašą;
-	\item Output - Iškviečia modulio, įgyvendinančio "`Output"' sąsają metodą "`Output"';
-	\item CurrOutput - Iškviečia modulio, įgyvendinančio "`Output"' sąsają metodą "`CurrOutput"';
-	\item ListChecker - pateikia klaidų žurnalą;
-	\item RequestMeasurement - Iškviečia modulio, įgyvendinančio "`Measure"' sąsają metodą "`RequestMeasurement"';
+	\item \textit{Reset} -- perkrauna įrenginį;
+	\item \textit{Enable device} -- aktyvuoja modulį;
+	\item \textit{Disable device} -- deaktyvuoja modulį;
+	\item \textit{SetConfig} -- nustato parametro reikšmę;
+	\item \textit{ListActive} -- pateikia aktyvių modulių sąrašą;
+	\item \textit{ListSupported} -- pateikia palaikomų modulių sąrašą;
+	\item \textit{ListParam} -- pateikia konkretaus akyvaus modulio parametrų sąrašą;
+	\item \textit{Output} -- iškviečia modulio, įgyvendinančio "`Output"' sąsają metodą "`Output"';
+	\item \textit{CurrOutput} -- iškviečia modulio, įgyvendinančio "`Output"' sąsają metodą "`CurrOutput"';
+	\item \textit{ListChecker} -- pateikia klaidų žurnalą;
+	\item \textit{RequestMeasurement} -- iškviečia modulio, įgyvendinančio "`Measure"' sąsają metodą "`RequestMeasurement"'.
 \end{enumerate}
 
 Visos komandos paklusta baziniam protokolui, kuriame nurodomas komandos ilgis baitais, komandos identifikatorius be argumentai skirti konkrečiai komandai (žr.: pav. \ref{pav-cmd-proto}).
@@ -1193,7 +1186,7 @@ Visos komandos paklusta baziniam protokolui, kuriame nurodomas komandos ilgis ba
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=0.5\textwidth]{img/basePacket.png}
-\caption{Bazinė "`Connection" modulio užklausos paketo struktūra. Skaičius viršuje rodo poslinkį nuo paketo pradžios, apačioje - lauko ilgį.}
+\caption{Bazinė "`Connection"' modulio užklausos paketo struktūra. Skaičius viršuje rodo poslinkį nuo paketo pradžios, apačioje -- lauko ilgį.}
 \label{pav-cmd-proto}
 \end{center}
 \end{figure}
@@ -1208,11 +1201,11 @@ Laukas "`Length"' nurodo viso paketo ilgį (įskaitant ir "`Magic"' bei "`Length
 
 \vumifsectionnonum{Išvados}
 
-Šiame darbe buvo sukurta fizikiniu modeliu besiremianti ketursraigčio skrydžio valdymo sistema, bei algoritmai kuriais ši sistema vadovaujasi.
+Šiame darbe buvo sukurta fizikiniu modeliu besiremianti ketursraigčio skrydžio valdymo sistema, bei algoritmai, kuriais ši sistema vadovaujasi.
 
 
-Darbe buvo išvestas supaprastintas fizikinis ketursraigčio skrydžio modelis, sukurtas kvaternionais grystas algoritmas leidžiantis rasti ketursraigčio kampinę poziciją pasinaudojant nebrangiais MEMS giroskopo bei akselerometro sensoriais.
-Toliau pritaikomi uždaro-ciklo PID algoritmai ketursraigčio kampinės pozicijos valdymui, taip pat pateikiamas atviro-ciklo valdymo algoritmas ketursraigčio pozicijos valdymui.
+Darbe buvo išvestas supaprastintas fizikinis ketursraigčio skrydžio modelis, sukurtas kvaternionais grįstas algoritmas, leidžiantis rasti ketursraigčio kampinę poziciją, pasinaudojant nebrangiais MEMS giroskopo bei akselerometro sensoriais.
+Toliau pritaikomi uždaro-ciklo PID algoritmai ketursraigčio kampinės pozicijos valdymui, taip pat pateikiamas atviro-ciklo valdymo algoritmas ketursraigčio pozicijos kontrolei.
 Visa tai buvo suprogramuota ir išbandyta realaus ketursraigčio skrydžio metu.
 
 
@@ -1222,8 +1215,7 @@ Visa tai buvo suprogramuota ir išbandyta realaus ketursraigčio skrydžio metu.
 Kampinės pozicijos algoritmas parodė gerus rezultatus, net ir sunkiomis darbo sąlygomis, kuomet sensoriai dirbo stiprios vibracijos sąlygomis.
 Sensoriui dirbant normaliomis sąlygomis (vibracijų dažnis žemesnis nei ketvirtadalis matavimų dažnio, ir akseleracijos bei sukimo greičiai neviršyja sensoriaus matavimo ribų), buvo pasiekta mažesnė nei 1\degree paklaida, taip pat nebuvo aptikta jokių užrakinimo (ang.: \textit{gimbal lock}) pozicijų, būdingų panašiems algoritmams besiremiantiems oilerio kampais.
 Tuo tarpu PID algoritmas parodė šiek tiek prastesnius rezultatus.
-Esant mažoms kampinės pozicijos paklaidoms buvo pastebimos lengvas ketursraigčio kampinės padėties svyravimas.
-Taip pat nebuvo rastas tinkamas parametrų rinkinys, kuris tenkintų reakcijos greitį bei sistemos stabilumo reikalavimus.
+Esant mažoms kampinės pozicijos paklaidoms buvo pastebimas lengvas ketursraigčio kampinės padėties svyravimas.
 Atviro ciklo pozicijos valdymas turėjo stiprias paklaidas, ir tiksliam autonominiam skrydžiui palaikyti -- reikėtų ieškoti kito algoritmo.
 
 
@@ -1239,7 +1231,7 @@ Taip pat oro slėgio sensoriai galėtų būti naudojami automatiniam skrydžio a
 Tam irgi turėtų būti sukurtas modelis, bei valdymo algoritmai.
 
 
-
+TODO nuoroda
 \bibliography{paper}
 
 \end{document}
