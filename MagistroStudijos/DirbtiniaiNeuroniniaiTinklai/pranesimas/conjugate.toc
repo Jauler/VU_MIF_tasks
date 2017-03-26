@@ -1,0 +1,19 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\select@language {lithuanian}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.}Sujungtinių gradientų metodas}{2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.1.}Sujungtiniai vektoriai}{2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.2.}F(x) optimizavimas}{2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.3.}F(x) iteracinis optimizavimas}{3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{Polak–Ribière formulė}{3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subparagraph}{Fletcher–Reeves formulė}{3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {1.3.1.}Žemiausio taško juostoje radimas}{4}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{Išvados}{6}

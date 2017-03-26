@@ -1,0 +1,9 @@
+[0] Config.pm:340> INFO - This is Biber 2.4
+[0] Config.pm:343> INFO - Logfile is 'conjugate.blg'
+[52] biber:287> INFO - === Sk Sau  8, 2017, 17:02:05
+[157] Biber.pm:348> INFO - Reading 'conjugate.bcf'
+[328] Biber.pm:742> INFO - Found 0 citekeys in bib section 0
+[328] Utils.pm:147> WARN - The file 'conjugate.bcf' does not contain any citations!
+[336] bbl.pm:519> INFO - Writing 'conjugate.bbl' with encoding 'UTF-8'
+[338] bbl.pm:615> INFO - Output to conjugate.bbl
+[339] Biber.pm:109> INFO - WARNINGS: 1

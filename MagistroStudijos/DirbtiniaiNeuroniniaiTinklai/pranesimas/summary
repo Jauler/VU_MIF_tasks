@@ -1,0 +1,14 @@
+
+0. minimzation is learning
+1. gradient descent comparison
+2. problem of zigzags
+3. f(x)
+4. conjugancy example
+5. iterations, update equation finding step size (n)
+6. how to find new direction vectors
+	* standard method
+	* polak-ribiere formula
+	* fletcher reeves formula
+7. line search algorithm
+8. end
+
