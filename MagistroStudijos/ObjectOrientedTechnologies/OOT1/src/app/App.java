@@ -17,7 +17,7 @@ import vechicles.Vechicle;
  */
 public class App {
 
-    public void Run() throws Exception {
+    public void Run() throws Throwable {
         Factory factory = FactoryHolder.GetFactory();
 
         Location destination = factory.CreateLocation("Vilnius");

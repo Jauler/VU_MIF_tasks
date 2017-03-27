@@ -6,6 +6,7 @@
 package factories;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import locations.Location;
 import roads.Road;
 import vechicles.Vechicle;
@@ -64,7 +65,7 @@ public class ClassAbstractFactory implements Factory {
     }
 
     @Override
-    public Location CreateLocation(String description) throws Exception {
+    public Location CreateLocation(String description) throws Throwable {
         Class[] ctorTypes = new Class[locationCreationArgs.length + 1];
         Object[] ctorArgs = new Object[locationCreationArgs.length + 1];
         ctorTypes[0] = description.getClass();
@@ -75,11 +76,15 @@ public class ClassAbstractFactory implements Factory {
         }
 
         Constructor ctor = GetCompatibleConstructor(locationClass, ctorTypes);
-        return (Location) ctor.newInstance(ctorArgs);
+        try {
+            return (Location) ctor.newInstance(ctorArgs);
+        } catch (InvocationTargetException e) {
+            throw e.getTargetException();
+        }
     }
 
     @Override
-    public Road CreateRoad(Location destination) throws Exception {
+    public Road CreateRoad(Location destination) throws Throwable {
         Class[] ctorTypes = new Class[roadCreationArgs.length + 1];
         Object[] ctorArgs = new Object[roadCreationArgs.length + 1];
         ctorTypes[0] = destination.getClass();
@@ -90,11 +95,15 @@ public class ClassAbstractFactory implements Factory {
         }
 
         Constructor ctor = GetCompatibleConstructor(roadClass, ctorTypes);
-        return (Road) ctor.newInstance(ctorArgs);
+        try {
+            return (Road) ctor.newInstance(ctorArgs);
+        } catch (InvocationTargetException e) {
+            throw e.getTargetException();
+        }
     }
 
     @Override
-    public Vechicle CreateVechicle(String color) throws Exception {
+    public Vechicle CreateVechicle(String color) throws Throwable {
         Class[] ctorTypes = new Class[vechicleCreationArgs.length + 1];
         Object[] ctorArgs = new Object[vechicleCreationArgs.length + 1];
         ctorTypes[0] = color.getClass();
@@ -105,6 +114,11 @@ public class ClassAbstractFactory implements Factory {
         }
 
         Constructor ctor = GetCompatibleConstructor(vechicleClass, ctorTypes);
-        return (Vechicle) ctor.newInstance(ctorArgs);
+        try {
+            return (Vechicle) ctor.newInstance(ctorArgs);
+        } catch (InvocationTargetException e) {
+            throw e.getTargetException();
+        }
+
     }
 }

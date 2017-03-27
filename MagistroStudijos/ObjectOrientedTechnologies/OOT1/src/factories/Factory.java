@@ -15,9 +15,9 @@ import vechicles.Vechicle;
  */
 public interface Factory {
 
-    public Location CreateLocation(String description) throws Exception;
+    public Location CreateLocation(String description) throws Throwable;
     
-    public Road CreateRoad(Location destination) throws Exception;
+    public Road CreateRoad(Location destination) throws Throwable;
 
-    public Vechicle CreateVechicle(String color) throws Exception;
+    public Vechicle CreateVechicle(String color) throws Throwable;
 }

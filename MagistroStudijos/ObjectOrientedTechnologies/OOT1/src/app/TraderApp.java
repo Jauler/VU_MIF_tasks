@@ -5,9 +5,6 @@
  */
 package app;
 
-import factories.Factory;
-import factories.FactoryHolder;
-import locations.City;
 import locations.Location;
 import roads.Road;
 import trader.AbstracterFactory;
@@ -20,7 +17,7 @@ import vechicles.Vechicle;
  */
 public class TraderApp {
 
-    public void Run() throws Exception {
+    public void Run() throws Throwable {
 
         AbstracterFactory factory = AbstracterFactoryHolder.GetFactory(); //TODO: assign
 

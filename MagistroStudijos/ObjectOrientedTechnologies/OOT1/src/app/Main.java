@@ -65,7 +65,7 @@ public class Main {
             traderApp.Run();
             
 
-        } catch (Exception e) {
+        } catch (Throwable e) {
             System.out.println("Error: " + e);
         }
     }

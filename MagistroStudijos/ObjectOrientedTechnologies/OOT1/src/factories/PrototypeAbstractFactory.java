@@ -30,7 +30,7 @@ public class PrototypeAbstractFactory implements Factory {
     }
     
     @Override
-    public Location CreateLocation(String description) throws Exception
+    public Location CreateLocation(String description) throws Throwable
     {
         ClonableLocation location = locationPrototype.Clone();
         location.Init(description);
@@ -38,7 +38,7 @@ public class PrototypeAbstractFactory implements Factory {
     }
     
     @Override
-    public Road CreateRoad(Location destination) throws Exception
+    public Road CreateRoad(Location destination) throws Throwable
     {
         ClonableRoad road = roadPrototype.Clone();
         road.Init(destination);
@@ -46,7 +46,7 @@ public class PrototypeAbstractFactory implements Factory {
     }
 
     @Override
-    public Vechicle CreateVechicle(String color) throws Exception
+    public Vechicle CreateVechicle(String color) throws Throwable
     {
         ClonableVechicle vechicle = vechiclePrototype.Clone();
         vechicle.Init(color);
