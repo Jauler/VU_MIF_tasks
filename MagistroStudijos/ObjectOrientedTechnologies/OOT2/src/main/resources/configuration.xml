@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd"
+        default-init-method="PostConstruct"
+        default-destroy-method="PreDestruct">
+
+    <bean id="CPU" class="com.rytis.oot2.processors.BrainfuckCPU" scope="singleton">
+        <qualifier value="default"/>
+    </bean>
+   
+    <bean id="brainfuckCPU" class="com.rytis.oot2.processors.BrainfuckCPU" scope="singleton" primary="true">
+    </bean>
+    
+    <bean id="fuck4CPU" class="com.rytis.oot2.processors.Fuck4CPU" scope="singleton">
+    </bean>
+        
+    <bean id="memory" class="com.rytis.oot2.memories.RAM" scope="prototype" primary="true">
+        <qualifier value="default"/>
+        <constructor-arg value="1024"/>
+    </bean>
+    
+    <bean id="disk" class="com.rytis.oot2.memories.Disk" scope="prototype">
+        <constructor-arg value="/tmp/disk"/>
+    </bean>
+    
+    <bean id="CPUFactory" class="com.rytis.oot2.processors.CPUFactory" scope="singleton">
+        <constructor-arg value="model1"/>            
+    </bean>
+    
+    
+
+    <bean id="device1" class="com.rytis.oot2.devices.Device1">
+        <constructor-arg ref="brainfuckCPU"/>
+        <constructor-arg ref="memory"/> 
+        <constructor-arg value="4CP"/>            
+    </bean>
+    
+    <bean id="device2" class="com.rytis.oot2.devices.Device2" scope="prototype">
+        <property name="CPU" ref="fuck4CPU"/>
+        <property name="Memory" ref="disk"/>
+        <property name="Program" value="ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffcfcccccccfffffffffffffffffffffffffffffcfcccccccfffffffcfccccccccfcccccccfffcfcccccccufkffffffffffffffffffffffffffffffffffffffffffffcfcccccccufkffffffffffffffffffffffffffffffffcfcccccccfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffcfcccccccufkfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffcfcccccccfffcfcccccccufkffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffcfcccccccufkffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffcfcccccccufkfffffffffffffffffffffffffffffffffcfc"/>
+    </bean>
+    
+    <bean id="device3" class="com.rytis.oot2.devices.Device3" factory-method="CreateInstance">
+        <constructor-arg ref="brainfuckCPU"/>
+        <constructor-arg ref="memory"/> 
+        <constructor-arg value="++++++++[&gt;++++[&gt;++&gt;+++&gt;+++&gt;+&lt;&lt;&lt;&lt;-]&gt;+&gt;+&gt;-&gt;&gt;+[&lt;]&lt;-]&gt;&gt;.&gt;---.+++++++..+++.&gt;&gt;.&lt;-.&lt;.+++.------.--------.&gt;&gt;+.&gt;++"/>            
+    </bean>
+    
+    <bean id="device4" class="com.rytis.oot2.devices.Device1">
+        <constructor-arg ref="CPUFactory"/>
+        <constructor-arg ref="memory"/>
+        <constructor-arg value="++++++++[&gt;++++[&gt;++&gt;+++&gt;+++&gt;+&lt;&lt;&lt;&lt;-]&gt;+&gt;+&gt;-&gt;&gt;+[&lt;]&lt;-]&gt;&gt;.&gt;---.+++++++..+++.&gt;&gt;.&lt;-.&lt;.+++.------.--------.&gt;&gt;+.&gt;++"/>
+    </bean>
+    
+    <bean id="device5" class="com.rytis.oot2.devices.Device5" autowire="byName">
+        <property name="program" value="++++++++[&gt;++++[&gt;++&gt;+++&gt;+++&gt;+&lt;&lt;&lt;&lt;-]&gt;+&gt;+&gt;-&gt;&gt;+[&lt;]&lt;-]&gt;&gt;.&gt;---.+++++++..+++.&gt;&gt;.&lt;-.&lt;.+++.------.--------.&gt;&gt;+.&gt;++"/>
+    </bean>
+    
+    <bean id="device6" class="com.rytis.oot2.devices.Device5" autowire="byType">
+        <property name="program" value="++++++++[&gt;++++[&gt;++&gt;+++&gt;+++&gt;+&lt;&lt;&lt;&lt;-]&gt;+&gt;+&gt;-&gt;&gt;+[&lt;]&lt;-]&gt;&gt;.&gt;---.+++++++..+++.&gt;&gt;.&lt;-.&lt;.+++.------.--------.&gt;&gt;+.&gt;++"/>
+    </bean>
+    
+    <bean id="device7" class="com.rytis.oot2.devices.Device7" autowire="byType">
+        <property name="program" value="++++++++[&gt;++++[&gt;++&gt;+++&gt;+++&gt;+&lt;&lt;&lt;&lt;-]&gt;+&gt;+&gt;-&gt;&gt;+[&lt;]&lt;-]&gt;&gt;.&gt;---.+++++++..+++.&gt;&gt;.&lt;-.&lt;.+++.------.--------.&gt;&gt;+.&gt;++"/>
+    </bean>
+    
+    <bean id="device8" class="com.rytis.oot2.devices.Device8">
+        <lookup-method name="getMemory" bean="memory"/>
+        <constructor-arg ref="brainfuckCPU"/>
+        <constructor-arg value="++++++++[&gt;++++[&gt;++&gt;+++&gt;+++&gt;+&lt;&lt;&lt;&lt;-]&gt;+&gt;+&gt;-&gt;&gt;+[&lt;]&lt;-]&gt;&gt;.&gt;---.+++++++..+++.&gt;&gt;.&lt;-.&lt;.+++.------.--------.&gt;&gt;+.&gt;++"/>
+    </bean>
+</beans>
