@@ -8,7 +8,6 @@ package com.rytis.oot2;
 import com.rytis.oot2.devices.Device;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

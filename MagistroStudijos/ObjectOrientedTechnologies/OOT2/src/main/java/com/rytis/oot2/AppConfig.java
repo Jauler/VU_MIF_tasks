@@ -10,7 +10,7 @@ import com.rytis.oot2.devices.Device1;
 import com.rytis.oot2.devices.Device2;
 import com.rytis.oot2.devices.Device3;
 import com.rytis.oot2.devices.Device5;
-import com.rytis.oot2.devices.Device7;
+import com.rytis.oot2.devices.Device8;
 import com.rytis.oot2.memories.Disk;
 import com.rytis.oot2.memories.Memory;
 import com.rytis.oot2.memories.RAM;
@@ -19,6 +19,7 @@ import com.rytis.oot2.processors.CPU;
 import com.rytis.oot2.processors.CPUFactory;
 import com.rytis.oot2.processors.Fuck4CPU;
 import org.springframework.beans.factory.FactoryBean;
+import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -102,11 +103,30 @@ public class AppConfig {
         device.setProgram("++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++");
         return device;
     }
-    
+
+    @Bean
+    public Device device6(@Qualifier("default")CPU cpu, @Qualifier("default")Memory memory) {
+        Device5 device = new Device5();
+        device.setCPU(cpu);
+        device.setMemory(memory);
+        device.setProgram("++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++");
+        return device;
+    }
+
     @Bean
     public Device device7(@Qualifier("default") CPU cpu, @Qualifier("default") Memory memory) {
         Device1 device = new Device1(cpu, memory, "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++");
         return device;
     }
 
+    @Bean
+    public Device device8(CPU cpu, Memory memory) {
+        Device8 device = new Device8(cpu, "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++") {
+            @Override
+            protected Memory getMemory() throws Throwable {
+                return memory();
+            }
+        };
+        return device;
+    }
 }

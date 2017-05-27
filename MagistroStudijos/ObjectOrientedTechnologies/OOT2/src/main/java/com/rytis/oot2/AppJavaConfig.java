@@ -35,6 +35,8 @@ public class AppJavaConfig {
         device.Boot();
         device = applicationContext.getBean("device7", Device.class);
         device.Boot();
+        device = applicationContext.getBean("device8", Device.class);
+        device.Boot();
 
         ((AbstractApplicationContext) applicationContext).close();
 

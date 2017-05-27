@@ -29,5 +29,5 @@ public abstract class Device8 implements Device {
         System.out.println();
     }
     
-    protected abstract Memory getMemory();
+    protected abstract Memory getMemory() throws Throwable;
 }

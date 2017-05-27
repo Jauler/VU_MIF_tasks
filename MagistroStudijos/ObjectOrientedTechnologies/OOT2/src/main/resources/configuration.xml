@@ -34,7 +34,7 @@
     <bean id="device1" class="com.rytis.oot2.devices.Device1">
         <constructor-arg ref="brainfuckCPU"/>
         <constructor-arg ref="memory"/> 
-        <constructor-arg value="4CP"/>            
+        <constructor-arg value="++++++++[&gt;++++[&gt;++&gt;+++&gt;+++&gt;+&lt;&lt;&lt;&lt;-]&gt;+&gt;+&gt;-&gt;&gt;+[&lt;]&lt;-]&gt;&gt;.&gt;---.+++++++..+++.&gt;&gt;.&lt;-.&lt;.+++.------.--------.&gt;&gt;+.&gt;++"/>            
     </bean>
     
     <bean id="device2" class="com.rytis.oot2.devices.Device2" scope="prototype">
