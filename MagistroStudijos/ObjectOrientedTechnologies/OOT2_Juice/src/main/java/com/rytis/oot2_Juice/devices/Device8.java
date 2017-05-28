@@ -6,6 +6,7 @@
 package com.rytis.oot2_Juice.devices;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.name.Named;
 import com.rytis.oot2_Juice.memories.Memory;
 import com.rytis.oot2_Juice.processors.CPU;
@@ -14,37 +15,24 @@ import com.rytis.oot2_Juice.processors.CPU;
  *
  * @author rytis
  */
-public class Device2 implements Device {
+public abstract class Device8 implements Device {
 
-    private CPU cpu;
-    private Memory memory;
-    private String program;
-    
-    public Device2()
-    {
-        program = "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++";
-    }
+    private final CPU cpu;
+    private final String program;
 
     @Inject
-    public void setCPU(CPU cpu) {
+    public Device8(CPU cpu, String program) {
         this.cpu = cpu;
-    }
-
-    @Inject
-    public void setMemory(Memory memory) {
-        this.memory = memory;
-    }
-    
-    @Inject
-    public void setProgram(@Named("Program")String program)
-    {
         this.program = program;
     }
 
     @Override
     public void Boot() throws Throwable {
-        System.out.println("Booting Device2:");
-        cpu.Execute(program, memory);
+        System.out.println("Booting Device8:");
+        cpu.Execute(program, getMemory());
         System.out.println();
     }
+    
+    protected abstract Memory getMemory() throws Throwable;
 }
+

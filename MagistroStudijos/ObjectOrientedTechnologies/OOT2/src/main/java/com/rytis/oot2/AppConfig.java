@@ -19,8 +19,6 @@ import com.rytis.oot2.processors.CPU;
 import com.rytis.oot2.processors.CPUFactory;
 import com.rytis.oot2.processors.Fuck4CPU;
 import org.springframework.beans.factory.FactoryBean;
-import org.springframework.beans.factory.annotation.Autowire;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -65,7 +63,7 @@ public class AppConfig {
     }
 
     @Bean
-    public FactoryBean<CPU> cpuFactory() {
+    public FactoryBean<CPU> mode1CPU() {
         return new CPUFactory("model1");
     }
 
@@ -92,7 +90,7 @@ public class AppConfig {
 
     @Bean
     public Device device4() throws Throwable {
-        return new Device1(cpuFactory().getObject(), memory(), "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++");
+        return new Device1(mode1CPU().getObject(), memory(), "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++");
     }
 
     @Bean

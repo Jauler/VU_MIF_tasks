@@ -14,36 +14,22 @@ import com.rytis.oot2_Juice.processors.CPU;
  *
  * @author rytis
  */
-public class Device2 implements Device {
+public class Device5 implements Device {
 
-    private CPU cpu;
-    private Memory memory;
-    private String program;
-    
-    public Device2()
-    {
-        program = "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++";
-    }
+    private final CPU cpu;
+    private final Memory memory;
+    private final String program;
 
     @Inject
-    public void setCPU(CPU cpu) {
+    public Device5(CPU cpu, Memory memory, @Named("Program") String program) {
         this.cpu = cpu;
-    }
-
-    @Inject
-    public void setMemory(Memory memory) {
         this.memory = memory;
-    }
-    
-    @Inject
-    public void setProgram(@Named("Program")String program)
-    {
         this.program = program;
     }
 
     @Override
     public void Boot() throws Throwable {
-        System.out.println("Booting Device2:");
+        System.out.println("Booting Device5:");
         cpu.Execute(program, memory);
         System.out.println();
     }
