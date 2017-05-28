@@ -3,15 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package oot3.container;
+package com.rytis.oot3.devices;
 
 /**
  *
  * @author rytis
  */
-public interface Container {
+
+public interface Device {
     
-    public void Register(Class interfaceClass, Class implementationClass);
-    public Object Create(Class interfaceClass, boolean lazy) throws Throwable;
-          
+    public void Boot() throws Throwable;
 }

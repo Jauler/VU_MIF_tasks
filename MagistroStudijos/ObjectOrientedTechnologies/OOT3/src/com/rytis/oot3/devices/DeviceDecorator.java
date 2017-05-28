@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package oot3;
+package com.rytis.oot3.devices;
 
 /**
  *
  * @author rytis
  */
-public class OOT3 {
+public class DeviceDecorator {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    public void PreBoot() {
+        System.out.println("Prebooting");
     }
-    
+
+    public void PostBoot() {
+        System.out.println("postBooting");
+    }
 }
