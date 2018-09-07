@@ -9,6 +9,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Key;
+import com.google.inject.Provider;
 import com.google.inject.Provides;
 import com.google.inject.name.Named;
 import com.google.inject.name.Names;
@@ -19,6 +20,7 @@ import com.rytis.oot2_Juice.devices.Device3;
 import com.rytis.oot2_Juice.devices.Device4;
 import com.rytis.oot2_Juice.devices.Device5;
 import com.rytis.oot2_Juice.devices.Device4Provider;
+import com.rytis.oot2_Juice.devices.Device7;
 import com.rytis.oot2_Juice.devices.Device8;
 import com.rytis.oot2_Juice.memories.Disk;
 import com.rytis.oot2_Juice.memories.Memory;
@@ -40,26 +42,39 @@ public class SimpleApp {
             protected void configure() {
                 bind(CPU.class).to(BrainfuckCPU.class).in(Singleton.class);
                 bind(Memory.class).to(RAM.class);
+                bind(Memory.class).annotatedWith(Names.named("RAM")).to(RAM.class);
                 bind(Memory.class).annotatedWith(Names.named("Disk")).to(Disk.class);
                 bind(String.class).annotatedWith(Names.named("Program")).toInstance("++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++");
                 bind(Device4.class).toProvider(Device4Provider.class);
-                bind(Device5.class).annotatedWith(Names.named("RAM")).to(Device5.class);
-                bind(Device5.class).annotatedWith(Names.named("Disk")).to(Device5.class);
             }
 
-            // Device1 -> JIT provider
-            // Device2 -> JIT provider
+            // Device1 -> JIT binding
+            // Device2 -> JIT binding
             @Provides
             Device3 ProvideDevice3(CPU cpu, Memory memory, @Named("Program") String program) {
                 return Device3.CreateInstance(cpu, memory, program);
             }
+            
+            @Provides
+            @Named("Disk")
+            Device5 ProvideDevice51(CPU cpu, @Named("Disk") Memory memory, @Named("Program") String program)
+            {
+                return new Device5(cpu, memory, program);
+            }
+            
+            @Provides
+            @Named("RAM")
+            Device5 ProvideDevice52(CPU cpu, @Named("RAM") Memory memory, @Named("Program") String program)
+            {
+                return new Device5(cpu, memory, program);
+            }
 
             @Provides
-            Device8 ProvideDevice8(CPU cpu, @Named("Program") String program) {
+            Device8 ProvideDevice8(CPU cpu, @Named("Program") String program, @Named("Disk") Provider<Memory> ramProvider) {
                 Device8 device = new Device8(cpu, "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++") {
                     @Override
                     protected Memory getMemory() throws Throwable {
-                        return new RAM(1024);
+                        return ramProvider.get();
                     }
                 };
                 return device;
@@ -78,6 +93,8 @@ public class SimpleApp {
         device = injector1.getInstance(Key.get(Device5.class, Names.named("RAM")));
         device.Boot();
         device = injector1.getInstance(Key.get(Device5.class, Names.named("Disk")));
+        device.Boot();
+        device = injector1.getInstance(Device7.class);
         device.Boot();
         device = injector1.getInstance(Device8.class);
         device.Boot();

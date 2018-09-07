@@ -11,7 +11,7 @@ package com.rytis.oot3.container;
  */
 public interface Container {
     
-    public void Register(Class interfaceClass, Class implementationClass);
-    public Object Create(Class interfaceClass, boolean lazy) throws Throwable;
+    public<T> void Register(Class<T> interfaceClass, Class<? extends T> implementationClass);
+    public<T> T Create(Class<T> interfaceClass, boolean lazy) throws Throwable;
           
 }
