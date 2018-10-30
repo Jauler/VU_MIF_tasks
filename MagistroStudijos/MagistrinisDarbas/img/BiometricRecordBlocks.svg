@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="16cm" height="2cm" viewBox="348 444 309 29" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g id="Background">
+    <g>
+      <path style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" d="M 357.593 447 C 365.185,447 403.148,447 410.741,447 C 418.333,447 418.333,447 418.333,451 C 418.333,455 418.333,463 418.333,467 C 418.333,471 418.333,471 410.741,471 C 403.148,471 365.185,471 357.593,471 C 350,471 350,471 350,467 C 350,463 350,455 350,451 C 350,447 350,447 357.593,447z"/>
+      <path style="fill: none; stroke-opacity: 1; stroke-width: 0.2; stroke: #000000" d="M 357.593 447 C 365.185,447 403.148,447 410.741,447 C 418.333,447 418.333,447 418.333,451 C 418.333,455 418.333,463 418.333,467 C 418.333,471 418.333,471 410.741,471 C 403.148,471 365.185,471 357.593,471 C 350,471 350,471 350,467 C 350,463 350,455 350,451 C 350,447 350,447 357.593,447"/>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 0.2; stroke: #000000" x1="357.593" y1="471" x2="410.741" y2="471"/>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 0.2; stroke: #000000" x1="418.333" y1="451" x2="418.333" y2="467"/>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 0.2; stroke: #000000" x1="350" y1="451" x2="350" y2="467"/>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 0.2; stroke: #000000" x1="357.593" y1="447" x2="410.741" y2="447"/>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="384.167" y="463">
+        <tspan x="384.167" y="463"></tspan>
+      </text>
+    </g>
+    <g>
+      <ellipse style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="361.058" cy="458.589" rx="4.26538" ry="4.26538"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 0.2; stroke: #000000" cx="361.058" cy="458.589" rx="4.26538" ry="4.26538"/>
+    </g>
+    <g>
+      <ellipse style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="376.032" cy="458.632" rx="4.26538" ry="4.26538"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 0.2; stroke: #000000" cx="376.032" cy="458.632" rx="4.26538" ry="4.26538"/>
+    </g>
+    <g>
+      <ellipse style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="407.365" cy="458.632" rx="4.26538" ry="4.26538"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 0.2; stroke: #000000" cx="407.365" cy="458.632" rx="4.26538" ry="4.26538"/>
+    </g>
+    <g>
+      <ellipse style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="391.365" cy="458.632" rx="4.26538" ry="4.26538"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 0.2; stroke: #000000" cx="391.365" cy="458.632" rx="4.26538" ry="4.26538"/>
+    </g>
+    <g>
+      <path style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" d="M 436.931 446.976 C 444.524,446.976 482.487,446.976 490.08,446.976 C 497.672,446.976 497.672,446.976 497.672,450.976 C 497.672,454.976 497.672,462.976 497.672,466.976 C 497.672,470.976 497.672,470.976 490.08,470.976 C 482.487,470.976 444.524,470.976 436.931,470.976 C 429.339,470.976 429.339,470.976 429.339,466.976 C 429.339,462.976 429.339,454.976 429.339,450.976 C 429.339,446.976 429.339,446.976 436.931,446.976z"/>
+      <path style="fill: none; stroke-opacity: 1; stroke-width: 0.2; stroke: #000000" d="M 436.931 446.976 C 444.524,446.976 482.487,446.976 490.08,446.976 C 497.672,446.976 497.672,446.976 497.672,450.976 C 497.672,454.976 497.672,462.976 497.672,466.976 C 497.672,470.976 497.672,470.976 490.08,470.976 C 482.487,470.976 444.524,470.976 436.931,470.976 C 429.339,470.976 429.339,470.976 429.339,466.976 C 429.339,462.976 429.339,454.976 429.339,450.976 C 429.339,446.976 429.339,446.976 436.931,446.976"/>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 0.2; stroke: #000000" x1="436.931" y1="470.976" x2="490.08" y2="470.976"/>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 0.2; stroke: #000000" x1="497.672" y1="450.976" x2="497.672" y2="466.976"/>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 0.2; stroke: #000000" x1="429.339" y1="450.976" x2="429.339" y2="466.976"/>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 0.2; stroke: #000000" x1="436.931" y1="446.976" x2="490.08" y2="446.976"/>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="463.505" y="462.976">
+        <tspan x="463.505" y="462.976"></tspan>
+      </text>
+    </g>
+    <g>
+      <ellipse style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="440.397" cy="458.565" rx="4.26538" ry="4.26538"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 0.2; stroke: #000000" cx="440.397" cy="458.565" rx="4.26538" ry="4.26538"/>
+    </g>
+    <g>
+      <ellipse style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="455.371" cy="458.608" rx="4.26538" ry="4.26538"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 0.2; stroke: #000000" cx="455.371" cy="458.608" rx="4.26538" ry="4.26538"/>
+    </g>
+    <g>
+      <ellipse style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="486.704" cy="458.608" rx="4.26538" ry="4.26538"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 0.2; stroke: #000000" cx="486.704" cy="458.608" rx="4.26538" ry="4.26538"/>
+    </g>
+    <g>
+      <path style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" d="M 515.264 447.033 C 522.857,447.033 560.82,447.033 568.412,447.033 C 576.005,447.033 576.005,447.033 576.005,451.033 C 576.005,455.033 576.005,463.033 576.005,467.033 C 576.005,471.033 576.005,471.033 568.412,471.033 C 560.82,471.033 522.857,471.033 515.264,471.033 C 507.671,471.033 507.671,471.033 507.671,467.033 C 507.671,463.033 507.671,455.033 507.671,451.033 C 507.671,447.033 507.671,447.033 515.264,447.033z"/>
+      <path style="fill: none; stroke-opacity: 1; stroke-width: 0.2; stroke: #000000" d="M 515.264 447.033 C 522.857,447.033 560.82,447.033 568.412,447.033 C 576.005,447.033 576.005,447.033 576.005,451.033 C 576.005,455.033 576.005,463.033 576.005,467.033 C 576.005,471.033 576.005,471.033 568.412,471.033 C 560.82,471.033 522.857,471.033 515.264,471.033 C 507.671,471.033 507.671,471.033 507.671,467.033 C 507.671,463.033 507.671,455.033 507.671,451.033 C 507.671,447.033 507.671,447.033 515.264,447.033"/>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 0.2; stroke: #000000" x1="515.264" y1="471.033" x2="568.412" y2="471.033"/>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 0.2; stroke: #000000" x1="576.005" y1="451.033" x2="576.005" y2="467.033"/>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 0.2; stroke: #000000" x1="507.671" y1="451.033" x2="507.671" y2="467.033"/>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 0.2; stroke: #000000" x1="515.264" y1="447.033" x2="568.412" y2="447.033"/>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="541.838" y="463.033">
+        <tspan x="541.838" y="463.033"></tspan>
+      </text>
+    </g>
+    <g>
+      <ellipse style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="518.729" cy="458.622" rx="4.26538" ry="4.26538"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 0.2; stroke: #000000" cx="518.729" cy="458.622" rx="4.26538" ry="4.26538"/>
+    </g>
+    <g>
+      <ellipse style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="533.703" cy="458.665" rx="4.26538" ry="4.26538"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 0.2; stroke: #000000" cx="533.703" cy="458.665" rx="4.26538" ry="4.26538"/>
+    </g>
+    <g>
+      <path style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" d="M 593.797 447.1 C 601.39,447.1 639.353,447.1 646.945,447.1 C 654.538,447.1 654.538,447.1 654.538,451.1 C 654.538,455.1 654.538,463.1 654.538,467.1 C 654.538,471.1 654.538,471.1 646.945,471.1 C 639.353,471.1 601.39,471.1 593.797,471.1 C 586.205,471.1 586.205,471.1 586.205,467.1 C 586.205,463.1 586.205,455.1 586.205,451.1 C 586.205,447.1 586.205,447.1 593.797,447.1z"/>
+      <path style="fill: none; stroke-opacity: 1; stroke-width: 0.2; stroke: #000000" d="M 593.797 447.1 C 601.39,447.1 639.353,447.1 646.945,447.1 C 654.538,447.1 654.538,447.1 654.538,451.1 C 654.538,455.1 654.538,463.1 654.538,467.1 C 654.538,471.1 654.538,471.1 646.945,471.1 C 639.353,471.1 601.39,471.1 593.797,471.1 C 586.205,471.1 586.205,471.1 586.205,467.1 C 586.205,463.1 586.205,455.1 586.205,451.1 C 586.205,447.1 586.205,447.1 593.797,447.1"/>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 0.2; stroke: #000000" x1="593.797" y1="471.1" x2="646.945" y2="471.1"/>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 0.2; stroke: #000000" x1="654.538" y1="451.1" x2="654.538" y2="467.1"/>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 0.2; stroke: #000000" x1="586.205" y1="451.1" x2="586.205" y2="467.1"/>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 0.2; stroke: #000000" x1="593.797" y1="447.1" x2="646.945" y2="447.1"/>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="620.371" y="463.1">
+        <tspan x="620.371" y="463.1"></tspan>
+      </text>
+    </g>
+    <g>
+      <ellipse style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="643.57" cy="458.732" rx="4.26537" ry="4.26537"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 0.2; stroke: #000000" cx="643.57" cy="458.732" rx="4.26537" ry="4.26537"/>
+    </g>
+  </g>
+</svg>

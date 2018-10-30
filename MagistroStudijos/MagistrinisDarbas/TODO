@@ -1,0 +1,18 @@
+* įvadas
+	* poreikis biografinėms užklausoms biometrinio identifikavimo sistemose
+		* multitenancy
+	* matcherio reikalavimai/capacity bottleneck`as
+		* matchinimas batch`ais dėl cache`o efektyvumo
+		* duomenys RAM`e dėl greičio.
+		* fiksuotas blokų skaičius
+	* kokie galimi queriai (predikatai)
+		* atributu operatoriai
+		* query kalba
+	* optimizacijos problema
+		* kuo didesnę dalį blokų atmesti
+		* kuo labiau užildyti blokus
+		* kuo daugiau elementų bloke atitiktų vidutinę užklausą
+	* problemos sprendimo planas
+		* Įvertinti blokų užpildymo jautrumą greičiui
+		* išnagrinėti užklausų savybes
+		* surasti kuo optimalesnį būdą sudėlioti elementus į blokus
