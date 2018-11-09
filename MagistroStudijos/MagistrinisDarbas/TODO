@@ -1,18 +1,51 @@
-* įvadas
-	* poreikis biografinėms užklausoms biometrinio identifikavimo sistemose
-		* multitenancy
-	* matcherio reikalavimai/capacity bottleneck`as
-		* matchinimas batch`ais dėl cache`o efektyvumo
-		* duomenys RAM`e dėl greičio.
-		* fiksuotas blokų skaičius
-	* kokie galimi queriai (predikatai)
-		* atributu operatoriai
-		* query kalba
-	* optimizacijos problema
-		* kuo didesnę dalį blokų atmesti
-		* kuo labiau užildyti blokus
-		* kuo daugiau elementų bloke atitiktų vidutinę užklausą
-	* problemos sprendimo planas
-		* Įvertinti blokų užpildymo jautrumą greičiui
-		* išnagrinėti užklausų savybes
-		* surasti kuo optimalesnį būdą sudėlioti elementus į blokus
+[x] įvadas
+	[x] poreikis biografinėms užklausoms biometrinio identifikavimo sistemose
+		[x] multitenancy
+	[x] matcherio reikalavimai/capacity bottleneck`as
+		[x] matchinimas batch`ais dėl cache`o efektyvumo
+		[x] duomenys RAM`e dėl greičio.
+		[x] fiksuotas blokų skaičius
+	[x] kokie galimi queriai (predikatai)
+		[x] atributu operatoriai
+		[x] query kalba
+	[x] optimizacijos problema
+		[x] kuo didesnę dalį blokų atmesti
+		[x] kuo labiau užildyti blokus
+		[x] kuo daugiau elementų bloke atitiktų vidutinę užklausą
+	[ ] introducinti problemą iš matematinės pusės
+		[ ] multi-dimensionality introduction
+		[ ] partitioning
+			[ ] why repartitioning is not feasible
+		[ ] 
+	[x] problemos sprendimo planas
+		[x] Įvertinti blokų užpildymo jautrumą greičiui
+		[x] išnagrinėti užklausų savybes
+		[x] surasti kuo optimalesnį būdą sudėlioti elementus į blokus
+
+
+[ ] query analysis
+	[ ] cases with dependant attributes
+	[ ] cases with independant attributes
+
+[ ] block size / performance analysis
+	[ ] empirical performance-testing setup
+	[ ] results
+
+[ ] memory management, requirements relaxation for blocks fulfillment
+	[ ] explanation of suggested solution
+	[ ] empirical performance analysis of new method
+		[ ] empty-query-processing explanation for memory management overhead experiments
+		[ ] performance testing setup
+		[ ] results
+
+[ ] prefix-search
+
+[ ] experimental prefix-search results
+
+[ ] k-d tree
+
+[ ] experimental k-d tree results
+
+[ ] conclusion
+
+
