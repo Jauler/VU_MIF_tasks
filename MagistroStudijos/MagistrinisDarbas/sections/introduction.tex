@@ -22,6 +22,9 @@ Biografinis atributas tai yra papildomas duomuo (pvz.: žmogaus amžius, lytis, 
 \item simbolių eilutės (ang.: string) tipo
 \end{itemize}
 
+Esant poreikiui šis sąrašas gali būti plečiamas, tačiau darbo metu bus daroma prielaida, kad visi to pačio tipo atributai gali būti palyginami tarpusavyje.
+Bei visų galimų konkretaus tipo reikšmių aibė turi griežtą tvarką (ang.: {\it totally ordered}) palyginimo funkcijos atžvilgiu.
+
 Su biografine užklausa yra siejamas predikatas, pagal kurį yra įvertinama kiekvieno biometrinio įrašo biografinių atributų aibė siekant sudaryti įrašų poaibį palyginimams.
 
 \begin{table}[H]\footnotesize
@@ -42,7 +45,7 @@ Su biografine užklausa yra siejamas predikatas, pagal kurį yra įvertinama kie
 	\label{tab:exampleGallery}
 \end{table}
 
-% Biographic schema
+% Kas yra biografinė schema?
 Visų biografinių atributų prasmių aibė vadinama {\it biografine schema}. Pavyzdžiui \ref{tab:exampleGallery} lentelę atitinkanti biografinė schema būtų \{„Piršto atspaudo pozicija“, „Subjekto amžius“\}.
 
 \paragraph{Biografinių užklausų predikatai}
@@ -99,10 +102,6 @@ Keletas užklausos predikato aprašymo pavyzdžių pateikiama \ref{tab:queryExam
 	\label{tab:queryExamples}
 \end{table}
 
-% maybe some more comments?
-
-
-
 % Sistemos greičio svarba, paminim, kad dirbsim su Neurotechnology akseleratorium
 \paragraph{Sistemos greitis}
 
@@ -129,6 +128,7 @@ Keletas svarbių biometrinių įrašų blokų savybių:
 \item Maksimalus blokų kiekis yra ribotas ir apsrendžiamas techninės įrangos.
 \end{itemize}
 
+% Matchinam blokais
 Taip pat svarbu pastebėti tai, kad atliekant biometrinę identifikaciją biometrinio palyginimo operacijos yra vykdomos įrašų blokams, o ne pavieniams įrašams.
 Todėl net jeigu bloke yra įrašų, kurie neatitinka biografinės užklausos predikato, su jais vistiek yra vykdomas biometrinis palyginimas, tačiau jie neįtraukiami į galutinius rezultatus.
 
@@ -139,6 +139,27 @@ Todėl net jeigu bloke yra įrašų, kurie neatitinka biografinės užklausos pr
 %\label{img:exampleGallery}
 %\end{center}
 %\end{figure}
+
+% Aprašom problemą, kaip daugiamatės erdvės partitioningą.
+\paragraph{Duomenų reprezentacija}
+
+Šiame darbe biometriniai įrašai modeliuojami kaip taškai daugiamatėje erdvėje panašiai kaip \cite{marcel2000modeling} aptariamas „Data cube“ (žr.: \ref{img:multidimensionalGallery} pav.).
+Kiekviena erdvės dimensija siejama su konkretaus atributo reikšmių aibe, atsižvelgiant į visų galimų atributo reikšmių aibės griežtą tvarką (ang.: {\it total order}) palyginimo funkcijos atžvilgiu.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.75\textwidth]{img/MultidimensionalGallery.png}
+\caption{Pavyzdiniai biometriniai įrašai dvimatėje atributų reikšmių erdvėje.}
+\label{img:multidimensionalGallery}
+\end{center}
+\end{figure}
+
+% biometrinių įrašų blokai - particijos daugiamatėje erdvėje
+Biometriniai įrašai saugomi tik viename iš ankščiau minėtų biometrinių įrašų blokų, todėl šiuos blokus patogu analizuoti kaip daugiamatės erdvės particijas.
+Verta paminėti, kad particija nebūtinai turi būti sulygiuota pagal erdvės ašis (nebūtinai turi būti stačiakampis dvimatės erdvės atveju ar gretasienis trimatėje erdvėje).
+Taip pat, viena particija gali susidėti iš daugiau nei vienoos, nebūtinai jungios dalies.
+Toks modelis nepraranda bendrumo ir leidžia atvaizduoti bet kokį biometrinių įrašų paskirstymą į blokus.
+
 
 \paragraph{Darbo tikslas}
 

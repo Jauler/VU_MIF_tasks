@@ -16,7 +16,7 @@
 		[ ] multi-dimensionality introduction
 		[ ] partitioning
 			[ ] why repartitioning is not feasible
-		[ ] 
+		[ ] s/reprezentacija/<lietuviskas zodis>/
 	[x] problemos sprendimo planas
 		[x] Įvertinti blokų užpildymo jautrumą greičiui
 		[x] išnagrinėti užklausų savybes
@@ -37,6 +37,8 @@
 		[ ] empty-query-processing explanation for memory management overhead experiments
 		[ ] performance testing setup
 		[ ] results
+
+[ ] query representation, syntax-tree, bounding box intersections
 
 [ ] prefix-search
 
