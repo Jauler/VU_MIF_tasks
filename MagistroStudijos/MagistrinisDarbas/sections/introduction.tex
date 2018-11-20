@@ -19,20 +19,21 @@ Su kiekvienu biometriniu įrašu siejama aibė biografinių atributų (žr.: \re
 Biografinis atributas tai yra papildomas duomuo (pvz.: žmogaus amžius, lytis, šalis kurioje gyvena ir pan.), kuris gali būti:
 \begin{itemize}
 \item skaitinio tipo
-\item simbolių eilutės (ang.: string) tipo
+\item simbolių eilutės (ang.: {\it string}) tipo
 \end{itemize}
 
 Esant poreikiui šis sąrašas gali būti plečiamas, tačiau darbo metu bus daroma prielaida, kad visi to pačio tipo atributai gali būti palyginami tarpusavyje.
 Bei visų galimų konkretaus tipo reikšmių aibė turi griežtą tvarką (ang.: {\it totally ordered}) palyginimo funkcijos atžvilgiu.
 
-Su biografine užklausa yra siejamas predikatas, pagal kurį yra įvertinama kiekvieno biometrinio įrašo biografinių atributų aibė siekant sudaryti įrašų poaibį palyginimams.
+Taip pat su biografine užklausa yra siejamas predikatas, pagal kurį yra įvertinama kiekvieno biometrinio įrašo biografinių atributų aibė siekant sudaryti įrašų poaibį palyginimams.
+Šis poaibis ir yra tas, su kuriuo bus atliekamas biometrinis palyginimas.
 
 \begin{table}[H]\footnotesize
 	\centering
 	\begin{tabular}{|c|c|c|c|}
 		\hline
 		\multirow{2}{*}{{\bf Subjektas}} & \multirow{2}{*}{{\bf Biometriniai duomenys}} & \multicolumn{2}{|c|}{{\bf Biografiniai atributai}}  \\ \cline{3-4}
-		& & {\bf Piršto atspaudo pozicija} & {\bf Subjekto amžius} \\
+		& & {\bf Piršto atspaudo pozicija} & {\bf Amžius} \\
 		\hline
 		Jonas  & biometrinis įrašas & Kairys nykštys  & 25 \\ \cline{2-4}
 		       & biometrinis įrašas & Dešinys nykštys & 25 \\
@@ -46,7 +47,7 @@ Su biografine užklausa yra siejamas predikatas, pagal kurį yra įvertinama kie
 \end{table}
 
 % Kas yra biografinė schema?
-Visų biografinių atributų prasmių aibė vadinama {\it biografine schema}. Pavyzdžiui \ref{tab:exampleGallery} lentelę atitinkanti biografinė schema būtų \{„Piršto atspaudo pozicija“, „Subjekto amžius“\}.
+Visų biografinių atributų prasmių aibė vadinama {\it biografine schema}. Pavyzdžiui \ref{tab:exampleGallery} lentelę atitinkanti biografinė schema būtų \{„Piršto atspaudo pozicija“, „Amžius“\}.
 
 \paragraph{Biografinių užklausų predikatai}
 
@@ -148,18 +149,50 @@ Kiekviena erdvės dimensija siejama su konkretaus atributo reikšmių aibe, atsi
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=0.75\textwidth]{img/MultidimensionalGallery.png}
+\includegraphics[width=0.5\textwidth]{img/MultidimensionalGallery.png}
 \caption{Pavyzdiniai biometriniai įrašai dvimatėje atributų reikšmių erdvėje.}
 \label{img:multidimensionalGallery}
 \end{center}
 \end{figure}
 
-% biometrinių įrašų blokai - particijos daugiamatėje erdvėje
-Biometriniai įrašai saugomi tik viename iš ankščiau minėtų biometrinių įrašų blokų, todėl šiuos blokus patogu analizuoti kaip daugiamatės erdvės particijas.
-Verta paminėti, kad particija nebūtinai turi būti sulygiuota pagal erdvės ašis (nebūtinai turi būti stačiakampis dvimatės erdvės atveju ar gretasienis trimatėje erdvėje).
-Taip pat, viena particija gali susidėti iš daugiau nei vienoos, nebūtinai jungios dalies.
+% Biometrinių įrašų blokai - particijos daugiamatėje erdvėje
+Biometriniai įrašai saugomi tik viename iš ankščiau minėtų biometrinių įrašų blokų, todėl šiuos blokus patogu analizuoti kaip daugiamatės erdvės particijas (žr.: \ref{img:multidimensionalPartitionedGallery} pav.).
+Verta paminėti, kad particija nebūtinai turi būti sulygiuota pagal erdvės ašis (nebūtinai turi būti stačiakampis dvimatės erdvės atveju ar gretasienis trimatėje erdvėje...).
+Taip pat, viena particija gali susidėti iš daugiau nei vienos, nebūtinai jungios dalies.
 Toks modelis nepraranda bendrumo ir leidžia atvaizduoti bet kokį biometrinių įrašų paskirstymą į blokus.
 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.5\textwidth]{img/MultidimensionalPartitionedGallery.png}
+\caption{Pavyzdinis skirstymas particijomis. P1-P3 - particijos atitinkančios biometrinių įrašų blokus}
+\label{img:multidimensionalPartitionedGallery}
+\end{center}
+\end{figure}
+
+Tokio modelio kontekste biometrinių įrašų pridėjimas į sistemą susideda iš tokių poproblemių:
+\begin{enumerate}
+\item Parinkimo į kurią particiją bus įdedamas įrašas.
+\item Įrašų kiekiui viršyjus konstantinę ribą, particijos skėlimo į naujas particijas.
+\end{enumerate}
+
+Verta pastebėti, kad sistema yra pritaikyta dirbti su dešimtimis ar šimtais milijonų įrašų, tad įrašų pridėjimo, bei biometriniam palyginimui skirto poaibio atrinkimo operacijos negali atsižvelgti į visus sistemoje esančius įrašus.
+Tai apriboja optimizacijas, kurias galima atlikti skirstant įrašus į blokus.
+Taip pat, įrašų perskirstymas į blokus, gali vykti nebent iteratyviai.
+
+\paragraph{Užklausų reprezentacija}
+
+Biografinės užklausos aprašomos \ref{tab:queryBNF} lentelėje gali apibrėžti bet kokį atributų reikšmių poaibį ir atitinkamai -- bet kokį biometrinių įrašų poabį.
+Neprarandant bendrumo šiuos poaibius nagrinėsime kaip vieną ar daugiau uždarų plotų atributų erdvėje -- poerdvių (žr.: \ref{img:multidimensionalPartitionedGalleryWithQuery} pav.). %todo: citata
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.5\textwidth]{img/MultidimensionalPartitionedGalleryWithQuery.png}
+\caption{Pavyzdinė užklausa, kurios metu būtų palyginimi P1 ir P3 blokai.}
+\label{img:multidimensionalPartitionedGalleryWithQuery}
+\end{center}
+\end{figure}
+
+O ankščiau apibūdintas predikatas bus išreiškiamas kaip funkcija, kuri nustatanto ar biometrinių įrašų blokas persidengia su nors vienu iš užklausos poerdvių.
 
 \paragraph{Darbo tikslas}
 

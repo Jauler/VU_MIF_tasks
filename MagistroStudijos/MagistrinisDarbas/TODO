@@ -13,10 +13,11 @@
 		[x] kuo labiau užildyti blokus
 		[x] kuo daugiau elementų bloke atitiktų vidutinę užklausą
 	[ ] introducinti problemą iš matematinės pusės
-		[ ] multi-dimensionality introduction
+		[x] multi-dimensionality introduction
 		[ ] partitioning
 			[ ] why repartitioning is not feasible
 		[ ] s/reprezentacija/<lietuviskas zodis>/
+		[ ] citata dėl query reprezentacijos erdvėje
 	[x] problemos sprendimo planas
 		[x] Įvertinti blokų užpildymo jautrumą greičiui
 		[x] išnagrinėti užklausų savybes
