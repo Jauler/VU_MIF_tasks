@@ -150,16 +150,18 @@ Kiekviena erdvės dimensija siejama su konkretaus atributo reikšmių aibe, atsi
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=0.5\textwidth]{img/MultidimensionalGallery.png}
-\caption{Pavyzdiniai biometriniai įrašai dvimatėje atributų reikšmių erdvėje.}
+\caption{Pavyzdiniai biometriniai įrašai dviejų atributų (dvimatėje) reikšmių erdvėje.}
 \label{img:multidimensionalGallery}
 \end{center}
 \end{figure}
 
 % Biometrinių įrašų blokai - particijos daugiamatėje erdvėje
+\paragraph{Įrašų blokai daugiamatėje erdvėje}
+
 Biometriniai įrašai saugomi tik viename iš ankščiau minėtų biometrinių įrašų blokų, todėl šiuos blokus patogu analizuoti kaip daugiamatės erdvės particijas (žr.: \ref{img:multidimensionalPartitionedGallery} pav.).
 Verta paminėti, kad particija nebūtinai turi būti sulygiuota pagal erdvės ašis (nebūtinai turi būti stačiakampis dvimatės erdvės atveju ar gretasienis trimatėje erdvėje...).
 Taip pat, viena particija gali susidėti iš daugiau nei vienos, nebūtinai jungios dalies.
-Toks modelis nepraranda bendrumo ir leidžia atvaizduoti bet kokį biometrinių įrašų paskirstymą į blokus.
+Toks modelis nepraranda bendrumo ir leidžia atvaizduoti bet kokį biometrinių įrašų paskirstymą į blokus su bet kiek atributų.
 
 \begin{figure}[H]
 \begin{center}
@@ -169,20 +171,22 @@ Toks modelis nepraranda bendrumo ir leidžia atvaizduoti bet kokį biometrinių 
 \end{center}
 \end{figure}
 
-Tokio modelio kontekste biometrinių įrašų pridėjimas į sistemą susideda iš tokių poproblemių:
+Tokio modelio kontekste biometrinių įrašų pridėjimas į sistemą susideda iš šių poproblemių:
 \begin{enumerate}
 \item Parinkimo į kurią particiją bus įdedamas įrašas.
 \item Įrašų kiekiui viršyjus konstantinę ribą, particijos skėlimo į naujas particijas.
 \end{enumerate}
 
-Verta pastebėti, kad sistema yra pritaikyta dirbti su dešimtimis ar šimtais milijonų įrašų, tad įrašų pridėjimo, bei biometriniam palyginimui skirto poaibio atrinkimo operacijos negali atsižvelgti į visus sistemoje esančius įrašus.
+Verta pastebėti, kad sistema yra pritaikyta dirbti su didelais kiekiais įrašų, tad jų pridėjimo, bei biometriniam palyginimui skirto poaibio atrinkimo operacijos negali atsižvelgti į visus sistemoje esančius įrašus.
 Tai apriboja optimizacijas, kurias galima atlikti skirstant įrašus į blokus.
 Taip pat, įrašų perskirstymas į blokus, gali vykti nebent iteratyviai.
+
 
 \paragraph{Užklausų reprezentacija}
 
 Biografinės užklausos aprašomos \ref{tab:queryBNF} lentelėje gali apibrėžti bet kokį atributų reikšmių poaibį ir atitinkamai -- bet kokį biometrinių įrašų poabį.
 Neprarandant bendrumo šiuos poaibius nagrinėsime kaip vieną ar daugiau uždarų plotų atributų erdvėje -- poerdvių (žr.: \ref{img:multidimensionalPartitionedGalleryWithQuery} pav.). %todo: citata
+O ankščiau apibūdintas predikatas bus išreiškiamas kaip funkcija, kuri nustato ar biometrinių įrašų blokas persidengia su nors vienu iš užklausos poerdvių.
 
 \begin{figure}[H]
 \begin{center}
@@ -192,7 +196,14 @@ Neprarandant bendrumo šiuos poaibius nagrinėsime kaip vieną ar daugiau uždar
 \end{center}
 \end{figure}
 
-O ankščiau apibūdintas predikatas bus išreiškiamas kaip funkcija, kuri nustatanto ar biometrinių įrašų blokas persidengia su nors vienu iš užklausos poerdvių.
+Bendruoju atveju, kuo užklausos poerdviai geriau atitinka biometrinių įrašų particijas, tuo mažiau atliekama nereikalingų biometrinių palyginimų.
+
+\paragraph{Blokų užpildymo problema}
+
+Biometrinių įrašų bloko dydis yra apribotas iš viršutinės pusės ir konkretaus bloko įrašų kiekiui pasiekus tą ribą, blokas yra skeliamas į du naujus.
+Tai reiškia, kad priklausomai nuo metodo, pagal kurį įrašai yra skirstomi į blokus, blokai yra užpildyti nuo 50\% iki 100\%.
+Verta pastebėti, kad neužpildytos vietos blokuose bereikalo švaisto atmintį ir blokiausiu atveju, kai užpildymas yra 50\% -- išvaistoma pusė blokam skirtos atminties.
+Todėl šiame darbe būtina atsižvelgti į šią problemą.
 
 \paragraph{Darbo tikslas}
 
@@ -200,20 +211,19 @@ Verta pastebėti, kad UAB „Neurotechnology“ biometrinės identifikavimo sist
 Tačiau darbo greitis gali kisti drastiškai.
 Todėl šiam darbui keliami tikslai:
 \begin{enumerate}
-	\item Surasti efektyvų metodą priskirti biometrinius įrašus blokams, minimizuojant vidutinį nereikalingų biometrinių palyginimų skaičių.
-	\item Surasti efektyvų metodą atrinkti blokus, kurie turi biometrinių įrašų atitinkančių biografinės užklausos predikatą.
+	\item Apibrėžti kaip bus vertinami biometrinių įrašų skirstymo į blokus metodai.
+	\item Įvertinti metodą paremtą „Prefix search“ įrašų skirstymui į blokus.
+	\item Įvertinti metodą paremtą „K-d tree“ įrašų skirstymui į blokus.
 \end{enumerate}
 
-Nereikalingų palyginimų skaičius bus vertinamas pagal šiuos matavimus:
-\begin{itemize}
-	\item Dalis visų blokų, kurie turi nors vieną biografinės užklausos predikatą atitinkantį įrašą. (siekiama minimizuoti).
-	\item Dalis Bloko įrašų, kuri atitinka biografinės užklausos predikatą. (siekiama maksimizuoti).
-	\item Tuščias vietas esančias blokuose. (siekiama minimizuoti).
-\end{itemize}
+Darbą planuojama skirstyti į tokius uždavinius:
 
-Šio darbo metu bus analizuojama kokiomis savybėmis pasižymi dažniausiai pasitaikančios biografinės užklausos.
-Vėliau bus vertinama kokią įtaką darbo greičiui turi blokų užpildymas, bei blokų įrašų atitikimas vidutiniam predikatui.
-Tuomet bus ieškoma metodo, padedančio optimizuoti sistemos darbą pagal ankščiau įvardintus kriterijus.
-
+\begin{enumerate}
+	\item Pasiruošti testavimo duomenis, išanalizuoti tipinių užklausų statistines savybes.
+	\item Empiriškai įvertinti sistemos greičio priklausomybę nuo bloko dydžio.
+	\item Surasti sprendimą blokų užpildymo problemai.
+	\item Apibrėžti bei įvertinti metodą paremtą „Prefix search“ biometrinių įrašui skirstymui į blokus.
+	\item Apibrėžti bei įvertinti metodą paremtą „K-d tree“ biometrinių įrašui skirstymui į blokus.
+\end{enumerate}
 
 
