@@ -14,12 +14,14 @@
 		[x] kuo daugiau elementų bloke atitiktų vidutinę užklausą
 	[ ] introducinti problemą iš matematinės pusės
 		[x] multi-dimensionality introduction
-		[ ] partitioning
-			[ ] why repartitioning is not feasible
+		[x] partitioning
+			[x] why repartitioning is not feasible
 		[ ] s/reprezentacija/<lietuviskas zodis>/
 		[ ] citata dėl query reprezentacijos erdvėje
+		[x] Kiekviena erdvės dimensija siejama su konkretaus atributo reikšmių aibe - elaborate more
+		[ ] darbo tikslai ir uždaviniai - elaborate more
 	[x] problemos sprendimo planas
-		[x] Įvertinti blokų užpildymo jautrumą greičiui
+		[x] Įvertinti blokų dydžio jautrumą greičiui
 		[x] išnagrinėti užklausų savybes
 		[x] surasti kuo optimalesnį būdą sudėlioti elementus į blokus
 
@@ -27,6 +29,7 @@
 [ ] query analysis
 	[ ] cases with dependant attributes
 	[ ] cases with independant attributes
+	[ ] no math in query languages allows to use orthogonal axis only
 
 [ ] block size / performance analysis
 	[ ] empirical performance-testing setup
