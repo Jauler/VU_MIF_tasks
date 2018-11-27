@@ -145,7 +145,11 @@ Todėl net jeigu bloke yra įrašų, kurie neatitinka biografinės užklausos pr
 \paragraph{Duomenų reprezentacija}
 
 Šiame darbe biometriniai įrašai modeliuojami kaip taškai daugiamatėje erdvėje panašiai kaip \cite{marcel2000modeling} aptariamas „Data cube“ (žr.: \ref{img:multidimensionalGallery} pav.).
-Kiekviena erdvės dimensija siejama su konkretaus atributo reikšmių aibe, atsižvelgiant į visų galimų atributo reikšmių aibės griežtą tvarką (ang.: {\it total order}) palyginimo funkcijos atžvilgiu.
+Kiekviena erdvės ašis siejama su vieno atributo reikšmių aibe.
+Daroma prielaida, kad kiekvienam atributo tipui yra apibrėžta palyginimo funkcija, kuri apibrėžia griežtą reikšmių tvarką (ang.: {\it total order}).
+Pavyzdžiui simbolių eilutės tipo atributam galima palyginimo funcija būtų tokia, kuri palygina atributus leksikografiškai.
+Skaitiniai atributai gali būti rūšiuojami natūralia numerine tvarka.
+Atributų reikšmės pagal šią tvarką yra priskiriamos ašims (žr.: \ref{img:multidimensionalGallery} pav.).
 
 \begin{figure}[H]
 \begin{center}
