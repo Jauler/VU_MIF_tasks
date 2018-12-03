@@ -20,6 +20,7 @@
 		[ ] citata dėl query reprezentacijos erdvėje
 		[x] Kiekviena erdvės dimensija siejama su konkretaus atributo reikšmių aibe - elaborate more
 		[ ] darbo tikslai ir uždaviniai - elaborate more
+		[ ] reference`ai į skyrius vietoj hardcoded stuff
 	[x] problemos sprendimo planas
 		[x] Įvertinti blokų dydžio jautrumą greičiui
 		[x] išnagrinėti užklausų savybes

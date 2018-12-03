@@ -211,23 +211,34 @@ Todėl šiame darbe būtina atsižvelgti į šią problemą.
 
 \paragraph{Darbo tikslas}
 
-Verta pastebėti, kad UAB „Neurotechnology“ biometrinės identifikavimo sistemos darbo korektiškumas nepriklauso nuo to kuriems blokams yra priskirami biometriniai įrašai.
-Tačiau darbo greitis gali kisti drastiškai.
-Todėl šiam darbui keliami tikslai:
-\begin{enumerate}
-	\item Apibrėžti kaip bus vertinami biometrinių įrašų skirstymo į blokus metodai.
-	\item Įvertinti metodą paremtą „Prefix search“ įrašų skirstymu į blokus.
-	\item Įvertinti metodą paremtą „K-d tree“ įrašų skirstymu į blokus.
-\end{enumerate}
+Šio darbo metu siekiama aprašyti bei įvertinti keletos biometrinių įrašų skaidymo į blokus metodų poveikį bendram UAB „Neurotechnolgy“ sistemos darbo greičiui bei palyginti juos su nemodifikuota sistema.
+Įvertinimas remiasi sąlyga, kad yra naudojamos biografinės užklausos realistiškai atspindinčios užklausas pasitaikančias realiose instaliacijose.
+Darbo metu bus nagrinėjami du metodai:
+\begin{itemize}
+		\item Metodas paremtas priešdėliniu rūšavimu, kuris nuo šiol bus vadinamas „Prefix search“.
+		\item Metodas paremtas daugiamačiu „K-d medžiu“.
+\end{itemize}
 
 Darbą planuojama skirstyti į tokius uždavinius:
 
 \begin{enumerate}
 	\item Pasiruošti testavimo duomenis, išanalizuoti tipinių užklausų statistines savybes.
-	\item Empiriškai įvertinti sistemos greičio priklausomybę nuo bloko dydžio.
+	\item Empiriškai įvertinti sistemos greičio priklausomybę nuo maksimalaus biometrinių įrašų bloko dydžio.
 	\item Surasti sprendimą blokų užpildymo problemai.
 	\item Apibrėžti bei įvertinti metodą paremtą „Prefix search“ biometrinių įrašui skirstymu į blokus.
-	\item Apibrėžti bei įvertinti metodą paremtą „K-d tree“ biometrinių įrašui skirstymu į blokus.
+	\item Apibrėžti bei įvertinti metodą paremtą „K-d medžiu“ biometrinių įrašui skirstymu į blokus.
 \end{enumerate}
+
+Šis darbas struktūrizuojamas taip:
+I skyriuje apžvelgiami kiti panašūs darbai, aptariama kas jau buvo daroma, kuo remiasi šis darbas.
+II skyriuje nagrinėjamos užklausos.
+Kokios savybės išplaukia iš apibrėžtos užklausų gramatikos, kokiomis statistinėmis savybėmis pasižymi UAB „Neurotechnolgy“ klientų dažniausiai pateikiamos užklausos.
+Aprašoma kaip bus palyginami skirstymo į blokus metodai, bei aprašomas testavimo duomenų rinkinys.
+III skyriuje empiriškai nustatoma maksimalaus bloko dydžio poveikis sistemos darbo greičiui.
+Parenkamas bloko dydis, kuris bus naudojamas „Prefix search“ ir „K-d medžio“ metodų įvertinimui.
+IV skyriuje aptariama blokų užpildymo problema, pateikiamas galimas sprendimas remiantis virtualios atminties principais.
+V skyriuje apibrėžiamas „Prefix search“ metodas atributų skirstymui į blokus, įvertinamos jo efektyvumas.
+VI Skyriuje apibrėžiamas „K-d medžiu“ paremtas metodas atributų skirstymui į blokus, įvertinamas jo efektyvumas.
+Ir galiausiai aprašomi pasiekti rezultatai, ateities darbų kryptys bei pateikiamos išvados.
 
 
