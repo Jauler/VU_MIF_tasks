@@ -7,54 +7,126 @@
 \sectionnonum{Įvadas}
 
 % Kas yra biometrines identifikavimo sistemos
-Kiekvieno žmogaus kūnas turi aibę savybių, kurios gali unikaliai jį identifikuoti (pvz.: pirštų atspaudai).
-Šių savybių egzistavimas davė pagrindą {\it biometrinėms identifikavimo sistemoms}.
-Biometrinio identifikavimo sistema yra tokia sistema, kuri geba palyginti kandidato biometrinius įrašus su aibe kitų biometrinių įrašų ir atrinkti kurie iš jų galėtų priklausyti tam pačiam žmogui.
-Tokiose sistemose yra poreikis gebėti atrinkti poaibį visų žinomų biometrinių įrašų, su kuriais būtų atliekamas biometrinis palyginimas.
+Kiekvieno žmogaus kūnas turi aibę požymių, kurie gali unikaliai jį identifikuoti (pvz.: pirštų atspaudai).
+Šių požymių egzistavimas davė pagrindą {\it biometrinėms identifikavimo sistemoms}.
+Šių sistemų paskirtis yra tarp visų užregistruotų žmonių surasti tą, kuriam priklauso duotieji biometriniai požymiai.
+Šiame darbe nagrinėjamoje sistemoje \cite{NeurotechnologyMegamatcherAccelerator} sąrašas žmonių, tarp kurių yra vykdoma paieška, yra papildomai atrenkamas pagal vartotojo pateiktą užklausą.
+Ši užklausa sąrašą paieškai sudaro pagal papildomus, ne biometrinius, duomenis (pvz.: amžių, lytį, gyvenamąją vietą) priskirtus kiekvienam sistemoje užregistruotam žmogui.
+Tokios užklausos vadinamos {\it biografinėmis užklausomis}.
 
-% Kas yra biografinė užklausa ir biografiniai atributai?
-Šio poaibio sudarymas bei biometrinių įrašų palyginimas vadinamas {\it biografinių užklausų apdorojimu}.
-Atrinkimas yra vykdomas pagal {\it biografinius atributus}.
-Su kiekvienu biometriniu įrašu siejama aibė biografinių atributų (žr.: \ref{tab:exampleGallery} lentelę).
-Biografinis atributas tai yra papildomas duomuo (pvz.: žmogaus amžius, lytis, šalis kurioje gyvena ir pan.), kuris gali būti:
-\begin{itemize}
-\item skaitinio tipo
-\item simbolių eilutės (ang.: {\it string}) tipo
-\end{itemize}
-
-Esant poreikiui šis sąrašas gali būti plečiamas, tačiau darbo metu bus daroma prielaida, kad visi to pačio tipo atributai gali būti palyginami tarpusavyje.
-Bei visų galimų konkretaus tipo reikšmių aibė turi griežtą tvarką (ang.: {\it totally ordered}) palyginimo funkcijos atžvilgiu.
-
-Taip pat su biografine užklausa yra siejamas predikatas, pagal kurį yra įvertinama kiekvieno biometrinio įrašo biografinių atributų aibė siekant sudaryti įrašų poaibį palyginimams.
-Šis poaibis ir yra tas, su kuriuo bus atliekamas biometrinis palyginimas.
+\paragraph{Biografinė schema}
+Kokie konkrečiai papildomi duomenys gali būti priskiriami sistemoje užregistruotiems žmonėms yra nusprendžiama sistemos diegimo metu ir vėliau negali būti keičiami.
+Taip pat visiems registruojamiems žmonėms priskiriami tokie patys duomenys t.y. jeigu buvo nuspręsta, kad žmonėms bus papildomai priskiriamas gyvenamasis miestas ir amžius, tai šie duomenys turės būti priskirti kiekvienam žmogaus įrašui sistemos duomenų bazėje.
+Toks atributų sąrašas vadinamas {\it biografine schema}.
+Pavyzdžiui \ref{tab:exampleGallery} lentelėje pateiktame duomenų bazės pavyzdyje biografinė schema būtų \{„Miestas“, „Amžius“\}.
 
 \begin{table}[H]\footnotesize
 	\centering
 	\begin{tabular}{|c|c|c|c|}
 		\hline
-		\multirow{2}{*}{{\bf Subjektas}} & \multirow{2}{*}{{\bf Biometriniai duomenys}} & \multicolumn{2}{|c|}{{\bf Biografiniai atributai}}  \\ \cline{3-4}
-		& & {\bf Piršto atspaudo pozicija} & {\bf Amžius} \\
+		\multirow{2}{*}{{\bf Žmogus}} & \multirow{2}{*}{{\bf Biometriniai požymiai}} & \multicolumn{2}{|c|}{{\bf Papildomi duomenys}}  \\ \cline{3-4}
+		& & {\bf Miestas} & {\bf Amžius} \\
 		\hline
-		Jonas  & biometrinis įrašas & Kairys nykštys  & 25 \\ \cline{2-4}
-		       & biometrinis įrašas & Dešinys nykštys & 25 \\
+		Jonas  & biometrinių požymių įrašas & Vilnius & 25 \\ \cline{2-4}
 		\hline
-		Mindaugas & biometrinis įrašas & Kairys nykštys  & 35 \\ \cline{2-4}
-		          & biometrinis įrašas & Dešinys nykštys & 35 \\
+		Mindaugas & bioetrinių požymių įrašas & Vilnius & 35 \\ \cline{2-4}
+		\hline
+		Petras & biometrinių požymių įrašas & Kaunas & 15 \\ \cline{2-4}
+		\hline
+		Eglė & biometrinių požymių įrašas & Klaipėda & 45 \\ \cline{2-4}
 		\hline
 	\end{tabular}
 	\caption{Pavyzdiniai biometrinės identifikavimo sistemos duomenys}
 	\label{tab:exampleGallery}
 \end{table}
 
-% Kas yra biografinė schema?
-Visų biografinių atributų prasmių aibė vadinama {\it biografine schema}. Pavyzdžiui \ref{tab:exampleGallery} lentelę atitinkanti biografinė schema būtų \{„Piršto atspaudo pozicija“, „Amžius“\}.
+
+
+% Kas yra biografinė užklausa ir biografiniai atributai?
+\paragraph{Biografiniai atributai}
+
+Aptartieji papildomi duomenys vadinami {\it biografiniais atributais}.
+Verta atkreipti dėmesį į tai, kad šiame darbe biografiniai atributai yra supriešinami su biometriniais požymiais -- biografiniai atributai yra papildomi, būtinai ne biometriniai, duomenys.
+
+Nagrinėjama sistema palaiko dviejų tipų biografinius atributus:
+\begin{itemize}
+\item skaitinio tipo
+\item simbolių eilutės tipo
+\end{itemize}
+Tačiau esant poreikiui šis sąrašas gali būti plečiamas.
+
+Darbo metu bus daroma prielaida, kad tiems patiems atributams (pvz.: Petro ir Jono amžiui) yra apibrėžta palyginimo funkcija (\ref{eq:threeWayComparisonFunction}).
+\begin{equation}
+	f(x_1, x_2)=
+\begin{cases}
+	-1,& \text{jeigu } x_1 < x_2\\
+	0,& \text{jeigu } x_1 = x_2\\
+	1,& \text{jeigu } x_1 > x_2\\
+\end{cases}
+\label{eq:threeWayComparisonFunction}
+\end{equation}
+
+Čia $x_1$ ir $x_2$ yra atributo reikšmės.
+
+Taip pat darbe daroma prielaida, kad šios palyginimo funkcijos atžvilgiu atributo reikšmių aibė yra pilnai sutvarkyta. %TODO: ref?
+
+
+
+
+
+
+\paragraph{Duomenų bazės modelis}
+
+Šiame darbe remiamasi duomenų bazės modeliu „Data cube“ \cite{marcel2000modeling}.
+Nagrinėjoms sistemos \cite{NeurotechnologyMegamatcherAccelerator} atveju, daugiamatės erdvės ašys yra apibrėžiamos (\ref{eq:threeWayComparisonFunction}) funkcijos, taip kad:
+
+\begin{equation}
+	f(x_1, x_2)=-1
+\label{eq:increasingOrderOfAtributes}
+\end{equation}
+
+visiems $x_1$, $x_2$ kur $x_1$ ašyje yra „mažesnėje“ (pvz.: kairiau atributo 1 ašyje \ref{img:multidimensionalGallery} pav.) pozicijoje $x_2$ atžvilgiu.
+
+Žmonėms priskiriamų biografinių atributų reikšmių rinkiniai yra nagrinėjami kaip taškai šioje erdvėje.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.5\textwidth]{img/MultidimensionalGallery.png}
+\caption{Pavyzdiniai biometriniai įrašai dviejų atributų (dvimatėje) reikšmių erdvėje.}
+\label{img:multidimensionalGallery}
+\end{center}
+\end{figure}
+
+\ref{img:multidimensionalGallery} paveikslėlyje pateikiamas tokios erdvės pavyzdys.
+Pavyzdyje (\ref{eq:threeWayComparisonFunction}) funkcija atributo 1 (kuris yra skaitinio tipo) reikšmes palygina pagal sveikų skaičių tvarką.
+O atributo 2 (kuris yra simbolių eilutės tipo) reikšmes palygina pagal leksikografinę tvarką.
+
+
+
+
+% Biometrinių įrašų blokai - particijos daugiamatėje erdvėje
+\paragraph{Biometrinių įrašų blokai daugiamatėje erdvėje}
+
+Nagrinėjamoje sistemoje \cite{NeurotechnologyMegamatcherAccelerator} žmogaus biometrinių požymių įrašai saugomi ir apdorojami ne po vieną, bet grupėmis.
+Šios grupės yra vadinamos {\it biometrinių įrašų blokais}.
+Kiekvienam įrašui registracijos metu yra laisvai parenkamas vienas blokas, kuriame jis bus saugomas.
+
+Šiame darbe nagrinėjamame duomenų bazės modelyje biometrinių įrašų blokai yra daugiamatės erdvės sritys, kurios apima visus konkrečiam blokui priskirtus įrašus (žr.: \ref{img:multidimensionalPartitionedGallery} pav.).
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.5\textwidth]{img/MultidimensionalPartitionedGallery.png}
+\caption{B1-B4 - erdvės sritys atitinkančios biometrinių įrašų blokus}
+\label{img:multidimensionalPartitionedGallery}
+\end{center}
+\end{figure}
+
+
 
 \paragraph{Biografinių užklausų predikatai}
 
-Vykstant biografinės užklausos apdorojimui, su ja susietas predikatas apsprendžia aibę biometrinių įrašų, kurie bus lyginami su kandidato biometriniu įrašu.
-Į šią aibę patenka tik tie biometriniai įrašai, kurių biografinių atributų aibė tenkina užklausos predikatą.
-Predikatai sistemai yra aprašomi specialia tam skirta kalba.
-\ref{tab:queryBNF} lentelė pateikia šios kalbos BNF formą.
+\cite{NeurotechnologyMegamatcherAccelerator} sistemoje žmonių sąrašas paieškai sudaromas pagal vartotojo užklausą.
+Šiai užklausai aprašyti yra skirta gramatika, kurios Backus ir Nauro forma yra pateikiama \ref{tab:queryBNF} lentelėje. %TODO ref?
 
 \begin{table}[H]\footnotesize
 	\centering
@@ -80,165 +152,73 @@ Predikatai sistemai yra aprašomi specialia tam skirta kalba.
 		raidė                         & ::= & "A" | "B" | "C" ... "Z" | "a" | "b" | "c" ... "z"  \\
 		\hline
 	\end{tabular}
-	\caption{Biografinės užklausos predikato aprašymo kalbos BNF forma}
+	\caption{Biografinės užklausos predikato aprašymo kalbos Backus ir Nauro forma}
 	\label{tab:queryBNF}
 \end{table}
 
-Keletas užklausos predikato aprašymo pavyzdžių pateikiama \ref{tab:queryExamples} lentelėje.
+Keletas užklausos pavyzdžių pateikiama \ref{tab:queryExamples} lentelėje laikant, kad biografinė schema yra \{„Miestas“, „Amzius“\}.
 
 \begin{table}[H]\footnotesize
 	\centering
-	\begin{tabular}{|c|l|}
+	\begin{tabular}{|c|c|l|}
 		\hline
-		{\bf Užklausos predikato aprašymas} & {\bf Užklausos prasmė} \\
+		& {\bf Užklausos aprašymas} & {\bf Užklausos interpretacija} \\
 		\hline
-		Amzius > '18' & Visi suaugę žmonės\\
+		Pavyzdys 1 & Amzius >= '18' & Visi suaugę žmonės\\
 		\hline
-		Amzius > '18' AND Miestas IN ('Vilnius', 'Kaunas', 'Klaipeda') & Visi suagę vilniečiai, kauniečiai ir klaipėdiečiai \\
+		Pavyzdys 2 & Amzius >= '18' AND Miestas IN ('Vilnius', 'Kaunas') & Visi suagę vilniečiai ir kauniečiai\\
 		\hline
-		NOT (Miestas = 'Vilnius' AND Amzius > '18') & Visi žmonės išskyrus suaugusius vilniečius \\
+		Pavyzdys 3 & NOT (Miestas = 'Vilnius' AND Amzius >= '18') & Visi žmonės išskyrus suaugusius vilniečius\\
 		\hline
 	\end{tabular}
-	\caption{Užklausų predikato aprašymo pavyzdžiai.}
+	\caption{Užklausų aprašymo pavyzdžiai.}
 	\label{tab:queryExamples}
 \end{table}
 
-% Sistemos greičio svarba, paminim, kad dirbsim su Neurotechnology akseleratorium
-\paragraph{Sistemos greitis}
 
-Biometrinio identifikavimo sistemos darbo greitis yra labai aktuali sistemos savybė.
-Kartais \cite{NeurotechnologyDRCDedublicationProject} \cite{NeurotechnologyVenezuelaDedublicationProject} tai yra pagrindinis faktorius apsprendžiantis projekto trukmę.
-Šiame darbe bus nagrinėjami metodai padedantys optimizuoti bendrą UAB „Neurotechnolgy“ biometrinės identifikavimo sistemos \cite{NeurotechnologyMegamatcherAccelerator} darbo greitį vykdant biografines užklausas.
 
-% Visa duomenų bazė RAM`e
-Tipinės biografinės užklausos metu palyginimui yra atrenkama didelė dalis visų sistemai žinomų biometrinių įrašų.
-Tai lėmė dizaino sprendimą saugoti visus sistemai žinomus biometrinius įrašus operatyviojoje kompiuterio ar serverio atmintyje darbo metu.
+\paragraph{Biografinių užklausų modelis}
 
-% Introducinam batch processingą ir blokus
-UAB „Neurotechnology“ biometrinio palyginimo algoritmai yra optimizuoti siekiant pagerinti procesoriaus spartinančiosios atminties išnaudojimą.
-Dėl šios priežasties biometriniai įrašai atmintyje laikomi optimizuojant atminties prieigos vientisumą.
-Tačiau ribotas spartinančiosios atminties kiekis lemia, kad atminties prieigos vientisumo poveikis juntamas tik iki tam tikro, nuo konkretaus procesoriaus priklausančio, atminties bloko dydžio.
-Tai lėmė, kad biometriniai įrašiai yra saugomi {\it biometrinių įrašų blokuose}.
-Biometrinių įrašų blokas yra visų žinomų biometrinių įrašų poaibis saugomas vientisame atminties bloke.
-
-Keletas svarbių biometrinių įrašų blokų savybių:
-\begin{itemize}
-\item Visų blokų dydžiai sistemoje yra vienodi.
-\item Kiekvienas biometrinis įrašas yra saugomas tiktai viename bloke siekiant maksimizuoti bendrą sistemos biometrinių įrašų talpą.
-\item Blokai gali turėti tuščių vietų.
-\item Maksimalus blokų kiekis yra ribotas ir apsrendžiamas techninės įrangos.
-\end{itemize}
-
-% Matchinam blokais
-Taip pat svarbu pastebėti tai, kad atliekant biometrinę identifikaciją biometrinio palyginimo operacijos yra vykdomos įrašų blokams, o ne pavieniams įrašams.
-Todėl net jeigu bloke yra įrašų, kurie neatitinka biografinės užklausos predikato, su jais vistiek yra vykdomas biometrinis palyginimas, tačiau jie neįtraukiami į galutinius rezultatus.
-
-%\begin{figure}[H]
-%\begin{center}
-%\includegraphics[width=0.4\textwidth]{img/BiometricRecordBlocks.eps}
-%\caption{Pavyzdiniai biometrinių įrašų blokai. \\ Čia taškai -- įrašai, o stačiakampiai -- blokai}
-%\label{img:exampleGallery}
-%\end{center}
-%\end{figure}
-
-% Aprašom problemą, kaip daugiamatės erdvės partitioningą.
-\paragraph{Duomenų reprezentacija}
-
-Šiame darbe biometriniai įrašai modeliuojami kaip taškai daugiamatėje erdvėje panašiai kaip \cite{marcel2000modeling} aptariamas „Data cube“ (žr.: \ref{img:multidimensionalGallery} pav.).
-Kiekviena erdvės ašis siejama su vieno atributo reikšmių aibe.
-Daroma prielaida, kad kiekvienam atributo tipui yra apibrėžta palyginimo funkcija, kuri apibrėžia griežtą reikšmių tvarką (ang.: {\it total order}).
-Pavyzdžiui simbolių eilutės tipo atributam galima palyginimo funcija būtų tokia, kuri palygina atributus leksikografiškai.
-Skaitiniai atributai gali būti rūšiuojami natūralia numerine tvarka.
-Atributų reikšmės pagal šią tvarką yra priskiriamos ašims (žr.: \ref{img:multidimensionalGallery} pav.).
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=0.5\textwidth]{img/MultidimensionalGallery.png}
-\caption{Pavyzdiniai biometriniai įrašai dviejų atributų (dvimatėje) reikšmių erdvėje.}
-\label{img:multidimensionalGallery}
-\end{center}
-\end{figure}
-
-% Biometrinių įrašų blokai - particijos daugiamatėje erdvėje
-\paragraph{Įrašų blokai daugiamatėje erdvėje}
-
-Biometriniai įrašai saugomi tik viename iš ankščiau minėtų biometrinių įrašų blokų, todėl šiuos blokus patogu analizuoti kaip daugiamatės erdvės particijas (žr.: \ref{img:multidimensionalPartitionedGallery} pav.).
-Verta paminėti, kad particija nebūtinai turi būti sulygiuota pagal erdvės ašis (nebūtinai turi būti stačiakampis dvimatės erdvės atveju ar gretasienis trimatėje erdvėje...).
-Taip pat, viena particija gali susidėti iš daugiau nei vienos, nebūtinai jungios dalies.
-Toks modelis nepraranda bendrumo ir leidžia atvaizduoti bet kokį biometrinių įrašų paskirstymą į blokus su bet kiek atributų.
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=0.5\textwidth]{img/MultidimensionalPartitionedGallery.png}
-\caption{Pavyzdinis skirstymas particijomis. P1-P3 - particijos atitinkančios biometrinių įrašų blokus}
-\label{img:multidimensionalPartitionedGallery}
-\end{center}
-\end{figure}
-
-Tokio modelio kontekste biometrinių įrašų pridėjimas į sistemą susideda iš šių poproblemių:
+Smulkiausias žmonių sąrašas kuriame \cite{NeurotechnologyMegamatcherAccelerator} sistema gali vykdyti paiešką yra vienas biometrinių įrašų blokas.
+Todėl vartotojo užklausos apdorojimas yra skaidomas į tokius tris etapus:
 \begin{enumerate}
-\item Parinkimo į kurią particiją bus įdedamas įrašas.
-\item Įrašų kiekiui viršyjus konstantinę ribą, particijos skėlimo į naujas particijas.
+	\item Atmetimo etapas: Atmetami visi blokai, kuriuose negali būti žmonių, kurių atributų rinkiniai atitinka vartotojo užklausą.
+	\item Paieškos etapas: Atliekama paieška blokuose, kurie liko po atmetimo etapo.
+	\item Filtravimo etapas: Atmetami visi paieškos etape rasti žmonės, kurių atributų rinkiniai neatitinka vartotojo užklausos.
 \end{enumerate}
 
-Verta pastebėti, kad sistema yra pritaikyta dirbti su didelais kiekiais įrašų, tad jų pridėjimo, bei biometriniam palyginimui skirto poaibio atrinkimo operacijos negali atsižvelgti į visus sistemoje esančius įrašus.
-Tai apriboja optimizacijas, kurias galima atlikti skirstant įrašus į blokus.
-Taip pat, įrašų perskirstymas į blokus, gali vykti nebent iteratyviai.
+Verta pastebėti, kad po atmetimo etapo likęs blokų kiekis priklauso nuo metodo, pagal kurį yra parenkama daugiamatės erdvės sritis atributų rinkinių saugojimui.
 
 
-\paragraph{Užklausų reprezentacija}
-
-Biografinės užklausos aprašomos \ref{tab:queryBNF} lentelėje gali apibrėžti bet kokį atributų reikšmių poaibį ir atitinkamai -- bet kokį biometrinių įrašų poabį.
-Neprarandant bendrumo šiuos poaibius nagrinėsime kaip vieną ar daugiau uždarų plotų atributų erdvėje -- poerdvių (žr.: \ref{img:multidimensionalPartitionedGalleryWithQuery} pav.). %todo: citata
-O ankščiau apibūdintas predikatas bus išreiškiamas kaip funkcija, kuri nustato ar biometrinių įrašų blokas persidengia su nors vienu iš užklausos poerdvių.
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=0.5\textwidth]{img/MultidimensionalPartitionedGalleryWithQuery.png}
-\caption{Pavyzdinė užklausa, kurios metu būtų palyginimi P1 ir P3 blokai.}
-\label{img:multidimensionalPartitionedGalleryWithQuery}
-\end{center}
-\end{figure}
-
-Bendruoju atveju, kuo užklausos poerdviai geriau atitinka biometrinių įrašų particijas, tuo mažiau atliekama nereikalingų biometrinių palyginimų.
-
-\paragraph{Blokų užpildymo problema}
-
-Biometrinių įrašų bloko dydis yra apribotas iš viršutinės pusės ir konkretaus bloko įrašų kiekiui pasiekus tą ribą, blokas yra skeliamas į du naujus.
-Tai reiškia, kad priklausomai nuo metodo, pagal kurį įrašai yra skirstomi į blokus, blokai yra užpildyti nuo 50\% iki 100\%.
-Verta pastebėti, kad neužpildytos vietos blokuose bereikalo švaisto atmintį ir blogiausiu atveju, kai užpildymas yra 50\% -- išvaistoma pusė blokam skirtos atminties.
-Todėl šiame darbe būtina atsižvelgti į šią problemą.
 
 \paragraph{Darbo tikslas}
 
-Šio darbo metu siekiama aprašyti bei įvertinti keletos biometrinių įrašų skaidymo į blokus metodų poveikį bendram UAB „Neurotechnolgy“ sistemos darbo greičiui bei palyginti juos su nemodifikuota sistema.
-Įvertinimas remiasi sąlyga, kad yra naudojamos biografinės užklausos realistiškai atspindinčios užklausas pasitaikančias realiose instaliacijose.
-Darbo metu bus nagrinėjami du metodai:
+Šio darbo metu siekiama padidinti biometrinės identifikavimo sistemos \cite{NeurotechnologyMegamatcherAccelerator} pralaidumą minimizuojant biometrinių įrašų blokų skaičių, kuris lieka po atmetimo etapo.
+
+Šiuo tiklsu bus įvertinami du metodai
 \begin{itemize}
-		\item Metodas paremtas priešdėliniu rūšavimu, kuris nuo šiol bus vadinamas „Prefix search“.
-		\item Metodas paremtas daugiamačiu „K-d medžiu“.
+		\item Metodas paremtas priešdėliniu rūšavimu.
+		\item Metodas paremtas K-d medžiu.
 \end{itemize}
 
 Darbą planuojama skirstyti į tokius uždavinius:
 
 \begin{enumerate}
-	\item Pasiruošti testavimo duomenis, išanalizuoti tipinių užklausų statistines savybes.
-	\item Empiriškai įvertinti sistemos greičio priklausomybę nuo maksimalaus biometrinių įrašų bloko dydžio.
-	\item Surasti sprendimą blokų užpildymo problemai.
-	\item Apibrėžti bei įvertinti metodą paremtą „Prefix search“ biometrinių įrašui skirstymu į blokus.
-	\item Apibrėžti bei įvertinti metodą paremtą „K-d medžiu“ biometrinių įrašui skirstymu į blokus.
+	\item Išanalizuoti tipinių užklausų statistines savybes, pasiruošti testavimo duomenis.
+	\item Empiriškai įvertinti sistemos pralaidumo priklausomybę nuo įrašų skaičius bloke.
+	\item Apibrėžti bei įvertinti metodą paremtą priešdėliniu rūšiavimu.
+	\item Apibrėžti bei įvertinti metodą paremtą K-d medžiu.
 \end{enumerate}
 
 Šis darbas struktūrizuojamas taip:
-I skyriuje apžvelgiami kiti panašūs darbai, aptariama kas jau buvo daroma, kuo remiasi šis darbas.
+I skyriuje apžvelgiami kiti panašūs darbai bei pateikiami šaltiniai, kuriais remiasi šis darbas.
 II skyriuje nagrinėjamos užklausos.
-Kokios savybės išplaukia iš apibrėžtos užklausų gramatikos, kokiomis statistinėmis savybėmis pasižymi UAB „Neurotechnolgy“ klientų dažniausiai pateikiamos užklausos.
-Aprašoma kaip bus palyginami skirstymo į blokus metodai, bei aprašomas testavimo duomenų rinkinys.
-III skyriuje empiriškai nustatoma maksimalaus bloko dydžio poveikis sistemos darbo greičiui.
-Parenkamas bloko dydis, kuris bus naudojamas „Prefix search“ ir „K-d medžio“ metodų įvertinimui.
-IV skyriuje aptariama blokų užpildymo problema, pateikiamas galimas sprendimas remiantis virtualios atminties principais.
-V skyriuje apibrėžiamas „Prefix search“ metodas atributų skirstymui į blokus, įvertinamos jo efektyvumas.
-VI Skyriuje apibrėžiamas „K-d medžiu“ paremtas metodas atributų skirstymui į blokus, įvertinamas jo efektyvumas.
-Ir galiausiai aprašomi pasiekti rezultatai, ateities darbų kryptys bei pateikiamos išvados.
+Aptariama kokios užklausų savybės išplaukia iš apibrėžtos gramatikos, kokiomis statistinėmis savybėmis pasižymi vartotojų dažniausiai pateikiamos užklausos.
+III skyriuje aprašoma kaip bus palyginami įrašų priskyrimo sritims metodai, bei aprašomas testavimo duomenų rinkinys.
+IV skyriuje empiriškai nustatoma maksimalaus bloko dydžio poveikis sistemos darbo greičiui.
+Parenkamas bloko dydis, kuris bus naudojamas palyginant metodus.
+V skyriuje apibrėžiamas metodas paremtas priešdėliniu rūšiavimu, įvertinamos jo efektyvumas.
+VI skyriuje apibrėžiamas metodas paremtas K-d medžiu, įvertinamas jo efektyvumas.
+Ir galiausiai aprašomi pasiekti rezultatai bei pateikiamos išvados.
 
 
