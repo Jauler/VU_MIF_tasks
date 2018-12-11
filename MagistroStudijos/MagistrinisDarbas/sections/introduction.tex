@@ -12,7 +12,6 @@ Kiekvieno žmogaus kūnas turi aibę požymių, pagal kuriuos jį galima unikali
 Šių sistemų paskirtis yra tarp visų užregistruotų žmonių surasti tą, kuriam priklauso duotieji biometriniai požymiai.
 Šiame darbe nagrinėjamoje sistemoje \cite{NeurotechnologyMegamatcherAccelerator} sąrašas žmonių, tarp kurių yra vykdoma paieška, yra papildomai atrenkamas pagal vartotojo pateiktą užklausą.
 Ši užklausa sąrašą paieškai sudaro pagal papildomus, ne biometrinius, duomenis (pvz.: amžių, lytį, gyvenamąją vietą) priskirtus kiekvienam sistemoje užregistruotam žmogui.
-Tokios užklausos vadinamos {\it biografinėmis užklausomis}.
 
 
 % Kas yra biografinė užklausa ir biografiniai atributai?
@@ -58,6 +57,7 @@ Nagrinėjama sistema palaiko dviejų tipų biografinius atributus:
 \item simbolių eilutės tipo
 \end{itemize}
 Tačiau esant poreikiui šis atributų tipų sąrašas gali būti plečiamas.
+Sistemoje visi tą patį vardą turintys atributai yra ir to pačio tipo.
 
 
 
@@ -67,7 +67,7 @@ Tačiau esant poreikiui šis atributų tipų sąrašas gali būti plečiamas.
 \paragraph{Duomenų bazės modelis}
 
 Šiame darbe remiamasi duomenų bazės modeliu „Data cube“ \cite{marcel2000modeling}.
-Nagrinėjamos sistemos atveju, kiekvienas atributas atitinka vieną konkrečią daugiamatės erdvės dimensiją.
+Nagrinėjamos sistemos atveju, kiekvienas atributas atitinka vieną, konkrečią, daugiamatės erdvės dimensiją.
 
 \begin{figure}[H]
 \begin{center}
@@ -77,11 +77,9 @@ Nagrinėjamos sistemos atveju, kiekvienas atributas atitinka vieną konkrečią 
 \end{center}
 \end{figure}
 
-\ref{img:multidimensionalGallery} paveikslėlyje pateikiamas tokios erdvės pavyzdys.
-Duomenys atitinka pateiktus lentelėje \ref{tab:exampleGallery}.
-Pavyzdyje horizontalią erdvės dimensiją atitinka atributas vardu „Amžius“, o vertikalią -- atributas vardu  „Miestas“.
+\ref{img:multidimensionalGallery} paveikslėlyje pateikiamas tokios erdvės pavyzdys atitinkantis lentelėje \ref{tab:exampleGallery} pateiktą duomenų bazės pavyzdį.
 
-Tą patį vardą $A$ turintiems atributams apdoroti bus apibrėžiama palyginimo funkcija (\ref{eq:threeWayComparisonFunction}):
+Duomenų bazės įrašams apdoroti bus naudojama palyginimo funkciją (\ref{eq:threeWayComparisonFunction}).
 \begin{equation}
 	f_A(x_1, x_2)=
 \begin{cases}
@@ -92,8 +90,8 @@ Tą patį vardą $A$ turintiems atributams apdoroti bus apibrėžiama palyginimo
 \label{eq:threeWayComparisonFunction}
 \end{equation}
 
-Čia $x_1$ ir $x_2$ yra vardą $A$ turinčių atributų reikšmės.
-Simbolių eilutės tipo atributų reikšmes galime lyginti leksikografine tvarka.
+Čia $x_1$ ir $x_2$ yra tą patį vardą $A$ turinčių atributų reikšmės.
+Simbolių eilutės tipo atributų reikšmės gali būti lyginamos leksikografine tvarka.
 
 Šiame darbe daroma prielaida, kad palyginimo funkcijos (\ref{eq:threeWayComparisonFunction}) atžvilgiu atributo reikšmių aibė yra pilnai sutvarkyta \cite{hrbacek1999introduction}.
 
@@ -150,7 +148,7 @@ Tokios paieškos užduotis vadinama {\it biografine užklausa}.
 		raidė                         & ::= & "A" | "B" | "C" ... "Z" | "a" | "b" | "c" ... "z"  \\
 		\hline
 	\end{tabular}
-	\caption{Biografinės užklausos aprašymo kalbos Backus ir Nauro forma}
+	\caption{Biografinės užklausos aprašymo gramatikos Backus ir Nauro forma}
 	\label{tab:queryBNF}
 \end{table}
 
@@ -194,7 +192,7 @@ Verta pastebėti, kad po atmetimo etapo likęs blokų kiekis priklauso nuo metod
 Šio darbo metu siekiama padidinti biometrinės identifikavimo sistemos \cite{NeurotechnologyMegamatcherAccelerator} pralaidumą (užklausų skaičių per laiko vienetą).
 Tuo tikslu ketinama minimizuoti biometrinių įrašų blokų skaičių, kuris lieka po atmetimo etapo.
 
-Tam bus pritaikyti ir palyginti du metodai
+Tam bus pritaikyti ir palyginti du įrašų priskirimo blokams metodai:
 \begin{itemize}
 		\item Metodas paremtas priešdėliniu rūšavimu.
 		\item Metodas paremtas K-d medžiu.
