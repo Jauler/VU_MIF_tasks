@@ -16,10 +16,10 @@ Tokios užklausos vadinamos {\it biografinėmis užklausomis}.
 
 
 % Kas yra biografinė užklausa ir biografiniai atributai?
-\paragraph{Biografiniai atributai ir biografinė schema}
+\paragraph{Biografiniai atributai bei biografinė schema}
 
 Aptartieji papildomi duomenys vadinami {\it biografiniais atributais}.
-Verta atkreipti dėmesį į tai, kad šiame darbe biografiniai atributai yra supriešinami su biometriniais požymiais -- biografiniai atributai yra papildomi, būtinai ne biometriniai, duomenys.
+Verta atkreipti dėmesį į tai, kad biografiniai atributai yra papildomi, būtinai ne biometriniai, duomenys.
 
 Kiekvienas biografinis atributas turi savo vardą (pvz.: „Miestas“, „Amžius“), bei reikšmę (pvz.: „Vilnius“, „25-eri metai“).
 Visų atributų vardų aibė yra vadinama {\it biografine schema}.
@@ -32,43 +32,32 @@ Pavyzdžiui \ref{tab:exampleGallery} lentelėje pateikiamame duomenų bazės pav
 		\multirow{2}{*}{{\bf Žmogus}} & \multirow{2}{*}{{\bf Biometriniai požymiai}} & \multicolumn{2}{|c|}{{\bf Biografiniai atributai}}  \\ \cline{3-4}
 		& & {\bf Miestas} & {\bf Amžius} \\
 		\hline
-		Jonas  & biometrinių požymių įrašas & Vilnius & 25 \\ \cline{2-4}
-		\hline
 		Mindaugas & biometrinių požymių įrašas & Vilnius & 35 \\ \cline{2-4}
 		\hline
-		Petras & biometrinių požymių įrašas & Kaunas & 15 \\ \cline{2-4}
+		Petras & biometrinių požymių įrašas & Utena & 15 \\ \cline{2-4}
 		\hline
-		Eglė & biometrinių požymių įrašas & Klaipėda & 45 \\ \cline{2-4}
+		Eglė & biometrinių požymių įrašas & Zarasai & 10 \\ \cline{2-4}
+		\hline
+		Dovilė & biometrinių požymių įrašas & Kelmė & 20 \\ \cline{2-4}
+		\hline
+		Rytis & biometrinių požymių įrašas & Marijampolė & 45 \\ \cline{2-4}
+		\hline
+		Tomas & biometrinių požymių įrašas & Anykščiai & 30 \\ \cline{2-4}
 		\hline
 	\end{tabular}
 	\caption{Pavyzdiniai biometrinės identifikavimo sistemos duomenys}
 	\label{tab:exampleGallery}
 \end{table}
 
-Kiekvienam žmogui gali būti priskiriamas daugiau negu vienas biografinis atributas, tačiau visiems žmonėms priskiriamų biografinių atributų schema turi būti tokia pati.
-Tai reiškia, kad, pavyzdžiui, jeigu Jonui (žr.: \ref{tab:exampleGallery} lentelę) buvo priskirtas gyvenamasis miestas ir amžius, tai visiems likusiems užregistruotiems žmonės irgi bus priskiriamas gyvenamasis miestas ir amžius.
+Kiekvienam žmogui gali būti priskiriamas daugiau negu vienas biografinis atributas, tačiau visiems žmonėms priskiriamų biografinių atributų schema (biografinė schema) turi būti tokia pati.
+Tai reiškia, kad, pavyzdžiui, jeigu Petrui (žr.: \ref{tab:exampleGallery} lentelę) buvo priskirtas gyvenamasis miestas ir amžius, tai visiems likusiems užregistruotiems žmonės irgi bus priskiriamas gyvenamasis miestas ir amžius.
 
 Nagrinėjama sistema palaiko dviejų tipų biografinius atributus:
 \begin{itemize}
 \item skaitinio tipo
 \item simbolių eilutės tipo
 \end{itemize}
-Tačiau esant poreikiui šis sąrašas gali būti plečiamas.
-
-Darbo metu bus daroma prielaida, kad tą patį vardą ir tipą turintiems atributams (pvz.: žmogaus amžiui) yra apibrėžta palyginimo funkcija (\ref{eq:threeWayComparisonFunction}).
-\begin{equation}
-	f(x_1, x_2)=
-\begin{cases}
-	-1,& \text{jeigu } x_1 < x_2\\
-	0,& \text{jeigu } x_1 = x_2\\
-	1,& \text{jeigu } x_1 > x_2\\
-\end{cases}
-\label{eq:threeWayComparisonFunction}
-\end{equation}
-
-Čia $x_1$ ir $x_2$ yra tą patį tipą ir vardą turinčio atributo reikšmės.
-
-Taip pat darbe daroma prielaida, kad šios palyginimo funkcijos atžvilgiu atributo reikšmių aibė yra pilnai sutvarkyta \cite{hrbacek1999introduction}.
+Tačiau esant poreikiui šis atributų tipų sąrašas gali būti plečiamas.
 
 
 
@@ -78,16 +67,7 @@ Taip pat darbe daroma prielaida, kad šios palyginimo funkcijos atžvilgiu atrib
 \paragraph{Duomenų bazės modelis}
 
 Šiame darbe remiamasi duomenų bazės modeliu „Data cube“ \cite{marcel2000modeling}.
-Nagrinėjamos sistemos atveju, daugiamatės erdvės ašys yra apibrėžiamos (\ref{eq:threeWayComparisonFunction}) funkcijos, taip kad:
-
-\begin{equation}
-	f(x_1, x_2)=-1
-\label{eq:increasingOrderOfAtributes}
-\end{equation}
-
-visiems $x_1$, $x_2$ kur $x_1$ ašyje yra „mažesnėje“ (pvz.: kairiau atributo 1 ašyje \ref{img:multidimensionalGallery} pav.) pozicijoje $x_2$ atžvilgiu.
-
-Žmonėms priskiriamų biografinių atributų reikšmių rinkiniai yra nagrinėjami kaip taškai šioje erdvėje.
+Nagrinėjamos sistemos atveju, kiekvienas atributas atitinka vieną konkrečią daugiamatės erdvės dimensiją.
 
 \begin{figure}[H]
 \begin{center}
@@ -98,8 +78,24 @@ visiems $x_1$, $x_2$ kur $x_1$ ašyje yra „mažesnėje“ (pvz.: kairiau atrib
 \end{figure}
 
 \ref{img:multidimensionalGallery} paveikslėlyje pateikiamas tokios erdvės pavyzdys.
-Pavyzdyje palyginimo funkcija (\ref{eq:threeWayComparisonFunction}) atributo 1 (kuris yra skaitinio tipo) reikšmes palygina pagal sveikų skaičių tvarką.
-O atributo 2 (kuris yra simbolių eilutės tipo) reikšmes palygina pagal leksikografinę tvarką.
+Duomenys atitinka pateiktus lentelėje \ref{tab:exampleGallery}.
+Pavyzdyje horizontalią erdvės dimensiją atitinka atributas vardu „Amžius“, o vertikalią -- atributas vardu  „Miestas“.
+
+Tą patį vardą $A$ turintiems atributams apdoroti bus apibrėžiama palyginimo funkcija (\ref{eq:threeWayComparisonFunction}):
+\begin{equation}
+	f_A(x_1, x_2)=
+\begin{cases}
+	-1,& \text{jeigu } x_1 < x_2\\
+	0,& \text{jeigu } x_1 = x_2\\
+	1,& \text{jeigu } x_1 > x_2\\
+\end{cases}
+\label{eq:threeWayComparisonFunction}
+\end{equation}
+
+Čia $x_1$ ir $x_2$ yra vardą $A$ turinčių atributų reikšmės.
+Simbolių eilutės tipo atributų reikšmes galime lyginti leksikografine tvarka.
+
+Šiame darbe daroma prielaida, kad palyginimo funkcijos (\ref{eq:threeWayComparisonFunction}) atžvilgiu atributo reikšmių aibė yra pilnai sutvarkyta \cite{hrbacek1999introduction}.
 
 
 
@@ -107,7 +103,9 @@ O atributo 2 (kuris yra simbolių eilutės tipo) reikšmes palygina pagal leksik
 % Biometrinių įrašų blokai - particijos daugiamatėje erdvėje
 \paragraph{Biometrinių įrašų blokai daugiamatėje erdvėje}
 
-Nagrinėjamoje sistemoje žmogaus biometrinių požymių įrašai saugomi ir apdorojami ne po vieną, bet grupėmis.
+Nagrinėjamos sistemos bazinis elementas yra įrašas.
+Vieną įrašą sudaro biometrinių požymių rinkinys susietas su biografinių atributų reiškmių rinkiniu.
+Sistemoje, operatyviojoje atmintyje, įrašai yra saugomi ir apdorojami ne po vieną, bet grupėmis.
 Šios grupės yra vadinamos {\it biometrinių įrašų blokais}.
 Kiekvienam įrašui registracijos metu yra laisvai parenkamas vienas blokas, kuriame jis bus saugomas.
 
@@ -125,7 +123,8 @@ Kiekvienam įrašui registracijos metu yra laisvai parenkamas vienas blokas, kur
 
 \paragraph{Biografinės užklausos}
 
-Sistemoje žmonių sąrašas paieškai sudaromas pagal vartotojo užklausą.
+Nurodžius pasirinktų biografinių atributų kitimo sritis -- apibrėžiama įrašų aibė, kurioje ieškomi pasirinktų biometrinių požymių atitikmenys.
+Tokios paieškos užduotis vadinama {\it biografine užklausa}.
 Šiai užklausai aprašyti yra skirta gramatika, kurios Backus ir Nauro forma \cite{mccracken2003backus} yra pateikiama \ref{tab:queryBNF} lentelėje.
 
 \begin{table}[H]\footnotesize
@@ -178,12 +177,12 @@ Keletas užklausos pavyzdžių pateikiama \ref{tab:queryExamples} lentelėje lai
 
 \paragraph{Biografinių užklausų apdorojimas}
 
-Smulkiausias žmonių sąrašas kuriame nagrinėjama sistema gali vykdyti paiešką yra vienas biometrinių įrašų blokas.
-Todėl vartotojo užklausos apdorojimas yra skaidomas į tokius tris etapus:
+Smulkiausias įrašų sąrašas kuriame sistema \cite{NeurotechnologyMegamatcherAccelerator} šiuo metu gali vykdyti paiešką yra vienas biometrinių įrašų blokas.
+Todėl vartotojo biografinės užklausos apdorojimas yra skaidomas į tokius tris etapus:
 \begin{enumerate}
-	\item Atmetimo etapas: Atmetami visi blokai, kuriuose negali būti žmonių, kurių atributų rinkiniai atitinka vartotojo užklausą.
+	\item Atmetimo etapas: Atmetami visi blokai, neturintys įrašų, kurių atributų rinkiniai atitinka vartotojo užklausą.
 	\item Paieškos etapas: Atliekama paieška blokuose, kurie liko po atmetimo etapo.
-	\item Filtravimo etapas: Atmetami visi paieškos etape rasti žmonės, kurių atributų rinkiniai neatitinka vartotojo užklausos.
+	\item Filtravimo etapas: Atmetami visi paieškos etape rasti įrašai, kurių atributų rinkiniai neatitinka vartotojo užklausos.
 \end{enumerate}
 
 Verta pastebėti, kad po atmetimo etapo likęs blokų kiekis priklauso nuo metodo, pagal kurį yra parenkama daugiamatės erdvės sritis atributų rinkinių saugojimui.
@@ -192,9 +191,10 @@ Verta pastebėti, kad po atmetimo etapo likęs blokų kiekis priklauso nuo metod
 
 \paragraph{Darbo tikslas}
 
-Šio darbo metu siekiama padidinti biometrinės identifikavimo sistemos \cite{NeurotechnologyMegamatcherAccelerator} pralaidumą minimizuojant biometrinių įrašų blokų skaičių, kuris lieka po atmetimo etapo.
+Šio darbo metu siekiama padidinti biometrinės identifikavimo sistemos \cite{NeurotechnologyMegamatcherAccelerator} pralaidumą (užklausų skaičių per laiko vienetą).
+Tuo tikslu ketinama minimizuoti biometrinių įrašų blokų skaičių, kuris lieka po atmetimo etapo.
 
-Šiuo tikslu bus įvertinami du metodai
+Tam bus pritaikyti ir palyginti du metodai
 \begin{itemize}
 		\item Metodas paremtas priešdėliniu rūšavimu.
 		\item Metodas paremtas K-d medžiu.
@@ -205,19 +205,20 @@ Darbą planuojama skirstyti į tokius uždavinius:
 \begin{enumerate}
 	\item Išanalizuoti tipinių užklausų statistines savybes, pasiruošti testavimo duomenis.
 	\item Empiriškai įvertinti sistemos pralaidumo priklausomybę nuo įrašų skaičiaus bloke.
-	\item Apibrėžti bei įvertinti metodą paremtą priešdėliniu rūšiavimu.
-	\item Apibrėžti bei įvertinti metodą paremtą K-d medžiu.
+	\item Įdiegti metodą paremtą priešdėliniu rūšiavimu.
+	\item Įdiegti metodą paremtą K-d medžiu.
+	\item Palyginti įdiegtus metodus tarpusavyje ir su sistema \cite{NeurotechnologyMegamatcherAccelerator}
 \end{enumerate}
 
-Šis darbas struktūrizuojamas taip:
-I skyriuje apžvelgiami kiti panašūs darbai bei pateikiami šaltiniai, kuriais remiasi šis darbas.
-II skyriuje nagrinėjamos užklausos.
-Aptariama kokios užklausų savybės išplaukia iš apibrėžtos gramatikos, kokiomis statistinėmis savybėmis pasižymi vartotojų dažniausiai pateikiamos užklausos.
-III skyriuje aprašoma kaip bus palyginami įrašų priskyrimo sritims metodai, bei aprašomas testavimo duomenų rinkinys.
-IV skyriuje empiriškai nustatoma sistemos pralaiduomo priklausomybė nuo maksimalaus bloko dydžio.
-Parenkamas bloko dydis, kuris bus naudojamas palyginant metodus.
-V skyriuje apibrėžiamas metodas paremtas priešdėliniu rūšiavimu, įvertinamas jo efektyvumas.
-VI skyriuje apibrėžiamas metodas paremtas K-d medžiu, įvertinamas jo efektyvumas.
-Ir galiausiai aprašomi pasiekti rezultatai bei pateikiamos išvados.
+Numatomas darbų eiliškumas:
+\begin{enumerate}
+	\item Apžvelgiami kiti panašūs darbai bei pateikiami šaltiniai, kuriais remiasi šis darbas.
+	\item Apžvelgiama kokios užklausų savybės išplaukia iš apibrėžtos gramatikos, kokiomis statistinėmis savybėmis pasižymi vartotojų dažniausiai pateikiamos užklausos.
+	\item Aprašoma kaip bus palyginami įrašų priskyrimo sritims metodai, bei aprašomas testavimo duomenų rinkinys.
+	\item Empiriškai nustatoma sistemos pralaidumo priklausomybė nuo maksimalaus bloko dydžio. Parenkamas bloko dydis, kuris bus naudojamas palyginant metodus.
+	\item Įgyvendinamas ir palyginamas metodas paremtas priešdėliniu rūšiavimu.
+	\item Įgyvendinamas ir palyginamas metodas paremtas K-d medžiu.
+	\item Aprašomi pasiekti rezultatai bei pateikiamos išvados.
+\end{enumerate}
 
 
