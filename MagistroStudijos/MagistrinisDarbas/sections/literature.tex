@@ -1,0 +1,46 @@
+\section{Literatūros apžvalga}
+
+Duomenų bazėse neretai kyla panaši problema į aptartą įvade.
+Čia minimizuojamas disko operacijų skaičius siekiant sumažinti duomenų bazės atsako laiką bei padidinti pralaidumą (apdorotų užklausų skaičių per laiko veinetą) \cite{garcia2000database}.
+Tuo tikslu yra naudojama duomenų struktūra, vadinama {\it duomenų indeksu}.
+Jeigu duomenys yra daugiamačiai (vienas įrašas gali susidėti iš daugiau negu vienos reikšmės), tuomet indeksas tokiems duomenims vadinamas {\it daugiamačių duomenų indeksu}, o metodas pagal kurį šis indeksas yra sudaromas, bei naudojamas {\it daugiamačių duomenų indeksavimo metodu}.
+
+% TODO: some article which seperates point queries and range queries
+
+Lu ir Ooi \cite{lu1993spatial} bei Gaede ir Günther \cite{gaede1998multidimensional} detaliai apžvelgia įvairius daugiamačių duomenų indeksavimo metodus, bei pateikia schemą padedančią suprasti šių metodų istoriją (žiūrėti priedą \ref{app:multidimensionalIndexing}).
+
+Autoriai šiuos metodus suskirsto į šias tris grupes:
+\begin{itemize}
+	\item Metodai paremti maišos funkcijomis
+	\item Hierarchiniai metodai
+	\item Metodai paremti erdvę užpildančiomis kreivėmis \cite{bader2012space}
+\end{itemize}
+
+Verta pastebėti, kad dažnai maišos funkcijomis paremti metodai nėra tinkami reikšmių intervalo užklausoms \cite{nievergelt1981grid} \cite{tamminen1982excell}. % TODO: explain what is "reikšmių intervalo užklausos"
+Todėl šiame darbe tokie metodai nebus įgyvendinami ir lyginami sistemoje \cite{NeurotechnologyMegamatcherAccelerator}.
+
+
+\subsection{Maišos funkcijomis paremti metodai daugiamačių duomenų indeksavimui}
+% generic description
+% basically hash tables where buckets are bloks in multidimensional space
+% order preserving hashes
+% pritaikymo pavyzdžiai
+
+
+\subsection{Hierarchiniai metodai daugiamačių duomenų indeksavimui}
+% generic description
+% split strategies (predetermined, data based, distribution based)
+% pritaikymo pavyzdžiai
+
+
+\subsection{Erdvę užpildančiomis kreivėmis paremti metodai daugiamačių duomenų indeksavimui}
+% generic description
+% row-wise kreivė, panaši į šiame darbe testuojamą metodą
+% kitos kreivės
+% pritaikymo pavyzdžiai
+
+
+\subsection{SP-GIST karkasas}
+% sp-gists
+% bulk operations on sp-gists
+% postgre (min 3)
