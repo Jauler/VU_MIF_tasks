@@ -1,30 +1,136 @@
 \section{Literatūros apžvalga}
 
-Duomenų bazėse neretai kyla panaši problema į aptartą įvade.
-Čia minimizuojamas disko operacijų skaičius siekiant sumažinti duomenų bazės atsako laiką bei padidinti pralaidumą (apdorotų užklausų skaičių per laiko veinetą) \cite{garcia2000database}.
+Panaši problema į aptartąją įvade yra nemažai tyrinėjama duomenų bazių kontekste.
+Čia minimizuojamas disko operacijų skaičius siekiant sumažinti duomenų bazės atsako laiką bei padidinti pralaidumą (apdorotų užklausų skaičių per laiko vienetą) \cite{garcia2000database}.
+Panašiai kaip šiame darbe siekiama minimizuoti biometrinių įrašų blokų skaičių likusį po atmetimo etapo siekiant pagerinti sistemos \cite{NeurotechnologyMegamatcherAccelerator} pralaidumą.
 Tuo tikslu yra naudojama duomenų struktūra, vadinama {\it duomenų indeksu}.
-Jeigu duomenys yra daugiamačiai (vienas įrašas gali susidėti iš daugiau negu vienos reikšmės), tuomet indeksas tokiems duomenims vadinamas {\it daugiamačių duomenų indeksu}, o metodas pagal kurį šis indeksas yra sudaromas, bei naudojamas {\it daugiamačių duomenų indeksavimo metodu}.
+Jeigu duomenys yra daugiamačiai (vienas įrašas gali susidėti iš daugiau negu vienos reikšmės), tuomet indeksas tokiems duomenims vadinamas {\it daugiamačių duomenų indeksu}, o metodas pagal kurį šis indeksas yra sudaromas bei naudojamas {\it daugiamačių duomenų indeksavimo metodu}.
 
-% TODO: some article which seperates point queries and range queries
+\subsection{Užklausų klasifikacija}
 
-Lu ir Ooi \cite{lu1993spatial} bei Gaede ir Günther \cite{gaede1998multidimensional} detaliai apžvelgia įvairius daugiamačių duomenų indeksavimo metodus, bei pateikia schemą padedančią suprasti šių metodų istoriją (žiūrėti priedą \ref{app:multidimensionalIndexing}).
+Šiame darbe palyginant indeksavimo metodus sistemoje \cite{NeurotechnologyMegamatcherAccelerator} siekiama apimti kiek galima daugiau užklausų klasių pagal Gaede ir Günther \cite{gaede1998multidimensional} pateikiamą daugiamačių užklausų klasifikaciją:
+\begin{enumerate}
+	\item Griežto atitikmens užklausa
+	\item Taško užklausa
+	\item Lango užklausa
+	\item Regiono užklausa
+	\item Apgaubiančioji užklausa
+	\item Pilno regiono užklausa
+	\item Kaimynų užklausa
+	\item Artimiausio kaimyno užklausa
+\end{enumerate}
 
-Autoriai šiuos metodus suskirsto į šias tris grupes:
+% TODO: mention that this is finite space and that some operations like and = and similar are defined (and how defined)
+Autorius duomenis ir užklausas nagrinėja $d$ dimensijų euklido erdvėje $E^d$.
+Duomenys, šioje erdvėje, gali būti nebūtinai taškai, bet bet kokia erdvės sritis (taškas, linija, kvadratas, trapecija, kubas, piramidė...).
+Šios erdvės sritys užrašomas $o.G$, kur $o$ yra duomuo (kartais vadinamas objektu), o $o.G$ yra erdvės sritis priskiriama tam objektui/duomeniui.
+
+\subsubsection{Griežto atitikmens užklausa}
+Griežto atitikmens užklausa yra tokia užklausa, kuri duotai erdvės sričiai $g$ erdvėje $E^d$ randa visus objektus, kurių erdvės sritys sutampa su duotąja:
+
+\begin{equation}
+	EMQ(g) = \{ o | g = o.G \}
+\label{eq:ExactMatchQuery}
+\end{equation}
+
+\subsubsection{Taško užklausa}
+Taško užklausa yra tokia užklausa, kuri duotam taškui $p$ erdvėje $E^d$ randa visus objektus, kurie turi bendrų taškų:
+
+\begin{equation}
+	PQ(p) = \{ o | p \cap o.G = p \}
+\label{eq:ExactMatchQuery}
+\end{equation}
+
+Čia $\cap$ reiškia dviejų sričių sankirta euklido erdvėje $E^d$, t.y. visi bendri taškai, kuriuos apima abi sritys.
+Žiūrėti priedą \ref{app:pointQuery}.
+
+\subsubsection{Lango užklausa}
+Lango užklausa, tai tokia užkausa, kuri duotiems $d$ intervalams $I^d = [l_1, u_2] \times [l_2, u_2] \times ... \times [l_d, u_d]$ (po vieną kiekvienai erdvės $E^d$ koordinačių ašiai) randa visus objektus $o$ kurie turi bendrų taškų:
+
+\begin{equation}
+	WQ(I^d) = \{ o | I^d \cap o.G \neq \emptyset \}
+\label{eq:ExactMatchQuery}
+\end{equation}
+
+Verta pastebėti, kad lango užklausos atveju visos srities kraštinės yra lygegriačios erdvės $E^d$ koordinačių ašims.
+Žiūrėti priedą \ref{app:windowQuery}.
+
+
+\subsubsection{Regiono užklausa}
+Regiono užklausa yra labai panaši į Lango užklausą, tačiau srities kraštinės gali būti laisvai pasirinktos, ir neturi būti lygegriačios koordinačių ašims.
+Regiono užklausa randa visus objektus, kurie turi bendrų taškų su duotąja sritimi $g$.
+
+\begin{equation}
+	IQ(g) = \{ o | g \cap o.G \neq \emptyset \}
+\label{eq:ExactMatchQuery}
+\end{equation}
+Žiūrėti priedą \ref{app:intersectionQuery}.
+
+\subsubsection{Apgaubiančioji užklausa}
+Apgaubiančioji užklausa yra tokia užklausa, kuri randa visus objektus $o$, kurių erdvės sritis $o.G$ pilnai apima pateiktąją erdvės sritį $g$:
+
+\begin{equation}
+	EQ(g) = \{ o | (g \cap o.G) = o.G \}
+\label{eq:ExactMatchQuery}
+\end{equation}
+Žiūrėti priedą \ref{app:enclosureQuery}.
+
+
+\subsubsection{Pilno regiono užklausa}
+Pilno regiono užklausa iš esmės yra priešinga apgaubiančiąjai.
+Pilno regiono užklausa yra tokia užklausa, kuri randa visus objektus $o$, kurių erdvės sritis $o.G$ pilnai patenka į pateiktąją erdvės sritį $g$:
+
+\begin{equation}
+	CQ(g) = \{ o | (g \cap o.G) = g \}
+\label{eq:ExactMatchQuery}
+\end{equation}
+Žiūrėti priedą \ref{app:containmentQuery}.
+
+
+\subsubsection{Kaimynų užklausa}
+Kaimynų užklausa yra tokia užklausa, kuri pagal duotąjį objektą $o'$ suranda visus šio objekto kaimynus, t.y. objektus $o$ kurie turi bendrą kraštinę erdvėje $E^d$:
+
+\begin{equation}
+	AQ(g) = \{ o | (o'.G \cap o.G) \neq \emptyset \land o'.G\textdegree \cap o.G\textdegree = \emptyset \}
+\label{eq:ExactMatchQuery}
+\end{equation}
+
+Čia $o.G\textdegree$ reiškia visus vidinius taškus, kurie priklauso sričiai $o.G$.
+Žiūrėti priedą \ref{app:adjacencyQuery}.
+
+
+\subsubsection{Artimiausio kaimyno užklausa}
+Artimiausio kaimyno užklausa yra tokia užklausa, kuri duotam objektui $o'$ randa artimiausią kaimyną (verta pastebėti, kad šiuo atveju kaimynai gali ir neturėti bendrų kraštinių).
+
+\begin{equation}
+	NNQ(o') = \{ o | \forall o'' : dist(o'.G, o.G) \leq dist(o'.G, o''.G) \}
+\label{eq:ExactMatchQuery}
+\end{equation}
+
+
+
+
+\subsection{Daugiamačių duomenų indeksavimo metodų klasifikacija}
+Lu ir Ooi \cite{lu1993spatial} bei \cite{gaede1998multidimensional} apžvelgia įvairius daugiamačių duomenų indeksus, bei pateikia schemą padedančią suprasti jų istoriją (žiūrėti priedą \ref{app:multidimensionalIndexing}).
+
+Abu autoriai šiuos metodus suskirsto į tris grupes:
 \begin{itemize}
-	\item Metodai paremti maišos funkcijomis
-	\item Hierarchiniai metodai
-	\item Metodai paremti erdvę užpildančiomis kreivėmis \cite{bader2012space}
+	\item Metodai paremti maišos funkcijomis.
+	\item Hierarchiniai metodai.
+	\item Metodai paremti erdvę užpildančiomis kreivėmis \cite{bader2012space}.
 \end{itemize}
 
-Verta pastebėti, kad dažnai maišos funkcijomis paremti metodai nėra tinkami reikšmių intervalo užklausoms \cite{nievergelt1981grid} \cite{tamminen1982excell}. % TODO: explain what is "reikšmių intervalo užklausos"
-Todėl šiame darbe tokie metodai nebus įgyvendinami ir lyginami sistemoje \cite{NeurotechnologyMegamatcherAccelerator}.
 
 
 \subsection{Maišos funkcijomis paremti metodai daugiamačių duomenų indeksavimui}
+
 % generic description
 % basically hash tables where buckets are bloks in multidimensional space
 % order preserving hashes
 % pritaikymo pavyzdžiai
+
+Verta pastebėti, kad dažnai maišos funkcijomis paremti metodai yra tinkami tik griežto atitikmens užklausoms \cite{nievergelt1981grid} \cite{tamminen1982excell}.
+Todėl šiame darbe tokie metodai nebus įgyvendinami ir lyginami sistemoje \cite{NeurotechnologyMegamatcherAccelerator}.
 
 
 \subsection{Hierarchiniai metodai daugiamačių duomenų indeksavimui}
