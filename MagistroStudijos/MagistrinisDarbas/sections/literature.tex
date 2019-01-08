@@ -162,12 +162,22 @@ Verta pastebėti, kad sistemoje \cite{NeurotechnologyMegamatcherAccelerator} už
 Kd-medžių duomenys yra taškai $E^d$ erdvėje.
 Kd-medis yra dvejetainis medis, kurio lapuose (duomenų viršūnėse) yra saugomi vienas ar daugiau $d$-mačių taškų.
 Kiekviena vidinė medžio viršūnė (indekso viršūnė) dalina erdvę $E^d$ į dvi nepersidengiančias dalis.
-Taškai patenkantys į vieną dalį patenka į kairyjį pomedį, o patenkantis į kitą dalį -- į dešinį pomedį.
+Taškai patenkantys į vieną dalį patenka į kairyjį pomedį, o patenkantis į kitą dalį -- į dešinį pomedį (žr.: \ref{img:KDTreeExample} pav.).
 Erdvės dalinimas į dvi dalis yra parenkamas taip: kiekvienai vidinei viršūnei yra parenkama koordinačių ašis (pvz.: $x$) ir reikšmė (pvz .: $5$).
 Tuomet visi taškai, kurių $x$ koordinatės reikšmė yra mažesnė už parinktą reikšmę (pavyzdyje $[-\infty; 5)$), patenka į kairyjį pomedį, likę taškai (pavyzdyje $[5; \infty)$) -- į dešinį pomedį.
 Nėra griežtai apibrėžta kokia koordinačių ašis ar reikšmė šioje ašyje turi būti parinkta kiekvienai viršūnei, todėl šiuo tikslu taikomos įvairios euristikos.
 
-%TODO: image
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.7\textwidth]{img/KDTreeExample.png}
+\caption{KD-medžio pavyzdys.}
+\label{img:KDTreeExample}
+\end{center}
+\end{figure}
+
+Paveiksliuke \ref{img:KDTreeExample} pateikiamas KD-medžio pavyzdys.
+Čia Kairėje -- šį medį atitinkanti erdvė $E^d$.
+Taškai $P1$-$P5$ atitinka daugiamačius duomenis, o tiesės $S1$-$S4$ - erdvės $E^d$ padalijimus atitinkmai medžio viršūnėse $S1$ - $S4$.
 
 Hierarchiniai metodai daugiamačių duomenų indeksavimui yra plačiai taikomi duomenų bazių \cite{bohm2001searching}, sensorių tinklų \cite{li2003multi}, paveiksliukų paieškoje \cite{silpa2008optimised}, privatumo \cite{hore2012secure} \cite{xiao2010differentially} ir kitose srityse.
 
