@@ -20,16 +20,21 @@ Jeigu duomenys yra daugiamačiai (vienas įrašas gali susidėti iš daugiau neg
 	\item Artimiausio kaimyno užklausa
 \end{enumerate}
 
-% TODO: mention that this is finite space and that some operations like and = and similar are defined (and how defined)
 Autorius duomenis ir užklausas nagrinėja $d$ dimensijų euklido erdvėje $E^d$.
-Duomenys, šioje erdvėje, gali būti nebūtinai taškai, bet bet kokia erdvės sritis (taškas, linija, kvadratas, trapecija, kubas, piramidė...).
-Šios erdvės sritys užrašomas $o.G$, kur $o$ yra duomuo (kartais vadinamas objektu), o $o.G$ yra erdvės sritis priskiriama tam objektui/duomeniui.
+Atskirus įrašus apibrėžia kaip objektus $o$ kurie gali turėti 0 ar daugiau papildomų atributų nesusijusių su erdve $E^d$ (pvz.: vardas, pavadinimas, amžius...), bei griežtai vieną atributą $o.G$, kuris apibūdina objekto $o$ padėtį erdvėje $E^d$.
+Šis $o.G$ atributas yra aibė taškų, kuriuos objektas $o$ užima erdvėje $E^d$.
+Objektams yra apibrėžiami operatoriai $=$, $\cap$, bei $dist(o_1, o_2)$.
+Du objektai $o_1$ ir $o_2$ skaitomi lygiais $o_1 = o_2$ tada ir tik tada jeigu abiejų objektų užimamų taškų aibės $o_1.G$ ir $o_2.G$ sutampa.
+Dviejų objektų $o_1$ ir $o_2$ sankirta $o_1 \cap o_2$ yra aibė taškų, kurie patenka ir į $o_1.G$ ir į $o_2.G$.
+Ir galiausiai atstumas tarp dviejų objektų $o_1$ ir $o_2$ $dist(o_1, o_2)$ skaitomas mažiausias atstumas tarp bet kurių dviejų taškų esančių $o_1.G$ ir $o_2.G$ aibėse.
+
+
 
 \subsubsection{Griežto atitikmens užklausa}
-Griežto atitikmens užklausa yra tokia užklausa, kuri duotai erdvės sričiai $g$ erdvėje $E^d$ randa visus objektus, kurių erdvės sritys sutampa su duotąja:
+Griežto atitikmens užklausa yra tokia užklausa, kuri duotąjam objektui $o'$ erdvėje $E^d$ randa visus objektus, kurių erdvės sritys sutampa su duotąja:
 
 \begin{equation}
-	EMQ(g) = \{ o | g = o.G \}
+	EMQ(g) = \{ o | o'.G = o.G \}
 \label{eq:ExactMatchQuery}
 \end{equation}
 
@@ -37,11 +42,10 @@ Griežto atitikmens užklausa yra tokia užklausa, kuri duotai erdvės sričiai 
 Taško užklausa yra tokia užklausa, kuri duotam taškui $p$ erdvėje $E^d$ randa visus objektus, kurie turi bendrų taškų:
 
 \begin{equation}
-	PQ(p) = \{ o | p \cap o.G = p \}
+	PQ(p) = \{ o | \{p\} \cap o.G = \{p\} \}
 \label{eq:ExactMatchQuery}
 \end{equation}
 
-Čia $\cap$ reiškia dviejų sričių sankirta euklido erdvėje $E^d$, t.y. visi bendri taškai, kuriuos apima abi sritys.
 Žiūrėti priedą \ref{app:pointQuery}.
 
 \subsubsection{Lango užklausa}
@@ -52,25 +56,25 @@ Lango užklausa, tai tokia užkausa, kuri duotiems $d$ intervalams $I^d = [l_1, 
 \label{eq:ExactMatchQuery}
 \end{equation}
 
-Verta pastebėti, kad lango užklausos atveju visos srities kraštinės yra lygegriačios erdvės $E^d$ koordinačių ašims.
+Verta pastebėti, kad lango užklausos atveju visos erdvės srities kraštinės yra lygegriačios erdvės $E^d$ koordinačių ašims.
 Žiūrėti priedą \ref{app:windowQuery}.
 
 
 \subsubsection{Regiono užklausa}
 Regiono užklausa yra labai panaši į Lango užklausą, tačiau srities kraštinės gali būti laisvai pasirinktos, ir neturi būti lygegriačios koordinačių ašims.
-Regiono užklausa randa visus objektus, kurie turi bendrų taškų su duotąja sritimi $g$.
+Regiono užklausa randa visus objektus, kurie turi bendrų taškų su duotuoju objektu $o'$.
 
 \begin{equation}
-	IQ(g) = \{ o | g \cap o.G \neq \emptyset \}
+	IQ(g) = \{ o | o'.G \cap o.G \neq \emptyset \}
 \label{eq:ExactMatchQuery}
 \end{equation}
 Žiūrėti priedą \ref{app:intersectionQuery}.
 
 \subsubsection{Apgaubiančioji užklausa}
-Apgaubiančioji užklausa yra tokia užklausa, kuri randa visus objektus $o$, kurių erdvės sritis $o.G$ pilnai apima pateiktąją erdvės sritį $g$:
+Apgaubiančioji užklausa yra tokia užklausa, kuri randa visus objektus $o$, kurių erdvės sritis $o.G$ pilnai apima pateiktąjį objektą $o'$:
 
 \begin{equation}
-	EQ(g) = \{ o | (g \cap o.G) = o.G \}
+	EQ(g) = \{ o | (o'.G \cap o.G) = o.G \}
 \label{eq:ExactMatchQuery}
 \end{equation}
 Žiūrėti priedą \ref{app:enclosureQuery}.
@@ -78,10 +82,10 @@ Apgaubiančioji užklausa yra tokia užklausa, kuri randa visus objektus $o$, ku
 
 \subsubsection{Pilno regiono užklausa}
 Pilno regiono užklausa iš esmės yra priešinga apgaubiančiąjai.
-Pilno regiono užklausa yra tokia užklausa, kuri randa visus objektus $o$, kurių erdvės sritis $o.G$ pilnai patenka į pateiktąją erdvės sritį $g$:
+Pilno regiono užklausa yra tokia užklausa, kuri randa visus objektus $o$, kurių erdvės sritis $o.G$ pilnai patenka į pateikatjį objektą $o'$:
 
 \begin{equation}
-	CQ(g) = \{ o | (g \cap o.G) = g \}
+	CQ(g) = \{ o | (o'.G \cap o.G) = g \}
 \label{eq:ExactMatchQuery}
 \end{equation}
 Žiūrėti priedą \ref{app:containmentQuery}.
@@ -111,9 +115,9 @@ Artimiausio kaimyno užklausa yra tokia užklausa, kuri duotam objektui $o'$ ran
 
 
 \subsection{Daugiamačių duomenų indeksavimo metodų klasifikacija}
-Lu ir Ooi \cite{lu1993spatial} bei \cite{gaede1998multidimensional} apžvelgia įvairius daugiamačių duomenų indeksus, bei pateikia schemą padedančią suprasti jų istoriją (žiūrėti priedą \ref{app:multidimensionalIndexing}).
+Lu ir Ooi \cite{lu1993spatial} \cite{gaede1998multidimensional} \cite{bohm2001searching} apžvelgia įvairius daugiamačių duomenų indeksus, bei pateikia schemą padedančią suprasti jų istoriją (žiūrėti priedą \ref{app:multidimensionalIndexing}).
 
-Abu autoriai šiuos metodus suskirsto į tris grupes:
+Autoriai šiuos metodus suskirsto į tris grupes:
 \begin{itemize}
 	\item Metodai paremti maišos funkcijomis.
 	\item Hierarchiniai metodai.
@@ -122,7 +126,7 @@ Abu autoriai šiuos metodus suskirsto į tris grupes:
 
 
 
-\subsection{Maišos funkcijomis paremti metodai daugiamačių duomenų indeksavimui}
+\subsubsection{Maišos funkcijomis paremti metodai daugiamačių duomenų indeksavimui}
 
 % generic description
 % basically hash tables where buckets are bloks in multidimensional space
@@ -133,13 +137,41 @@ Verta pastebėti, kad dažnai maišos funkcijomis paremti metodai yra tinkami ti
 Todėl šiame darbe tokie metodai nebus įgyvendinami ir lyginami sistemoje \cite{NeurotechnologyMegamatcherAccelerator}.
 
 
-\subsection{Hierarchiniai metodai daugiamačių duomenų indeksavimui}
-% generic description
-% split strategies (predetermined, data based, distribution based)
-% pritaikymo pavyzdžiai
+\subsubsection{Hierarchiniai metodai daugiamačių duomenų indeksavimui}
 
+Hierarchiniai daugiamačių duomenų indeksai yra paremti dvejetainiais ar aukštesnio atsišakojimo faktoriaus medžiais (trejetainiai, ketvirtainiai...) \cite{gaede1998multidimensional}.
+Šie indeksai saugo įrašus ne po vieną, bet grupėmis.
+Dažniausiai kiekviena grupė yra randama medžio lapuose (vadinama {\it duomenų viršūne}).
+Vidinės viršūnės (vadinamos {\it indekso viršūnėmis}) yra naudojamos kaip kelrodžiai ieškant duomenų viršūnių.
+Kiekviena indekso viršūnė nurodo visas duomenų viršūnes, kurios gali būti rastos šios indekso viršūnės pomedyje.
 
-\subsection{Erdvę užpildančiomis kreivėmis paremti metodai daugiamačių duomenų indeksavimui}
+%TODO: image
+
+Užklausų apdorojimas yra skaidomas į du etapus:
+\begin{enumerate}
+	\item Iteravimas medžiu.
+	\item Įrašų filtravimas.
+\end{enumerate}
+Iteravimo medžiu etape, yra „prabėgamas“ medis nuo šaknies iki lapų ir atrenkamos visos duomenų viršūnės, kurios gali turėti įrašų atitinkančių užklausos kriterijus.
+Filtravimo metu atrenkami įrašai esantys iteravimo etape atrinktose grupėse ir tenkinatys užklausos kriterijus \cite{brinkhoff1994multi} \cite{bohm2001searching}.
+Verta pastebėti, kad sistemoje \cite{NeurotechnologyMegamatcherAccelerator} užklausų apdorojimo etapai yra labai panašūs.
+
+\paragraph{kd-medis}
+
+Šiame darbe bus aptariamas biometrinių įrašų priskyrimo blokams metodas paremtas kd-medžiu \cite{bentley1979multidimensional}.
+Kd-medžių duomenys yra taškai $E^d$ erdvėje.
+Kd-medis yra dvejetainis medis, kurio lapuose (duomenų viršūnėse) yra saugomi vienas ar daugiau $d$-mačių taškų.
+Kiekviena vidinė medžio viršūnė (indekso viršūnė) dalina erdvę $E^d$ į dvi nepersidengiančias dalis.
+Taškai patenkantys į vieną dalį patenka į kairyjį pomedį, o patenkantis į kitą dalį -- į dešinį pomedį.
+Erdvės dalinimas į dvi dalis yra parenkamas taip: kiekvienai vidinei viršūnei yra parenkama koordinačių ašis (pvz.: $x$) ir reikšmė (pvz .: $5$).
+Tuomet visi taškai, kurių $x$ koordinatės reikšmė yra mažesnė už parinktą reikšmę (pavyzdyje $[-\infty; 5)$), patenka į kairyjį pomedį, likę taškai (pavyzdyje $[5; \infty)$) -- į dešinį pomedį.
+Nėra griežtai apibrėžta kokia koordinačių ašis ar reikšmė šioje ašyje turi būti parinkta kiekvienai viršūnei, todėl šiuo tikslu taikomos įvairios euristikos.
+
+%TODO: image
+
+Hierarchiniai metodai daugiamačių duomenų indeksavimui yra plačiai taikomi duomenų bazių \cite{bohm2001searching}, sensorių tinklų \cite{li2003multi}, paveiksliukų paieškoje \cite{silpa2008optimised}, privatumo \cite{hore2012secure} \cite{xiao2010differentially} ir kitose srityse.
+
+\subsubsection{Erdvę užpildančiomis kreivėmis paremti metodai daugiamačių duomenų indeksavimui}
 % generic description
 % row-wise kreivė, panaši į šiame darbe testuojamą metodą
 % kitos kreivės
