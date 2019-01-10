@@ -234,6 +234,50 @@ Formaliai tvarka yra apibrėžiama sąryšio:
 
 \paragraph{Z-kreivė}
 
+Daugiamačių duomenų indeksavimo metodų kontekste Z-kreivė yra viena iš populiariausių \cite{ramsak2000integrating}.
+Z-kreivė visų pirmą visą erdvę $E^d$ padalina į dvi lygias sritis $p_0$ ir $p_1$ statmenai pirmai koordinačių ašiai.
+Z-kreivė visus laukelius esančius srityje $p_0$ „prabėga“ pirmiau tų, kurie yra srityje $p_1$.
+Sekančiame žingsnyje $p_0$ ir $p_1$ yra padalinamos į dvi lygias sritis $p_{00}$, $p_{01}$ bei $p_{10}$ $p_{11}$ statmenai antrai koordinačių ašiai.
+Atitinkamai $p_{00}$ laukeliai yra „prabėgami“ ankščiau $p_{01}$, o $p_{10}$ ankščiau $p_{11}$.
+Toliau skaidoma pagal trečią koordinačių ašį, vėliau pagal ketvirtą, ..., d-tąją (žr.: \ref{img:ZCurveSpaceFillingCurve} pav.).
+Kai padaromas padalinimas pagal d-tąją ašį, pradedama vėl nuo pirmosios koordinačių ašies.
+Šis rekursiškas dalinimas yra vykdomas tol, kol kiekviena erdvės sritis $p$ yra nedidesnė negu ankščiau minėtos gardelės laukelio dydis.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.3\textwidth]{img/ZCurveSpaceFillingCurve.png}
+\caption{Z erdvę užpildančios kreivės pavyzdys.}
+\label{img:ZCurveSpaceFillingCurve}
+\end{center}
+\end{figure}
+
+Tarsime, kad erdvė $E^d$ nėra begalinė, ir $[0, 2^b]$ yra visų šios erdvės koordinačių ašių ribos.
+Formaliai tvarka yra apibrėžiama sąryšio:
+\begin{equation}
+	p_1 < p_2 \text{ jeigu } ZCSFC(p_1) < ZCSFC(p_2)
+\label{eq:ZCurveSFCComparison}
+\end{equation}
+
+Čia $p_1$ ir $p_2$ yra taškai erdvėje $E^d$, o $ZCSFC(p)$:
+
+\begin{equation}
+	ZCSFC(p) = \sum_{i=0}^{b-1} \sum_{j=0}^{d-1} [2^{i*b+j} BITSET(p_j, i)]
+\label{eq:ZCurveSFCValue}
+\end{equation}
+
+Čia:
+
+\begin{equation}
+	BITSET(p, i)=
+\begin{cases}
+	1,& \text{jeigu } \text{i-asis bitas yra 1 skaičiaus p dvejetainėje formoje}\\
+	0,& \text{kitu atveju}\\
+\end{cases}
+\label{eq:Bitset}
+\end{equation}
+
+
+
 
 
 
