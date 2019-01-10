@@ -49,7 +49,7 @@ Taško užklausa yra tokia užklausa, kuri duotam taškui $p$ erdvėje $E^d$ ran
 Žiūrėti priedą \ref{app:pointQuery}.
 
 \subsubsection{Lango užklausa}
-Lango užklausa, tai tokia užkausa, kuri duotiems $d$ intervalams $I^d = [l_1, u_2] \times [l_2, u_2] \times ... \times [l_d, u_d]$ (po vieną kiekvienai erdvės $E^d$ koordinačių ašiai) randa visus objektus $o$ kurie turi bendrų taškų:
+Lango užklausa, tai tokia užkausa, kuri duotiems $d$ intervalams $I^d = [l_1, u_1] \times [l_2, u_2] \times ... \times [l_d, u_d]$ (po vieną kiekvienai erdvės $E^d$ koordinačių ašiai) randa visus objektus $o$ kurie turi bendrų taškų:
 
 \begin{equation}
 	WQ(I^d) = \{ o | I^d \cap o.G \neq \emptyset \}
@@ -85,7 +85,7 @@ Pilno regiono užklausa iš esmės yra priešinga apgaubiančiąjai.
 Pilno regiono užklausa yra tokia užklausa, kuri randa visus objektus $o$, kurių erdvės sritis $o.G$ pilnai patenka į pateikatjį objektą $o'$:
 
 \begin{equation}
-	CQ(g) = \{ o | (o'.G \cap o.G) = g \}
+	CQ(g) = \{ o | (o'.G \cap o.G) = o'.G \}
 \label{eq:ExactMatchQuery}
 \end{equation}
 Žiūrėti priedą \ref{app:containmentQuery}.
@@ -115,7 +115,7 @@ Artimiausio kaimyno užklausa yra tokia užklausa, kuri duotam objektui $o'$ ran
 
 
 \subsection{Daugiamačių duomenų indeksavimo metodų klasifikacija}
-Lu ir Ooi \cite{lu1993spatial} \cite{gaede1998multidimensional} \cite{bohm2001searching} apžvelgia įvairius daugiamačių duomenų indeksus, bei pateikia schemą padedančią suprasti jų istoriją (žiūrėti priedą \ref{app:multidimensionalIndexing}).
+Lu ir Ooi \cite{lu1993spatial}, Gaede ir Günther \cite{gaede1998multidimensional}, bei B{\"o}hm, Christian, Stefan, Daniel A \cite{bohm2001searching} apžvelgia įvairius daugiamačių duomenų indeksus, bei pateikia schemą padedančią suprasti jų istoriją (žiūrėti priedą \ref{app:multidimensionalIndexing}).
 
 Autoriai šiuos metodus suskirsto į tris grupes:
 \begin{itemize}
@@ -156,36 +156,85 @@ Iteravimo medžiu etape, yra „prabėgamas“ medis nuo šaknies iki lapų ir a
 Filtravimo metu atrenkami įrašai esantys iteravimo etape atrinktose grupėse ir tenkinatys užklausos kriterijus \cite{brinkhoff1994multi} \cite{bohm2001searching}.
 Verta pastebėti, kad sistemoje \cite{NeurotechnologyMegamatcherAccelerator} užklausų apdorojimo etapai yra labai panašūs.
 
-\paragraph{kd-medis}
+\paragraph{Kd-medis}
 
-Šiame darbe bus aptariamas biometrinių įrašų priskyrimo blokams metodas paremtas kd-medžiu \cite{bentley1979multidimensional}.
+Šiame darbe bus aptariamas biometrinių įrašų priskyrimo blokams metodas paremtas Kd-medžiu \cite{bentley1979multidimensional}.
 Kd-medžių duomenys yra taškai $E^d$ erdvėje.
 Kd-medis yra dvejetainis medis, kurio lapuose (duomenų viršūnėse) yra saugomi vienas ar daugiau $d$-mačių taškų.
 Kiekviena vidinė medžio viršūnė (indekso viršūnė) dalina erdvę $E^d$ į dvi nepersidengiančias dalis.
-Taškai patenkantys į vieną dalį patenka į kairyjį pomedį, o patenkantis į kitą dalį -- į dešinį pomedį (žr.: \ref{img:KDTreeExample} pav.).
+Taškai patenkantys į vieną dalį patenka į kairyjį pomedį, o patenkantis į kitą dalį -- į dešinį pomedį (žr.: \ref{img:KdTreeExample} pav.).
 Erdvės dalinimas į dvi dalis yra parenkamas taip: kiekvienai vidinei viršūnei yra parenkama koordinačių ašis (pvz.: $x$) ir reikšmė (pvz .: $5$).
 Tuomet visi taškai, kurių $x$ koordinatės reikšmė yra mažesnė už parinktą reikšmę (pavyzdyje $[-\infty; 5)$), patenka į kairyjį pomedį, likę taškai (pavyzdyje $[5; \infty)$) -- į dešinį pomedį.
 Nėra griežtai apibrėžta kokia koordinačių ašis ar reikšmė šioje ašyje turi būti parinkta kiekvienai viršūnei, todėl šiuo tikslu taikomos įvairios euristikos.
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=0.7\textwidth]{img/KDTreeExample.png}
-\caption{KD-medžio pavyzdys.}
-\label{img:KDTreeExample}
+\includegraphics[width=0.7\textwidth]{img/KdTreeExample.png}
+\caption{Kd-medžio pavyzdys.}
+\label{img:KdTreeExample}
 \end{center}
 \end{figure}
 
-Paveiksliuke \ref{img:KDTreeExample} pateikiamas KD-medžio pavyzdys.
-Čia Kairėje -- šį medį atitinkanti erdvė $E^d$.
+Paveiksliuke \ref{img:KdTreeExample} pateikiamas Kd-medžio pavyzdys.
+Čia kairėje -- šį medį atitinkanti erdvė $E^d$.
 Taškai $P1$-$P5$ atitinka daugiamačius duomenis, o tiesės $S1$-$S4$ - erdvės $E^d$ padalijimus atitinkmai medžio viršūnėse $S1$ - $S4$.
 
 Hierarchiniai metodai daugiamačių duomenų indeksavimui yra plačiai taikomi duomenų bazių \cite{bohm2001searching}, sensorių tinklų \cite{li2003multi}, paveiksliukų paieškoje \cite{silpa2008optimised}, privatumo \cite{hore2012secure} \cite{xiao2010differentially} ir kitose srityse.
 
 \subsubsection{Erdvę užpildančiomis kreivėmis paremti metodai daugiamačių duomenų indeksavimui}
-% generic description
-% row-wise kreivė, panaši į šiame darbe testuojamą metodą
-% kitos kreivės
-% pritaikymo pavyzdžiai
+
+Kaip ir hierarchiniuose metoduose taip ir erdvę užpildančiomis kreivėmis paremtuose metoduose duomenys nagrinėjami kaip taškai euklido erdvėje $E^d$
+
+Daugiamačiai duomenys neturi pilnos tvarkos, pagal kurią šalia esantys taškai būtų arti ir erdvėje $E^d$.
+Dėl šios priežasties daugiamačių duomenų indeksavimo metodai yra sudėtingesni lyginant su vienmačiais \cite{gaede1998multidimensional} \cite{bohm2001searching}
+Tačiau egzistuoja įvairiomis euristikomis paremtų pilnos tvarkos sudarymo metodų, kurie su nemaža tikimybe taip sudeda taškus.
+Ši pilna tvarka yra vienmatė erdvė $E'^1$ kurią galima indeksuoti vienmačiais indeksavimo metodais (B-medžiu \cite{comer1979ubiquitous} RB-medžiu \cite{hanke1997relaxed} ir pan.).
+
+Siekiant sudaryti tokią tvarką, $E^d$ erdvė suskirstoma į gardelę (į kiekvieną laukelį šioje gardelėje gali patekti nulis, vienas ar daugiau taškų).
+Kiekvienam laukeliui šioje gardelėje yra priskiriamas unikalus skaičius pagal kurį laukeliai yra surikiuojami ir indeksuojami vienmačiais indeksavimo metodais.
+Šie unikalūs skaičiai yra priskiriami pagal tai kokia tvarka erdvę užpildanti kreivė \cite{bader2012space} „prabėga“ pro laukelius.
+Aptarsime dvi tokias kreives:
+\begin{enumerate}
+	\item Eilutinę kreivę.
+	\item Z-kreivę.
+\end{enumerate}
+
+\paragraph{Eilutinė kreivė}
+
+Eilutinė kreivė yra viena iš papraščiausių erdvę užpildančių kreivių.
+Ji negali būti naudojama begalinėje erdvėje, todėl tarkime, kad $[L_i; U_i]$ yra erdvės $E^d$ ribos dimensijos $i$ atžvilgiu.
+Eilutinė kreivė iš pradžių „prabėga“ visus taškus didėjimo tvarka $[x, L_2, ..., L_d]$, kur $x \in [L_1; U_1]$.
+Paskui „prabėga“ $[x, L_2 + 1, ..., L_d]$, paskui $[x, L_2 + 2, ..., L_d]$ ir t.t. (žr.: \ref{img:RowWiseSpaceFillingCurve} pav.).
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.3\textwidth]{img/RowWiseSpaceFillingCurve.png}
+\caption{Eilutinės erdvę užpildančios kreivės pavyzdys.}
+\label{img:RowWiseSpaceFillingCurve}
+\end{center}
+\end{figure}
+
+
+Formaliai tvarka yra apibrėžiama sąryšio:
+\begin{equation}
+	p_1 < p_2 \text{ jeigu } RWSFC(p_1) < RWSFC(p_2)
+\label{eq:RowWiseSFCComparison}
+\end{equation}
+
+Čia $p_1$ ir $p_2$ yra taškai erdvėje $E^d$, o $RWSFC(p)$:
+
+\begin{equation}
+	RWSFC(p) = \sum_{i=1}^{d} [(p_i - L_i) \prod_{j=0}^{i - 1}U_j - L_j]
+\label{eq:RowWiseSFCValue}
+\end{equation}
+
+Čia daroma prielaida, kad $U_0 - L_0 = 1$.
+
+
+
+\paragraph{Z-kreivė}
+
+
 
 
 \subsection{SP-GIST karkasas}
