@@ -128,13 +128,9 @@ Autoriai šiuos metodus suskirsto į tris grupes:
 
 \subsubsection{Maišos funkcijomis paremti metodai daugiamačių duomenų indeksavimui}
 
-% generic description
-% basically hash tables where buckets are bloks in multidimensional space
-% order preserving hashes
-% pritaikymo pavyzdžiai
-
-Verta pastebėti, kad dažnai maišos funkcijomis paremti metodai yra tinkami tik griežto atitikmens užklausoms \cite{nievergelt1981grid} \cite{tamminen1982excell}.
-Todėl šiame darbe tokie metodai nebus įgyvendinami ir lyginami sistemoje \cite{NeurotechnologyMegamatcherAccelerator}.
+Bendruoju atveju maišos funkcijomis paremti metodai yra tinkami griežto atitinkmens, bei taško užklausoms.
+Tačiau siekiant apdoroti lango, regiono ir kitas, panašias, užklausias šie metodai tampa kompleksiškesni \cite{nievergelt1981grid} \cite{tamminen1982excell}.
+Dėl šios priežasties jie nebus nagrinėjami, įgyvendinami ir lyginami šiame darbe.
 
 
 \subsubsection{Hierarchiniai metodai daugiamačių duomenų indeksavimui}
@@ -152,8 +148,8 @@ Užklausų apdorojimas yra skaidomas į du etapus:
 	\item Iteravimas medžiu.
 	\item Įrašų filtravimas.
 \end{enumerate}
-Iteravimo medžiu etape, yra „prabėgamas“ medis nuo šaknies iki lapų ir atrenkamos visos duomenų viršūnės, kurios gali turėti įrašų atitinkančių užklausos kriterijus.
-Filtravimo metu atrenkami įrašai esantys iteravimo etape atrinktose grupėse ir tenkinatys užklausos kriterijus \cite{brinkhoff1994multi} \cite{bohm2001searching}.
+Iteravimo medžiu etape, yra „prabėgamas“ medis nuo šaknies iki lapų ir atrenkamos visos duomenų viršūnės, kurios gali turėti įrašų atitinkančių užklausą.
+Filtravimo metu atrenkami įrašai esantys iteravimo etape atrinktose grupėse ir tenkinatys užklausą \cite{brinkhoff1994multi} \cite{bohm2001searching}.
 Verta pastebėti, kad sistemoje \cite{NeurotechnologyMegamatcherAccelerator} užklausų apdorojimo etapai yra labai panašūs.
 
 \paragraph{Kd-medis}
@@ -183,7 +179,7 @@ Hierarchiniai metodai daugiamačių duomenų indeksavimui yra plačiai taikomi d
 
 \subsubsection{Erdvę užpildančiomis kreivėmis paremti metodai daugiamačių duomenų indeksavimui}
 
-Kaip ir hierarchiniuose metoduose taip ir erdvę užpildančiomis kreivėmis paremtuose metoduose duomenys nagrinėjami kaip taškai euklido erdvėje $E^d$
+Kaip ir hierarchiniuose metoduose taip ir erdvę užpildančiomis kreivėmis paremtuose metoduose duomenys nagrinėjami kaip taškai euklido erdvėje $E^d$.
 
 Daugiamačiai duomenys neturi pilnos tvarkos, pagal kurią šalia esantys taškai būtų arti ir erdvėje $E^d$.
 Dėl šios priežasties daugiamačių duomenų indeksavimo metodai yra sudėtingesni lyginant su vienmačiais \cite{gaede1998multidimensional} \cite{bohm2001searching}
@@ -234,7 +230,7 @@ Formaliai tvarka yra apibrėžiama sąryšio:
 
 \paragraph{Z-kreivė}
 
-Daugiamačių duomenų indeksavimo metodų kontekste Z-kreivė yra viena iš populiariausių \cite{ramsak2000integrating}.
+Daugiamačių duomenų indeksavimo metodų paremtų erdvę užpildančiomis kreivėmis kontekste Z-kreivė yra viena iš populiariausių \cite{ramsak2000integrating}.
 Z-kreivė visų pirmą visą erdvę $E^d$ padalina į dvi lygias sritis $p_0$ ir $p_1$ statmenai pirmai koordinačių ašiai.
 Z-kreivė visus laukelius esančius srityje $p_0$ „prabėga“ pirmiau tų, kurie yra srityje $p_1$.
 Sekančiame žingsnyje $p_0$ ir $p_1$ yra padalinamos į dvi lygias sritis $p_{00}$, $p_{01}$ bei $p_{10}$ $p_{11}$ statmenai antrai koordinačių ašiai.
@@ -265,7 +261,6 @@ Formaliai tvarka yra apibrėžiama sąryšio:
 \label{eq:ZCurveSFCValue}
 \end{equation}
 
-Čia:
 
 \begin{equation}
 	BITSET(p, i)=
