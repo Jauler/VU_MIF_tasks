@@ -134,6 +134,7 @@ Dėl šios priežasties jie nebus nagrinėjami, įgyvendinami ir lyginami šiame
 
 
 \subsubsection{Hierarchiniai metodai daugiamačių duomenų indeksavimui}
+\label{sec:HierarchicalIndices}
 
 Hierarchiniai daugiamačių duomenų indeksai yra paremti dvejetainiais ar aukštesnio atsišakojimo faktoriaus medžiais (trejetainiai, ketvirtainiai...) \cite{gaede1998multidimensional}.
 Šie indeksai saugo įrašus ne po vieną, bet grupėmis.
@@ -141,7 +142,7 @@ Dažniausiai kiekviena grupė yra randama medžio lapuose (vadinama {\it duomen�
 Vidinės viršūnės (vadinamos {\it indekso viršūnėmis}) yra naudojamos kaip kelrodžiai ieškant duomenų viršūnių.
 Kiekviena indekso viršūnė nurodo visas duomenų viršūnes, kurios gali būti rastos šios indekso viršūnės pomedyje.
 
-%TODO: image
+Keletas tokių medžių pavyzdžių yra R-medis \cite{guttman1984r}, R*-medis \cite{beckmann1990r}, R+-medis \cite{sellis1987r+}, Kd-medis \cite{bentley1979multidimensional}, Kdb-medis \cite{robinson1981kdb}, X-medis \cite{berchtold1996x}, Quad-medis \cite{habenicht1983quad} ir daug kitų.
 
 Užklausų apdorojimas yra skaidomas į du etapus:
 \begin{enumerate}
@@ -153,6 +154,7 @@ Filtravimo metu atrenkami įrašai esantys iteravimo etape atrinktose grupėse i
 Verta pastebėti, kad sistemoje \cite{NeurotechnologyMegamatcherAccelerator} užklausų apdorojimo etapai yra labai panašūs.
 
 \paragraph{Kd-medis}
+\label{sec:Kd-tree}
 
 Šiame darbe bus aptariamas biometrinių įrašų priskyrimo blokams metodas paremtas Kd-medžiu \cite{bentley1979multidimensional}.
 Kd-medžių duomenys yra taškai $E^d$ erdvėje.
@@ -276,7 +278,98 @@ Formaliai tvarka yra apibrėžiama sąryšio:
 
 
 
-\subsection{SP-GIST karkasas}
+\section{SP-GIST karkasas}
+
+Walid G. Aref, Ihab F. Ilyas \cite{aref2001sp} pastebėjo, kad siekiant įdiegti ar palyginti įvairius hierarchinius duomenų indeksavimo metodus tenka kiekvieną jų atskirai integruoti į duomenų bazės branduolį.
+Tai kartu yra ir sudėtinga ir daug laiko reikalaujanti užduotis.
+Autoriai šią problemą sprendė ieškodami bendrų savybių visiems hierarchiniams duomenų indeksavimo metodams ir pasiūlė sąsają, kuri galėtų būti integruota į duomenų bazės branduolį.
+Suprogramuoti indeksavimo metodą pagal šią sąsaja yra kur kas lengvesnė užduotis, negu integruoti tiesiai į duomenų bazės branduolį.
+Verta pastebėti, kad tokia pati problema panašiu būdu buvo spręsta ir vienmačių duomenų indeksavimo metodams \cite{hellerstein1995generalized}.
+
+Autorių pasiūloma sąsaja susideda iš 7 parametrų ir 3 metodų (funkcijomis, kurias branduolys gali iškviesti)
+Naudodamasis šiais parametrais ir metodais duomenų bazės branduolys gali išsaugoti, ištrinti įrašus bei apdoroti užklausas.
+
+\subsubsection{SP-GIST sąsajos parametrai}
+Tokie parametrai yra apibrėžiami autorių (pateikiami originalo kalba):
+\begin{enumerate}
+	\item NodePredicate.
+	\item KeyType.
+	\item NumberOfSpacePartitions.
+	\item Resolution.
+	\item PathShrink.
+	\item NodeShrink.
+	\item BucketSize.
+\end{enumerate}
+
+Trumpai aptarsime šiuos parametrus.
+
+\paragraph{NodePredicate}
+Parametras {\it NodePredicate} apibrėžia duomenis, kurie yra saugomi indekso viršūnėse.
+Pagal šiuos duomenis yra parenkamas indekso viršūnės vaikas, pro kurį bus „bėgama“ toliau.
+Pavyzdžiui Kd-medžio atveju šis parametras apibrėžtų duomenų tipą saugantį koordinačių ašį ir reikšmė, pagal kurią indekso viršūnėje dalijama erdvė $E^d$ (žr.: \ref{sec:Kd-tree} skyrelį).
+
+\paragraph{KeyType}
+Parametras {\it KeyType} nurodo kokio tipo duomenys yra saugomi duomenų viršūnėse.
+Šiame darbe nagrinėsime tik tuos atvejus, kur šio parametro reikšmė yra taškas erdvėje $E^d$.
+
+\paragraph{NumberOfSpacePartitions}
+Parametras {\it NumberOfSpacePartitions} apibrėžia kiek vaikų maksimaliai gali turėti indekso viršūnės.
+Pavyzdžiui kd-medžio atveju šio parametro reikšmė yra $2$, quad-medžio atveju -- $4$.
+
+\paragraph{Resolution}
+Parametrias {\it Resolution} apibrėžia maksimalų medžio gylį.
+
+\paragraph{PathShrink}
+Parametras {\it PathShrink} gali turėti tris reikšmes: {\it NeverShrink}, {\it LeafShrink} arba {\it Tree Shrink}.
+Kai kuriais atvejais hierarchiniuose duomenų indeksavimo metoduose dvi ar daugiau indekso viršunių gali būti apjungtos tarpusavyje, šitaip sumažinant medžio gylį, tačiau neprarandant duomenų vientisumo.
+Tačiau šiame darbe šie apjungimo metodai nebus nagrinėjami ir bus daroma prielaida, kad parametro {\it PathSrhink} reikšmė visada bus {\it NeverShrink}, t.y. niekada nebus vykdomi indekso viršūnių apjungimai.
+
+\paragraph{NodeShrink}
+Verta prisiminti, kad hierarchiniai duomenų indeksavimo metodai duomenis laiko grupėmis (žr.: \ref{sec:HierarchicalIndices}).
+Parametras {\t NodeShrink} gali turėti dvi reikšmes: „Įjungta“ arba „Išjungta“.
+Jeigu reikšmė yra „Įjungta“, tuomet tuščios duomenų viršūnės (pavyzdžiui po visų įrašų priklausančių kuriai nors grupei ištrynimo) bus pašalinamos iš medžio, atitinkamai, jeigu po tokio ištrinymo indekso viršūnė nebeturi vaikų -- ji irgi bus pašalinta.
+Jeigu reikšmė yra „Išjungta“, tuščios viršūnės yra paliekamos medyje.
+
+
+\paragraph{BucketSize}
+{\it BucketSize} parametras nurodo kiek daugiausiai įrašų gali būti vienoje duomenų viršūnėje (grupėje).
+
+
+
+\subsubsection{SP-GIST sąsajos metodai}
+
+Autoriai apibrėžė šiuos metodus SP-GIST sąsajoje (pateikiamos originalo kalba):
+\begin{enumerate}
+	\item {\it Consistent(Entry E, Query q)}
+	\item {\it PickSplit(P)}
+	\item {\it Cluster()}
+\end{enumerate}
+
+\paragraph{Metodas Consistent}
+Metodas {\it Consistant(Entry E, Query q)} yra būlio funkcija, kuri gražina rezultatą {\it Melas} tada ir tik tada, jeigu viršūnėje $E$ (ir jos pomedyje jeigu viršūnė $E$ yra indekso viršūnė) negali būti įrašų, kurie tenkina užklausą $q$.
+Šis metodas yra naudojamas duomenų bazės branduolio kaip kelrodis iteruojant per medį.
+
+\paragraph{Metodas PickSplit}
+Jeigu grupėje į kurią siekiama įdėti naują įrašą nebėra laisvos vietos (jos dydis pasiekė parametro {\it BucketSize} reikšmę), tuomet šį grupė yra skaidoma į dvi ar daugiau naujų grupių.
+Metodas {\it PickSplit(P)} yra naudojamas siekiant parinkti kaip įrašų grupė $P$ pasidalins į mažesnias grupes.
+Šis metodas gražina duomenų struktūrą apibrėžiančią medį, saugantį visus įrašus buvusius grupėje $P$.
+Duomenų bazės branduolys, duomenų viršūnę, kuri saugojo įrašų grupę $P$, pakeičia gražinto medžio šaknine viršūne.
+
+\paragraph{Metodas Cluster}
+Metodas {\it Cluster()} parenka kaip medžio viršūnės bus saugomos disko blokuose.
+Kadangi šiame darbe nagrinėjame indeksus, kurie saugo įrašus operatyviojoje atmintyje, tai šis metodas nebus detalizuojamas.
+
+
+Šis karkasas buvo pritaikytas tokiose duomenų bazėse, kaip PostgreSQL \cite{eltabakh2006space} ir kitose.
+
+Padarius keletą modifikacijų (aprašomų sekančiuose skyriuose) ši sąsaja bus taikoma vertinant biometrinių įrašų priskyrimo blokams metodus paremtus ir Kd-medžiu ir erdvę užpildančiomis kreivėmis sistemoje \cite{NeurotechnologyMegamatcherAccelerator}.
+
+
 % sp-gists
 % bulk operations on sp-gists
 % postgre (min 3)
+
+
+
+
+
