@@ -1,14 +1,14 @@
 \section{Užklausų klasifikacija}
 
 Panaši problema į aptartąją įvade yra nemažai tyrinėjama duomenų bazių kontekste.
-Čia minimizuojamas disko operacijų skaičius siekiant sumažinti duomenų bazės atsako laiką bei padidinti pralaidumą (apdorotų užklausų skaičių per laiko vienetą) \cite{garcia2000database}.
-Panašiai kaip šiame darbe siekiama minimizuoti biometrinių įrašų blokų skaičių likusį po atmetimo etapo siekiant pagerinti sistemos \cite{NeurotechnologyMegamatcherAccelerator} pralaidumą.
-Tuo tikslu yra naudojama duomenų struktūra, vadinama {\it duomenų indeksu}.
+Panašiai kaip šiame darbe siekiama minimizuoti biometrinių įrašų blokų skaičių likusį po atemtimo etapo, duomenų bazėse siekiama minimizuoti disko operacijų skaičių siekiant sumažinti duomenų bazės atsako laiką bei padidinti pralaidumą (apdorotų užklausų skaičių per laiko vienetą) \cite{garcia2000database}.
+Tuo tikslu yra naudojamos duomenų struktūros, vadinamos {\it duomenų indeksu}.
 Jeigu duomenys yra daugiamačiai (vienas įrašas gali susidėti iš daugiau negu vienos reikšmės), tuomet indeksas tokiems duomenims vadinamas {\it daugiamačių duomenų indeksu}, o metodas pagal kurį šis indeksas yra sudaromas bei naudojamas {\it daugiamačių duomenų indeksavimo metodu}.
 
 \subsection{Užklausų klasifikacija}
 
-Šiame darbe palyginant indeksavimo metodus sistemoje \cite{NeurotechnologyMegamatcherAccelerator} siekiama apimti kiek galima daugiau užklausų klasių pagal Gaede ir Günther \cite{gaede1998multidimensional} pateikiamą daugiamačių užklausų klasifikaciją:
+Šiame darbe palyginant biometrinių įrašų priskyrimo blokams metodus sistemoje \cite{NeurotechnologyMegamatcherAccelerator} siekiama apimti kiek galima daugiau užklausų klasių.
+Gaede ir Günther \cite{gaede1998multidimensional} patiekia tokią daugiamačių užklausų klasifikaciją:
 \begin{enumerate}
 	\item Griežto atitikmens užklausa
 	\item Taško užklausa
@@ -26,7 +26,7 @@ Atskirus įrašus apibrėžia kaip objektus $o$ kurie gali turėti 0 ar daugiau 
 Objektams yra apibrėžiami operatoriai $=$, $\cap$, bei $dist(o_1, o_2)$.
 Du objektai $o_1$ ir $o_2$ skaitomi lygiais $o_1 = o_2$ tada ir tik tada jeigu abiejų objektų užimamų taškų aibės $o_1.G$ ir $o_2.G$ sutampa.
 Dviejų objektų $o_1$ ir $o_2$ sankirta $o_1 \cap o_2$ yra aibė taškų, kurie patenka ir į $o_1.G$ ir į $o_2.G$.
-Ir galiausiai atstumas tarp dviejų objektų $o_1$ ir $o_2$ $dist(o_1, o_2)$ skaitomas mažiausias atstumas tarp bet kurių dviejų taškų esančių $o_1.G$ ir $o_2.G$ aibėse.
+Ir galiausiai atstumas tarp dviejų objektų $o_1$ ir $o_2$ $dist(o_1, o_2)$ skaitomas atstumas tarp artimiausių taškų $p_1$, $p_2$, kur $p_1 \in o_1.G$ o $p_2 \in o_2.G$.
 
 
 
@@ -49,29 +49,36 @@ Taško užklausa yra tokia užklausa, kuri duotam taškui $p$ erdvėje $E^d$ ran
 Žiūrėti priedą \ref{app:pointQuery}.
 
 \subsubsection{Lango užklausa}
-Lango užklausa, tai tokia užkausa, kuri duotiems $d$ intervalams $I^d = [l_1, u_1] \times [l_2, u_2] \times ... \times [l_d, u_d]$ (po vieną kiekvienai erdvės $E^d$ koordinačių ašiai) randa visus objektus $o$ kurie turi bendrų taškų:
+Lango užklausa, tai tokia užkausa, kuri duotiems $d$ intervalams $I^d = [l_1, u_1], [l_2, u_2], ..., [l_d, u_d]$ (po vieną intervalą kiekvienai erdvės $E^d$ koordinačių ašiai) sudaro objektą $o'$, tokį, kad
 
 \begin{equation}
-	WQ(I^d) = \{ o | I^d \cap o.G \neq \emptyset \}
+	o'.G = o'_1.G \cap o'_2.G \cap ... \cap o'_d.G
+\end{equation}
+
+Čia objekto $o'_i.G$ aibėje yra visi taškai, kurių $i$-tosios koordinatės reikšmė patenka į $I_i$ intervalą.
+Lango užklausa randa visus objektus, kurie turi nors vieną bendrą tašką su objektu $o'$:
+
+\begin{equation}
+	WQ(o') = \{ o | o'.G \cap o.G \neq \emptyset \}
 \label{eq:ExactMatchQuery}
 \end{equation}
 
-Verta pastebėti, kad lango užklausos atveju visos erdvės srities kraštinės yra lygegriačios erdvės $E^d$ koordinačių ašims.
+Verta pastebėti, kad lango užklausos atveju aibės $o'.G$ apibrėžiamos erdvės $E^d$ srities kraštinės visada yra lygegriačios šios erdvės koordinačių ašims.
 Žiūrėti priedą \ref{app:windowQuery}.
 
 
 \subsubsection{Regiono užklausa}
-Regiono užklausa yra labai panaši į Lango užklausą, tačiau srities kraštinės gali būti laisvai pasirinktos, ir neturi būti lygegriačios koordinačių ašims.
+Regiono užklausa yra labai panaši į lango užklausą, tačiau $o'$ kraštinės gali būti laisvai pasirinktos ir neprivalo būti lygegriačios koordinačių ašims.
 Regiono užklausa randa visus objektus, kurie turi bendrų taškų su duotuoju objektu $o'$.
 
 \begin{equation}
-	IQ(g) = \{ o | o'.G \cap o.G \neq \emptyset \}
+	IQ(o') = \{ o | o'.G \cap o.G \neq \emptyset \}
 \label{eq:ExactMatchQuery}
 \end{equation}
 Žiūrėti priedą \ref{app:intersectionQuery}.
 
 \subsubsection{Apgaubiančioji užklausa}
-Apgaubiančioji užklausa yra tokia užklausa, kuri randa visus objektus $o$, kurių erdvės sritis $o.G$ pilnai apima pateiktąjį objektą $o'$:
+Apgaubiančioji užklausa yra tokia užklausa, kuri randa visus objektus $o$, kurių aibė $o.G$ pilnai apima pateiktąjį objektą $o'$:
 
 \begin{equation}
 	EQ(g) = \{ o | (o'.G \cap o.G) = o.G \}
@@ -82,7 +89,7 @@ Apgaubiančioji užklausa yra tokia užklausa, kuri randa visus objektus $o$, ku
 
 \subsubsection{Pilno regiono užklausa}
 Pilno regiono užklausa iš esmės yra priešinga apgaubiančiąjai.
-Pilno regiono užklausa yra tokia užklausa, kuri randa visus objektus $o$, kurių erdvės sritis $o.G$ pilnai patenka į pateikatjį objektą $o'$:
+Pilno regiono užklausa yra tokia užklausa, kuri randa visus objektus $o$, kurių erdvės sritis $o.G$ pilnai patenka į pateiktajį objektą $o'$:
 
 \begin{equation}
 	CQ(g) = \{ o | (o'.G \cap o.G) = o'.G \}
@@ -99,7 +106,8 @@ Kaimynų užklausa yra tokia užklausa, kuri pagal duotąjį objektą $o'$ suran
 \label{eq:ExactMatchQuery}
 \end{equation}
 
-Čia $o.G\textdegree$ reiškia visus vidinius taškus, kurie priklauso sričiai $o.G$.
+Čia $o.G\textdegree$ reiškia visus vidinius taškus, kurie priklauso aibei $o.G$.
+Vidiniais taškais skaitomi tie taškai, kurie nepakliūna ant objekto $o$ apibrėžiamos erdvės srities kraštinių.
 Žiūrėti priedą \ref{app:adjacencyQuery}.
 
 
@@ -136,7 +144,7 @@ Dėl šios priežasties jie nebus nagrinėjami, įgyvendinami ir lyginami šiame
 \subsubsection{Hierarchiniai metodai daugiamačių duomenų indeksavimui}
 \label{sec:HierarchicalIndices}
 
-Hierarchiniai daugiamačių duomenų indeksai yra paremti dvejetainiais ar aukštesnio atsišakojimo faktoriaus medžiais (trejetainiai, ketvirtainiai...) \cite{gaede1998multidimensional}.
+Hierarchiniai daugiamačių duomenų indeksai yra paremti dvejetainiais ar aukštesnio atsišakojimo laipsnio medžiais (trejetainiai, ketvirtainiai...) \cite{gaede1998multidimensional}.
 Šie indeksai saugo įrašus ne po vieną, bet grupėmis.
 Dažniausiai kiekviena grupė yra randama medžio lapuose (vadinama {\it duomenų viršūne}).
 Vidinės viršūnės (vadinamos {\it indekso viršūnėmis}) yra naudojamos kaip kelrodžiai ieškant duomenų viršūnių.
@@ -144,25 +152,24 @@ Kiekviena indekso viršūnė nurodo visas duomenų viršūnes, kurios gali būti
 
 Keletas tokių medžių pavyzdžių yra R-medis \cite{guttman1984r}, R*-medis \cite{beckmann1990r}, R+-medis \cite{sellis1987r+}, Kd-medis \cite{bentley1979multidimensional}, Kdb-medis \cite{robinson1981kdb}, X-medis \cite{berchtold1996x}, Quad-medis \cite{habenicht1983quad} ir daug kitų.
 
-Užklausų apdorojimas yra skaidomas į du etapus:
+Užklausų apdorojimas yra skaidomas į du etapus \cite{bohm2001searching}:
 \begin{enumerate}
 	\item Iteravimas medžiu.
 	\item Įrašų filtravimas.
 \end{enumerate}
 Iteravimo medžiu etape, yra „prabėgamas“ medis nuo šaknies iki lapų ir atrenkamos visos duomenų viršūnės, kurios gali turėti įrašų atitinkančių užklausą.
-Filtravimo metu atrenkami įrašai esantys iteravimo etape atrinktose grupėse ir tenkinatys užklausą \cite{brinkhoff1994multi} \cite{bohm2001searching}.
+Filtravimo metu atrenkami įrašai esantys iteravimo etape atrinktose duomenų viršūnėse ir tenkinatys užklausą \cite{brinkhoff1994multi} \cite{bohm2001searching}.
 Verta pastebėti, kad sistemoje \cite{NeurotechnologyMegamatcherAccelerator} užklausų apdorojimo etapai yra labai panašūs.
 
 \paragraph{Kd-medis}
 \label{sec:Kd-tree}
 
 Šiame darbe bus aptariamas biometrinių įrašų priskyrimo blokams metodas paremtas Kd-medžiu \cite{bentley1979multidimensional}.
-Kd-medžių duomenys yra taškai $E^d$ erdvėje.
 Kd-medis yra dvejetainis medis, kurio lapuose (duomenų viršūnėse) yra saugomi vienas ar daugiau $d$-mačių taškų.
 Kiekviena vidinė medžio viršūnė (indekso viršūnė) dalina erdvę $E^d$ į dvi nepersidengiančias dalis.
 Taškai patenkantys į vieną dalį patenka į kairyjį pomedį, o patenkantis į kitą dalį -- į dešinį pomedį (žr.: \ref{img:KdTreeExample} pav.).
-Erdvės dalinimas į dvi dalis yra parenkamas taip: kiekvienai vidinei viršūnei yra parenkama koordinačių ašis (pvz.: $x$) ir reikšmė (pvz .: $5$).
-Tuomet visi taškai, kurių $x$ koordinatės reikšmė yra mažesnė už parinktą reikšmę (pavyzdyje $[-\infty; 5)$), patenka į kairyjį pomedį, likę taškai (pavyzdyje $[5; \infty)$) -- į dešinį pomedį.
+Erdvės dalinimas į dvi dalis yra parenkamas taip: kiekvienai indekso viršūnei yra parenkama koordinačių ašis (pvz.: $x$) ir reikšmė (pvz .: $5$).
+Tuomet visi taškai, kurių $x$ koordinatės reikšmė yra mažesnė už parinktą reikšmę (pavyzdyje $[-\infty; 5)$), patenka į kairyjį pomedį, o likę taškai (pavyzdyje $[5; \infty)$) -- į dešinį pomedį.
 Nėra griežtai apibrėžta kokia koordinačių ašis ar reikšmė šioje ašyje turi būti parinkta kiekvienai viršūnei, todėl šiuo tikslu taikomos įvairios euristikos.
 
 \begin{figure}[H]
@@ -181,16 +188,16 @@ Hierarchiniai metodai daugiamačių duomenų indeksavimui yra plačiai taikomi d
 
 \subsubsection{Erdvę užpildančiomis kreivėmis paremti metodai daugiamačių duomenų indeksavimui}
 
-Kaip ir hierarchiniuose metoduose taip ir erdvę užpildančiomis kreivėmis paremtuose metoduose duomenys nagrinėjami kaip taškai euklido erdvėje $E^d$.
+Kaip ir hierarchiniuose metoduose taip ir erdvę užpildančiomis kreivėmis paremtuose metoduose duomenys nagrinėjami kaip taškai d-matėje erdvėje $E^d$.
 
 Daugiamačiai duomenys neturi pilnos tvarkos, pagal kurią šalia esantys taškai būtų arti ir erdvėje $E^d$.
 Dėl šios priežasties daugiamačių duomenų indeksavimo metodai yra sudėtingesni lyginant su vienmačiais \cite{gaede1998multidimensional} \cite{bohm2001searching}
-Tačiau egzistuoja įvairiomis euristikomis paremtų pilnos tvarkos sudarymo metodų, kurie su nemaža tikimybe taip sudeda taškus.
-Ši pilna tvarka yra vienmatė erdvė $E'^1$ kurią galima indeksuoti vienmačiais indeksavimo metodais (B-medžiu \cite{comer1979ubiquitous} RB-medžiu \cite{hanke1997relaxed} ir pan.).
+Tačiau egzistuoja įvairiomis euristikomis paremtų pilnos tvarkos sudarymo metodų, kurie su tam tikra tikimybe taip sudeda taškus.
+Surikiavus taškus pagal šią pilną tvarką juos galima indeksuoti vienmačiais indeksavimo metodais (B-medžiu \cite{comer1979ubiquitous} RB-medžiu \cite{hanke1997relaxed} ir pan.).
 
 Siekiant sudaryti tokią tvarką, $E^d$ erdvė suskirstoma į gardelę (į kiekvieną laukelį šioje gardelėje gali patekti nulis, vienas ar daugiau taškų).
 Kiekvienam laukeliui šioje gardelėje yra priskiriamas unikalus skaičius pagal kurį laukeliai yra surikiuojami ir indeksuojami vienmačiais indeksavimo metodais.
-Šie unikalūs skaičiai yra priskiriami pagal tai kokia tvarka erdvę užpildanti kreivė \cite{bader2012space} „prabėga“ pro laukelius.
+Šie unikalūs skaičiai yra priskiriami pagal tvarką, kuria erdvę užpildanti kreivė „prabėga“ pro laukelius \cite{bader2012space}.
 Aptarsime dvi tokias kreives:
 \begin{enumerate}
 	\item Eilutinę kreivę.
@@ -200,8 +207,9 @@ Aptarsime dvi tokias kreives:
 \paragraph{Eilutinė kreivė}
 
 Eilutinė kreivė yra viena iš papraščiausių erdvę užpildančių kreivių.
-Ji negali būti naudojama begalinėje erdvėje, todėl tarkime, kad $[L_i; U_i]$ yra erdvės $E^d$ ribos dimensijos $i$ atžvilgiu.
-Eilutinė kreivė iš pradžių „prabėga“ visus taškus didėjimo tvarka $[x, L_2, ..., L_d]$, kur $x \in [L_1; U_1]$.
+Ji negali būti naudojama begalinėje erdvėje, todėl tarkime, kad $[L_i, U_i]$ yra erdvės $E^d$ ribos koordinačių ašies $i$ atžvilgiu.
+Eilutinė kreivė iš pradžių „prabėga“ visus taškus $[x, L_2, ..., L_d]$, kur $x$ patenka į intervalą $[L_1, U_1]$.
+Šis prabėgimas atliekamas $x$ didėjimo tvarka.
 Paskui „prabėga“ $[x, L_2 + 1, ..., L_d]$, paskui $[x, L_2 + 2, ..., L_d]$ ir t.t. (žr.: \ref{img:RowWiseSpaceFillingCurve} pav.).
 
 \begin{figure}[H]
@@ -213,7 +221,7 @@ Paskui „prabėga“ $[x, L_2 + 1, ..., L_d]$, paskui $[x, L_2 + 2, ..., L_d]$ 
 \end{figure}
 
 
-Formaliai tvarka yra apibrėžiama sąryšio:
+Formaliai pilna tvarka yra apibrėžiama sąryšio:
 \begin{equation}
 	p_1 < p_2 \text{ jeigu } RWSFC(p_1) < RWSFC(p_2)
 \label{eq:RowWiseSFCComparison}
@@ -232,14 +240,14 @@ Formaliai tvarka yra apibrėžiama sąryšio:
 
 \paragraph{Z-kreivė}
 
-Daugiamačių duomenų indeksavimo metodų paremtų erdvę užpildančiomis kreivėmis kontekste Z-kreivė yra viena iš populiariausių \cite{ramsak2000integrating}.
-Z-kreivė visų pirmą visą erdvę $E^d$ padalina į dvi lygias sritis $p_0$ ir $p_1$ statmenai pirmai koordinačių ašiai.
-Z-kreivė visus laukelius esančius srityje $p_0$ „prabėga“ pirmiau tų, kurie yra srityje $p_1$.
-Sekančiame žingsnyje $p_0$ ir $p_1$ yra padalinamos į dvi lygias sritis $p_{00}$, $p_{01}$ bei $p_{10}$ $p_{11}$ statmenai antrai koordinačių ašiai.
-Atitinkamai $p_{00}$ laukeliai yra „prabėgami“ ankščiau $p_{01}$, o $p_{10}$ ankščiau $p_{11}$.
+Z-kreivė daugiamačių duomenų indeksavimo metodų, paremtų erdvę užpildančiomis kreivėmis, kontekste yra viena iš populiariausių \cite{ramsak2000integrating}.
+Z-kreivė visų pirma visą erdvę $E^d$ padalina į dvi lygias sritis $P_0$ ir $P_1$ statmenai pirmai koordinačių ašiai.
+Visi laukeliai esantys srityje $P_0$ yra pirmiau tų, kurie yra srityje $P_1$.
+Sekančiame žingsnyje $P_0$ yra padaliniama į dvi lygias sritis $P_{00}$, $P_{01}$, o $P_1$ yra padalinama $P_{10}$ $P_{11}$ statmenai antrai koordinačių ašiai.
+Atitinkamai $P_{00}$ laukeliai yra pirmesni už $P_{01}$, o $P_{10}$ pirmesni už $P_{11}$.
 Toliau skaidoma pagal trečią koordinačių ašį, vėliau pagal ketvirtą, ..., d-tąją (žr.: \ref{img:ZCurveSpaceFillingCurve} pav.).
 Kai padaromas padalinimas pagal d-tąją ašį, pradedama vėl nuo pirmosios koordinačių ašies.
-Šis rekursiškas dalinimas yra vykdomas tol, kol kiekviena erdvės sritis $p$ yra nedidesnė negu ankščiau minėtos gardelės laukelio dydis.
+Šis rekursiškas dalinimas yra vykdomas tol, kol kiekviena erdvės sritis $P$ yra nedidesnė negu ankščiau minėtos gardelės laukelio dydis.
 
 \begin{figure}[H]
 \begin{center}
@@ -259,7 +267,7 @@ Formaliai tvarka yra apibrėžiama sąryšio:
 Čia $p_1$ ir $p_2$ yra taškai erdvėje $E^d$, o $ZCSFC(p)$:
 
 \begin{equation}
-	ZCSFC(p) = \sum_{i=0}^{b-1} \sum_{j=0}^{d-1} [2^{i*b+j} BITSET(p_j, i)]
+	ZCSFC(p) = 1 + \sum_{i=0}^{b-1} \sum_{j=0}^{d-1} [2^{i*b+j} BITSET(p_j, i)]
 \label{eq:ZCurveSFCValue}
 \end{equation}
 
@@ -281,12 +289,12 @@ Formaliai tvarka yra apibrėžiama sąryšio:
 \section{SP-GIST karkasas}
 
 Walid G. Aref, Ihab F. Ilyas \cite{aref2001sp} pastebėjo, kad siekiant įdiegti ar palyginti įvairius hierarchinius duomenų indeksavimo metodus tenka kiekvieną jų atskirai integruoti į duomenų bazės branduolį.
-Tai kartu yra ir sudėtinga ir daug laiko reikalaujanti užduotis.
+Tai yra sudėtinga ir daug laiko reikalaujanti užduotis.
 Autoriai šią problemą sprendė ieškodami bendrų savybių visiems hierarchiniams duomenų indeksavimo metodams ir pasiūlė sąsają, kuri galėtų būti integruota į duomenų bazės branduolį.
 Suprogramuoti indeksavimo metodą pagal šią sąsaja yra kur kas lengvesnė užduotis, negu integruoti tiesiai į duomenų bazės branduolį.
 Verta pastebėti, kad tokia pati problema panašiu būdu buvo spręsta ir vienmačių duomenų indeksavimo metodams \cite{hellerstein1995generalized}.
 
-Autorių pasiūloma sąsaja susideda iš 7 parametrų ir 3 metodų (funkcijomis, kurias branduolys gali iškviesti)
+Autorių pasiūlyta SP-GIST sąsaja susideda iš 7 parametrų ir 3 metodų.
 Naudodamasis šiais parametrais ir metodais duomenų bazės branduolys gali išsaugoti, ištrinti įrašus bei apdoroti užklausas.
 
 \subsubsection{SP-GIST sąsajos parametrai}
@@ -304,20 +312,20 @@ Tokie parametrai yra apibrėžiami autorių (pateikiami originalo kalba):
 Trumpai aptarsime šiuos parametrus.
 
 \paragraph{NodePredicate}
-Parametras {\it NodePredicate} apibrėžia duomenis, kurie yra saugomi indekso viršūnėse.
-Pagal šiuos duomenis yra parenkamas indekso viršūnės vaikas, pro kurį bus „bėgama“ toliau.
-Pavyzdžiui Kd-medžio atveju šis parametras apibrėžtų duomenų tipą saugantį koordinačių ašį ir reikšmė, pagal kurią indekso viršūnėje dalijama erdvė $E^d$ (žr.: \ref{sec:Kd-tree} skyrelį).
+Parametras {\it NodePredicate} apibrėžia duomenų struktūrą, kuri yra saugoma indekso viršūnėse.
+Pagal šiuos duomenis yra parenkamas indekso viršūnės vaikas, pro kurį bus iteruojama toliau.
+Pavyzdžiui Kd-medžio atveju šis parametras apibrėžtų duomenų tipą saugantį koordinačių ašį ir reikšmę, pagal kurią indekso viršūnėje dalijama erdvė $E^d$ (žr.: \ref{sec:Kd-tree} skyrelį).
 
 \paragraph{KeyType}
 Parametras {\it KeyType} nurodo kokio tipo duomenys yra saugomi duomenų viršūnėse.
-Šiame darbe nagrinėsime tik tuos atvejus, kur šio parametro reikšmė yra taškas erdvėje $E^d$.
+Šiame darbe nagrinėsime tik tuos atvejus, kur šio parametro reikšmė yra taškų erdvėje $E^d$ aibė.
 
 \paragraph{NumberOfSpacePartitions}
-Parametras {\it NumberOfSpacePartitions} apibrėžia kiek vaikų maksimaliai gali turėti indekso viršūnės.
-Pavyzdžiui kd-medžio atveju šio parametro reikšmė yra $2$, quad-medžio atveju -- $4$.
+Parametras {\it NumberOfSpacePartitions} apibrėžia kiek daugiausiai vaikų gali turėti indekso viršūnės.
+Pavyzdžiui Kd-medžio atveju šio parametro reikšmė yra $2$, quad-medžio atveju -- $4$.
 
 \paragraph{Resolution}
-Parametrias {\it Resolution} apibrėžia maksimalų medžio gylį.
+Parametras {\it Resolution} apibrėžia maksimalų medžio gylį.
 
 \paragraph{PathShrink}
 Parametras {\it PathShrink} gali turėti tris reikšmes: {\it NeverShrink}, {\it LeafShrink} arba {\it Tree Shrink}.
@@ -326,8 +334,9 @@ Tačiau šiame darbe šie apjungimo metodai nebus nagrinėjami ir bus daroma pri
 
 \paragraph{NodeShrink}
 Verta prisiminti, kad hierarchiniai duomenų indeksavimo metodai duomenis laiko grupėmis (žr.: \ref{sec:HierarchicalIndices}).
-Parametras {\t NodeShrink} gali turėti dvi reikšmes: „Įjungta“ arba „Išjungta“.
-Jeigu reikšmė yra „Įjungta“, tuomet tuščios duomenų viršūnės (pavyzdžiui po visų įrašų priklausančių kuriai nors grupei ištrynimo) bus pašalinamos iš medžio, atitinkamai, jeigu po tokio ištrinymo indekso viršūnė nebeturi vaikų -- ji irgi bus pašalinta.
+Parametras {\it NodeShrink} gali turėti dvi reikšmes: „Įjungta“ arba „Išjungta“.
+Jeigu reikšmė yra „Įjungta“, tuomet tuščios duomenų viršūnės (pavyzdžiui po visų įrašų priklausančių kuriai nors duomenų viršūnei ištrynimo) bus pašalinamos iš medžio.
+Atitinkamai, jeigu indekso viršūnė nebeturi vaikų -- ji irgi bus pašalinta.
 Jeigu reikšmė yra „Išjungta“, tuščios viršūnės yra paliekamos medyje.
 
 
@@ -338,7 +347,7 @@ Jeigu reikšmė yra „Išjungta“, tuščios viršūnės yra paliekamos medyje
 
 \subsubsection{SP-GIST sąsajos metodai}
 
-Autoriai apibrėžė šiuos metodus SP-GIST sąsajoje (pateikiamos originalo kalba):
+Autoriai apibrėžė šiuos metodus SP-GIST sąsajoje (pateikiami originalo kalba):
 \begin{enumerate}
 	\item {\it Consistent(Entry E, Query q)}
 	\item {\it PickSplit(P)}
@@ -346,30 +355,20 @@ Autoriai apibrėžė šiuos metodus SP-GIST sąsajoje (pateikiamos originalo kal
 \end{enumerate}
 
 \paragraph{Metodas Consistent}
-Metodas {\it Consistant(Entry E, Query q)} yra būlio funkcija, kuri gražina rezultatą {\it Melas} tada ir tik tada, jeigu viršūnėje $E$ (ir jos pomedyje jeigu viršūnė $E$ yra indekso viršūnė) negali būti įrašų, kurie tenkina užklausą $q$.
+Metodas {\it Consistent(Entry E, Query q)} yra būlio funkcija, kuri gražina rezultatą {\it Melas} tada ir tik tada, jeigu viršūnėje $E$ (ir jos pomedyje jeigu viršūnė $E$ yra indekso viršūnė) negali būti įrašų, kurie tenkina užklausą $q$.
 Šis metodas yra naudojamas duomenų bazės branduolio kaip kelrodis iteruojant per medį.
 
 \paragraph{Metodas PickSplit}
-Jeigu grupėje į kurią siekiama įdėti naują įrašą nebėra laisvos vietos (jos dydis pasiekė parametro {\it BucketSize} reikšmę), tuomet šį grupė yra skaidoma į dvi ar daugiau naujų grupių.
-Metodas {\it PickSplit(P)} yra naudojamas siekiant parinkti kaip įrašų grupė $P$ pasidalins į mažesnias grupes.
-Šis metodas gražina duomenų struktūrą apibrėžiančią medį, saugantį visus įrašus buvusius grupėje $P$.
-Duomenų bazės branduolys, duomenų viršūnę, kuri saugojo įrašų grupę $P$, pakeičia gražinto medžio šaknine viršūne.
+Jeigu duomenų viršūnėje, į kurią bandoma įdėti naują įrašą, nebėra laisvos vietos (įrašų skaičius joje pasiekė parametro {\it BucketSize} reikšmę), tuomet ši viršūnė yra skaidoma į dvi ar daugiau naujų viršūnių.
+Metodas {\it PickSplit(P)} yra naudojamas siekiant parinkti kaip duomenų viršūnė $P$ pasidalins į mažesnes.
+Šis metodas gražina medį, saugantį visus įrašus buvusius viršūnėje $P$.
+Duomenų bazės branduolys, duomenų viršūnę $P$, pakeičia gražinto medžio šaknine viršūne.
 
 \paragraph{Metodas Cluster}
 Metodas {\it Cluster()} parenka kaip medžio viršūnės bus saugomos disko blokuose.
 Kadangi šiame darbe nagrinėjame indeksus, kurie saugo įrašus operatyviojoje atmintyje, tai šis metodas nebus detalizuojamas.
 
-
-Šis karkasas buvo pritaikytas tokiose duomenų bazėse, kaip PostgreSQL \cite{eltabakh2006space} ir kitose.
-
-Padarius keletą modifikacijų (aprašomų sekančiuose skyriuose) ši sąsaja bus taikoma vertinant biometrinių įrašų priskyrimo blokams metodus paremtus ir Kd-medžiu ir erdvę užpildančiomis kreivėmis sistemoje \cite{NeurotechnologyMegamatcherAccelerator}.
-
-
-% sp-gists
-% bulk operations on sp-gists
-% postgre (min 3)
-
-
-
+Šis karkasas yra naudojamas populiariose duomenų bazėse \cite{eltabakh2006space}.
+Taip pat modifikuota (konkrečios modifikacijos aprašomos sekančiuose skyreliuose) ši sąsaja bus taikoma ir vertinant biometrinių įrašų priskyrimo blokams metodus paremtus ir Kd-medžiu ir erdvę užpildančiomis kreivėmis sistemoje \cite{NeurotechnologyMegamatcherAccelerator}.
 
 
