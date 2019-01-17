@@ -1,13 +1,13 @@
 \section{Užklausų klasifikacija}
 
-Panaši problema į aptartąją įvade yra nemažai tyrinėjama duomenų bazių kontekste.
-Panašiai kaip šiame darbe siekiama minimizuoti biometrinių įrašų blokų skaičių likusį po atemtimo etapo, duomenų bazėse siekiama minimizuoti disko operacijų skaičių siekiant sumažinti duomenų bazės atsako laiką bei padidinti pralaidumą (apdorotų užklausų skaičių per laiko vienetą) \cite{garcia2000database}.
+Panaši problema į aptartąją įvade yra nemažai tyrinėta duomenų bazių kontekste.
+Jei šiame darbe siekiama minimizuoti biometrinių įrašų blokų skaičių likusį po atmetimo etapo, tai duomenų bazėse siekiama minimizuoti disko operacijų skaičių siekiant sumažinti duomenų bazės atsako laiką bei padidinti pralaidumą (apdorotų užklausų skaičių per laiko vienetą) \cite{garcia2000database}.
 Tuo tikslu yra naudojamos duomenų struktūros, vadinamos {\it duomenų indeksu}.
-Jeigu duomenys yra daugiamačiai (vienas įrašas gali susidėti iš daugiau negu vienos reikšmės), tuomet indeksas tokiems duomenims vadinamas {\it daugiamačių duomenų indeksu}, o metodas pagal kurį šis indeksas yra sudaromas bei naudojamas {\it daugiamačių duomenų indeksavimo metodu}.
+Jeigu duomenys yra daugiamačiai (vienas įrašas gali susidėti iš daugiau negu vienos reikšmės), tuomet indeksą vadiname {\it daugiamačių duomenų indeksu}, o metodą pagal kurį šis indeksas yra sudaromas vadiname {\it daugiamačių duomenų indeksavimo metodu}.
 
-\subsection{Užklausų klasifikacija}
+\subsection{Užklausų klasės}
 
-Šiame darbe palyginant biometrinių įrašų priskyrimo blokams metodus sistemoje \cite{NeurotechnologyMegamatcherAccelerator} siekiama apimti kiek galima daugiau užklausų klasių.
+Šiame darbe palyginame biometrinių įrašų priskyrimo blokams metodus sistemoje \cite{NeurotechnologyMegamatcherAccelerator} ir siekiame apimti kiek galima daugiau užklausų klasių.
 Gaede ir Günther \cite{gaede1998multidimensional} patiekia tokią daugiamačių užklausų klasifikaciją:
 \begin{enumerate}
 	\item Griežto atitikmens užklausa
@@ -20,18 +20,20 @@ Gaede ir Günther \cite{gaede1998multidimensional} patiekia tokią daugiamačių
 	\item Artimiausio kaimyno užklausa
 \end{enumerate}
 
-Autorius duomenis ir užklausas nagrinėja $d$ dimensijų euklido erdvėje $E^d$.
-Atskirus įrašus apibrėžia kaip objektus $o$ kurie gali turėti 0 ar daugiau papildomų atributų nesusijusių su erdve $E^d$ (pvz.: vardas, pavadinimas, amžius...), bei griežtai vieną atributą $o.G$, kuris apibūdina objekto $o$ padėtį erdvėje $E^d$.
+Gaede ir Günther \cite{gaede1998multidimensional} duomenis ir užklausas nagrinėja $d$ dimensijų Euklido erdvėje $E^d$.
+Atskirus įrašus apibrėžia kaip objektus $o$.
+Objektas $o$ turi vieną atributą (žymime $o.G$), kuris apibūdina objekto $o$ padėtį erdvėje $E^d$.
 Šis $o.G$ atributas yra aibė taškų, kuriuos objektas $o$ užima erdvėje $E^d$.
+Taip pat objektas $o$ gali turėti ir papildomų atributų, nesusijusių su erdve $E^d$ (pvz.: vardas, pavadinimas, amžius...).
 Objektams yra apibrėžiami operatoriai $=$, $\cap$, bei $dist(o_1, o_2)$.
-Du objektai $o_1$ ir $o_2$ skaitomi lygiais $o_1 = o_2$ tada ir tik tada jeigu abiejų objektų užimamų taškų aibės $o_1.G$ ir $o_2.G$ sutampa.
+Du objektai $o_1$ ir $o_2$ yra lygūs, $o_1 = o_2$, tada ir tik tada jeigu abiejų objektų užimamų taškų aibės, t.y. atributai, $o_1.G$ ir $o_2.G$ sutampa.
 Dviejų objektų $o_1$ ir $o_2$ sankirta $o_1 \cap o_2$ yra aibė taškų, kurie patenka ir į $o_1.G$ ir į $o_2.G$.
-Ir galiausiai atstumas tarp dviejų objektų $o_1$ ir $o_2$ $dist(o_1, o_2)$ skaitomas atstumas tarp artimiausių taškų $p_1$, $p_2$, kur $p_1 \in o_1.G$ o $p_2 \in o_2.G$.
+Ir galiausiai atstumas tarp dviejų objektų $o_1$ ir $o_2$ $dist(o_1, o_2)$ skaitomas atstumas tarp artimiausių taškų $p_1$, $p_2$, kur $p_1 \in o_1.G$ ir $p_2 \in o_2.G$.
 
 
 
 \subsubsection{Griežto atitikmens užklausa}
-Griežto atitikmens užklausa yra tokia užklausa, kuri duotąjam objektui $o'$ erdvėje $E^d$ randa visus objektus, kurių erdvės sritys sutampa su duotąja:
+Griežto atitikmens užklausa yra tokia užklausa, kuri duotąjam objektui $o'$ erdvėje $E^d$ randa visus objektus, kurių erdvės sritys sutampa su duotąja.
 
 \begin{equation}
 	EMQ(g) = \{ o | o'.G = o.G \}
@@ -39,7 +41,7 @@ Griežto atitikmens užklausa yra tokia užklausa, kuri duotąjam objektui $o'$ 
 \end{equation}
 
 \subsubsection{Taško užklausa}
-Taško užklausa yra tokia užklausa, kuri duotam taškui $p$ erdvėje $E^d$ randa visus objektus, kurie turi bendrų taškų:
+Taško užklausa yra tokia užklausa, kuri duotam taškui $p$ erdvėje $E^d$ randa visus objektus, kurie turi tašką $p$.
 
 \begin{equation}
 	PQ(p) = \{ o | \{p\} \cap o.G = \{p\} \}
@@ -49,27 +51,28 @@ Taško užklausa yra tokia užklausa, kuri duotam taškui $p$ erdvėje $E^d$ ran
 Žiūrėti priedą \ref{app:pointQuery}.
 
 \subsubsection{Lango užklausa}
-Lango užklausa, tai tokia užkausa, kuri duotiems $d$ intervalams $I^d = [l_1, u_1], [l_2, u_2], ..., [l_d, u_d]$ (po vieną intervalą kiekvienai erdvės $E^d$ koordinačių ašiai) sudaro objektą $o'$, tokį, kad
+Lango užklausa, tai tokia užklausa, kuri duotiems $d$ intervalams $I^d = [l_1, u_1], [l_2, u_2], ..., [l_d, u_d]$ (po vieną intervalą kiekvienai erdvės $E^d$ koordinačių ašiai) sudaro objektą $o'$, kurio atributas:
 
 \begin{equation}
-	o'.G = o'_1.G \cap o'_2.G \cap ... \cap o'_d.G
+	o'.G = o'_1.G_1 \cap o'_2.G_2 \cap ... \cap o'_d.G_d
 \end{equation}
 
-Čia objekto $o'_i.G$ aibėje yra visi taškai, kurių $i$-tosios koordinatės reikšmė patenka į $I_i$ intervalą.
-Lango užklausa randa visus objektus, kurie turi nors vieną bendrą tašką su objektu $o'$:
+Čia $o'_i$ žymi objektą turintį vienintelį atributą $o'_i.G_i$ sudarytą iš tų $E^d$ taškų, kurių $i$-toji koordinatė patenka į intervalą $[l_i, u_i]$.
+Taigi $o'.G \subset E^d$ yra stačiakampis gretasienis $[l_1, u_1] \times [l_2, u_2] \times ... \times [l_d, u_d]$.
+Lango užklausa randa visus objektus, kurie turi nors vieną bendrą tašką su objektu $o'$.
 
 \begin{equation}
 	WQ(o') = \{ o | o'.G \cap o.G \neq \emptyset \}
 \label{eq:ExactMatchQuery}
 \end{equation}
 
-Verta pastebėti, kad lango užklausos atveju aibės $o'.G$ apibrėžiamos erdvės $E^d$ srities kraštinės visada yra lygegriačios šios erdvės koordinačių ašims.
+Verta pastebėti, kad lango užklausos atveju stačiakampio gretasienio $o'.G$ kraštinės visada yra lygegriačios erdvės $E^d$ koordinačių ašims.
 Žiūrėti priedą \ref{app:windowQuery}.
 
 
 \subsubsection{Regiono užklausa}
 Regiono užklausa yra labai panaši į lango užklausą, tačiau $o'$ kraštinės gali būti laisvai pasirinktos ir neprivalo būti lygegriačios koordinačių ašims.
-Regiono užklausa randa visus objektus, kurie turi bendrų taškų su duotuoju objektu $o'$.
+Regiono užklausa randa visus objektus, kurie turi bendrų $E^d$ taškų su duotuoju objektu $o'$.
 
 \begin{equation}
 	IQ(o') = \{ o | o'.G \cap o.G \neq \emptyset \}
@@ -78,10 +81,10 @@ Regiono užklausa randa visus objektus, kurie turi bendrų taškų su duotuoju o
 Žiūrėti priedą \ref{app:intersectionQuery}.
 
 \subsubsection{Apgaubiančioji užklausa}
-Apgaubiančioji užklausa yra tokia užklausa, kuri randa visus objektus $o$, kurių aibė $o.G$ pilnai apima pateiktąjį objektą $o'$:
+Apgaubiančioji užklausa yra tokia užklausa, kuri randa visus objektus $o$, kurių aibė $o.G$ pilnai apima pateikto objekto $o'$ aibę $o'.G$.
 
 \begin{equation}
-	EQ(g) = \{ o | (o'.G \cap o.G) = o.G \}
+	EQ(g) = \{ o | (o'.G \cap o.G) = o'.G \}
 \label{eq:ExactMatchQuery}
 \end{equation}
 Žiūrėti priedą \ref{app:enclosureQuery}.
@@ -89,30 +92,30 @@ Apgaubiančioji užklausa yra tokia užklausa, kuri randa visus objektus $o$, ku
 
 \subsubsection{Pilno regiono užklausa}
 Pilno regiono užklausa iš esmės yra priešinga apgaubiančiąjai.
-Pilno regiono užklausa yra tokia užklausa, kuri randa visus objektus $o$, kurių erdvės sritis $o.G$ pilnai patenka į pateiktajį objektą $o'$:
+Pilno regiono užklausa yra tokia užklausa, kuri randa visus objektus $o$, kurių erdvės sritis $o.G$ pilnai patenka į pateikto objekto $o'$ erdvės sritį $o'.G$.
 
 \begin{equation}
-	CQ(g) = \{ o | (o'.G \cap o.G) = o'.G \}
+	CQ(g) = \{ o | (o'.G \cap o.G) = o.G \}
 \label{eq:ExactMatchQuery}
 \end{equation}
 Žiūrėti priedą \ref{app:containmentQuery}.
 
 
 \subsubsection{Kaimynų užklausa}
-Kaimynų užklausa yra tokia užklausa, kuri pagal duotąjį objektą $o'$ suranda visus šio objekto kaimynus, t.y. objektus $o$ kurie turi bendrą kraštinę erdvėje $E^d$:
+Kaimynų užklausa yra tokia užklausa, kuri pagal duotąjį objektą $o'$ suranda visus šio objekto kaimynus, t.y. objektus $o$ kurių atributai $o.G$ turi bendrą kraštą su $o'.G$ erdvėje $E^d$.
 
 \begin{equation}
-	AQ(g) = \{ o | (o'.G \cap o.G) \neq \emptyset \land o'.G\textdegree \cap o.G\textdegree = \emptyset \}
+	AQ(o') = \{ o | \delta(o'.G) \cap \delta(o.G) \neq \emptyset \text{ ir } (o'.G)\textdegree \cap (o.G)\textdegree = \emptyset \}
 \label{eq:ExactMatchQuery}
 \end{equation}
 
-Čia $o.G\textdegree$ reiškia visus vidinius taškus, kurie priklauso aibei $o.G$.
-Vidiniais taškais skaitomi tie taškai, kurie nepakliūna ant objekto $o$ apibrėžiamos erdvės srities kraštinių.
+Čia $(o.G)\textdegree$ reiškia visus vidinius taškus, kurie priklauso aibei $o.G$.
+Ir $\delta(o.G)=(o.G) \setminus (o.G)\textdegree$.
 Žiūrėti priedą \ref{app:adjacencyQuery}.
 
 
 \subsubsection{Artimiausio kaimyno užklausa}
-Artimiausio kaimyno užklausa yra tokia užklausa, kuri duotam objektui $o'$ randa artimiausią kaimyną (verta pastebėti, kad šiuo atveju kaimynai gali ir neturėti bendrų kraštinių).
+Artimiausio kaimyno užklausa yra tokia užklausa, kuri duotam objektui $o'$ randa artimiausią kaimyną (verta pastebėti, kad šiuo atveju kaimynai gali ir neturėti bendrų taškų).
 
 \begin{equation}
 	NNQ(o') = \{ o | \forall o'' : dist(o'.G, o.G) \leq dist(o'.G, o''.G) \}
@@ -136,15 +139,15 @@ Autoriai šiuos metodus suskirsto į tris grupes:
 
 \subsection{Maišos funkcijomis paremti metodai daugiamačių duomenų indeksavimui}
 
-Bendruoju atveju maišos funkcijomis paremti metodai yra tinkami griežto atitinkmens, bei taško užklausoms.
-Tačiau siekiant apdoroti lango, regiono ir kitas, panašias, užklausias šie metodai tampa kompleksiškesni \cite{nievergelt1981grid} \cite{tamminen1982excell}.
+Bendruoju atveju maišos funkcijomis paremti metodai yra taikomi griežto atitikmens, bei taško užklausoms.
+Lango, regiono ir kitoms, panašioms, užklausoms apdoroti šie metodai yra pernelyg sudėtingi \cite{nievergelt1981grid} \cite{tamminen1982excell} ir mūsų atveju mažiau efektyvūs.
 Dėl šios priežasties jie nebus nagrinėjami, įgyvendinami ir lyginami šiame darbe.
 
 
 \subsection{Hierarchiniai metodai daugiamačių duomenų indeksavimui}
 \label{sec:HierarchicalIndices}
 
-Hierarchiniai daugiamačių duomenų indeksai yra paremti dvejetainiais ar aukštesnio atsišakojimo laipsnio medžiais (trejetainiai, ketvirtainiai...) \cite{gaede1998multidimensional}.
+Hierarchiniai daugiamačių duomenų indeksai yra paremti dvejetainiais ar aukštesnio šakų skaičiaus (viršūnės laipsnio) medžiais (trejetainiai, ketvirtainiai...) \cite{gaede1998multidimensional}.
 Šie indeksai saugo įrašus ne po vieną, bet grupėmis.
 Dažniausiai kiekviena grupė yra randama medžio lapuose (vadinama {\it duomenų viršūne}).
 Vidinės viršūnės (vadinamos {\it indekso viršūnėmis}) yra naudojamos kaip kelrodžiai ieškant duomenų viršūnių.
@@ -154,17 +157,17 @@ Keletas tokių medžių pavyzdžių yra R-medis \cite{guttman1984r}, R*-medis \c
 
 Užklausų apdorojimas yra skaidomas į du etapus \cite{bohm2001searching}:
 \begin{enumerate}
-	\item Iteravimas medžiu.
+	\item Paieška medyje.
 	\item Įrašų filtravimas.
 \end{enumerate}
-Iteravimo medžiu etape, yra „prabėgamas“ medis nuo šaknies iki lapų ir atrenkamos visos duomenų viršūnės, kurios gali turėti įrašų atitinkančių užklausą.
-Filtravimo metu atrenkami įrašai esantys iteravimo etape atrinktose duomenų viršūnėse ir tenkinatys užklausą \cite{brinkhoff1994multi} \cite{bohm2001searching}.
-Verta pastebėti, kad sistemoje \cite{NeurotechnologyMegamatcherAccelerator} užklausų apdorojimo etapai yra labai panašūs.
+Paieškos etape, medis yra peržvelgiamas nuo šaknies iki lapų ir atrenkamos visos duomenų viršūnės, kurios gali turėti įrašų atitinkančių mūsų užklausą.
+Filtravimo metu atrenkami įrašai esantys paieškos etape atrinktose duomenų viršūnėse ir tenkinatys užklausą \cite{brinkhoff1994multi} \cite{bohm2001searching}.
+Verta pastebėti, kad sistemos \cite{NeurotechnologyMegamatcherAccelerator} užklausų apdorojimo etapai yra labai panašūs.
 
 \paragraph{Kd-medis}
 \label{sec:Kd-tree}
 
-Šiame darbe bus aptariamas biometrinių įrašų priskyrimo blokams metodas paremtas Kd-medžiu \cite{bentley1979multidimensional}.
+Šiame darbe aptariame biometrinių įrašų priskyrimo blokams metodą paremtą Kd-medžiu \cite{bentley1979multidimensional}.
 Kd-medis yra dvejetainis medis, kurio lapuose (duomenų viršūnėse) yra saugomi vienas ar daugiau $d$-mačių taškų.
 Kiekviena vidinė medžio viršūnė (indekso viršūnė) dalina erdvę $E^d$ į dvi nepersidengiančias dalis.
 Taškai patenkantys į vieną dalį patenka į kairyjį pomedį, o patenkantis į kitą dalį -- į dešinį pomedį (žr.: \ref{img:KdTreeExample} pav.).
@@ -184,16 +187,16 @@ Paveiksliuke \ref{img:KdTreeExample} pateikiamas Kd-medžio pavyzdys.
 Čia kairėje -- šį medį atitinkanti erdvė $E^d$.
 Taškai $P1$-$P5$ atitinka daugiamačius duomenis, o tiesės $S1$-$S4$ - erdvės $E^d$ padalijimus atitinkmai medžio viršūnėse $S1$ - $S4$.
 
-Hierarchiniai metodai daugiamačių duomenų indeksavimui yra plačiai taikomi duomenų bazių \cite{bohm2001searching}, sensorių tinklų \cite{li2003multi}, paveiksliukų paieškoje \cite{silpa2008optimised}, privatumo \cite{hore2012secure} \cite{xiao2010differentially} ir kitose srityse.
+Hierarchiniai metodai daugiamačių duomenų indeksavimui yra plačiai taikomi duomenų bazių \cite{bohm2001searching}, sensorių tinklų \cite{li2003multi}, paveiksliukų požymių atpažinimo \cite{silpa2008optimised}, privatumo užtikrinimo \cite{hore2012secure} \cite{xiao2010differentially} ir kitose srityse.
 
 \subsection{Erdvę užpildančiomis kreivėmis paremti metodai daugiamačių duomenų indeksavimui}
 
 Kaip ir hierarchiniuose metoduose taip ir erdvę užpildančiomis kreivėmis paremtuose metoduose duomenys nagrinėjami kaip taškai d-matėje erdvėje $E^d$.
 
-Daugiamačiai duomenys neturi pilnos tvarkos, pagal kurią šalia esantys taškai būtų arti ir erdvėje $E^d$.
-Dėl šios priežasties daugiamačių duomenų indeksavimo metodai yra sudėtingesni lyginant su vienmačiais \cite{gaede1998multidimensional} \cite{bohm2001searching}
-Tačiau egzistuoja įvairiomis euristikomis paremtų pilnos tvarkos sudarymo metodų, kurie su tam tikra tikimybe taip sudeda taškus.
-Surikiavus taškus pagal šią pilną tvarką juos galima indeksuoti vienmačiais indeksavimo metodais (B-medžiu \cite{comer1979ubiquitous} RB-medžiu \cite{hanke1997relaxed} ir pan.).
+Daugiamačių duomenų negalime griežtai surikiuoti į eilę, taip kad, eilėje greta esantys taškai būtų arti ir erdvėje $E^d$.
+Dėl šios priežasties daugiamačių duomenų indeksavimo metodai yra sudėtingesni lyginant su vienmačiu atveju \cite{gaede1998multidimensional} \cite{bohm2001searching}
+Tačiau egzistuoja įvairiomis euristikomis paremtų griežtos tvarkos sudarymo metodų, kurie į eilę sudeda taškus taip, kad eilėje greta esantys taškai su tam tikra tikimybe būtų arti ir erdvėje $E^d$.
+Surikiavus taškus pagal šią tvarką juos galima indeksuoti vienmačiais indeksavimo metodais (B-medžiu \cite{comer1979ubiquitous} RB-medžiu \cite{hanke1997relaxed} ir pan.).
 
 Siekiant sudaryti tokią tvarką, $E^d$ erdvė suskirstoma į gardelę (į kiekvieną laukelį šioje gardelėje gali patekti nulis, vienas ar daugiau taškų).
 Kiekvienam laukeliui šioje gardelėje yra priskiriamas unikalus skaičius pagal kurį laukeliai yra surikiuojami ir indeksuojami vienmačiais indeksavimo metodais.
