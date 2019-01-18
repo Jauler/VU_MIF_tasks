@@ -210,7 +210,7 @@ Aptarsime dvi tokias kreives:
 \paragraph{Eilutinė kreivė}
 
 Eilutinė kreivė yra viena iš papraščiausių erdvę užpildančių kreivių.
-Ji negali būti naudojama begalinėje erdvėje, todėl tarkime, kad $[L_i, U_i]$ yra erdvės $E^d$ ribos koordinačių ašies $i$ atžvilgiu.
+Ji negali būti naudojama begalinėje erdvėje, todėl tarkime, kad $[L_1, U_1] \times [L_2, U_2] \times ... \times [L_d, U_d]$ yra stačiakampis gretasienis erdvėje $E^d$ kurį eilutinė kreivė užpildo (paveiksle \ref{img:RowWiseSpaceFillingCurve} šis greitasienis būtų $[1, 4] \times [1, 4]$).
 Eilutinė kreivė iš pradžių „prabėga“ visus taškus $[x, L_2, ..., L_d]$, kur $x$ patenka į intervalą $[L_1, U_1]$.
 Šis prabėgimas atliekamas $x$ didėjimo tvarka.
 Paskui „prabėga“ $[x, L_2 + 1, ..., L_d]$, paskui $[x, L_2 + 2, ..., L_d]$ ir t.t. (žr.: \ref{img:RowWiseSpaceFillingCurve} pav.).
@@ -233,24 +233,30 @@ Formaliai pilna tvarka yra apibrėžiama sąryšio:
 Čia $p_1$ ir $p_2$ yra taškai erdvėje $E^d$, o $RWSFC(p)$:
 
 \begin{equation}
-	RWSFC(p) = 1 + \sum_{i=1}^{d} [(p_i - L_i) \prod_{j=0}^{i - 1}U_j - L_j]
+	RWSFC(p) = 1 + \sum_{i=1}^{d} [(p_i - L_i) \prod_{j=0}^{i - 1}RL(j)]
 \label{eq:RowWiseSFCValue}
 \end{equation}
 
-Čia daroma prielaida, kad $U_0 - L_0 = 1$.
+\begin{equation}
+	RL(j) =
+\begin{cases}
+	U_j - L_j, \text{jeigu } j > 0\\
+	1, \text{ kitu atveju}\\
+\end{cases}
+\end{equation}
 
 
 
 \paragraph{Z-kreivė}
 
 Z-kreivė daugiamačių duomenų indeksavimo metodų, paremtų erdvę užpildančiomis kreivėmis, kontekste yra viena iš populiariausių \cite{ramsak2000integrating}.
-Z-kreivė visų pirma visą erdvę $E^d$ padalina į dvi lygias sritis $P_0$ ir $P_1$ statmenai pirmai koordinačių ašiai.
-Visi laukeliai esantys srityje $P_0$ yra pirmiau tų, kurie yra srityje $P_1$.
-Sekančiame žingsnyje $P_0$ yra padaliniama į dvi lygias sritis $P_{00}$, $P_{01}$, o $P_1$ yra padalinama $P_{10}$ $P_{11}$ statmenai antrai koordinačių ašiai.
-Atitinkamai $P_{00}$ laukeliai yra pirmesni už $P_{01}$, o $P_{10}$ pirmesni už $P_{11}$.
-Toliau skaidoma pagal trečią koordinačių ašį, vėliau pagal ketvirtą, ..., d-tąją (žr.: \ref{img:ZCurveSpaceFillingCurve} pav.).
-Kai padaromas padalinimas pagal d-tąją ašį, pradedama vėl nuo pirmosios koordinačių ašies.
-Šis rekursiškas dalinimas yra vykdomas tol, kol kiekviena erdvės sritis $P$ yra nedidesnė negu ankščiau minėtos gardelės laukelio dydis.
+Nagrinėsime atvejį, kuriame Z-kreivė užpildo stačiakampį gretasienį $[1, 2^b] \times [1, 2^b] \times ... \times [1, 2^b]$ erdvėje $E^d$ (\ref{img:ZCurveSpaceFillingCurve} paveiksliuke pateiktame pavyzdyje $b=2$).
+Z-kreivė visų pirma gretasienį padalina į dvi lygias sritis $P_0 = [1, 2^{b-1}] \times [1, 2^b] \times ... \times [1, 2^b]$ ir $P_1 = [2^{b-1}, 2^b] \times [1, 2^b] \times ... \times [1, 2^b]$.
+Visi gardelės laukeliai esantys srityje $P_0$ yra pirmiau tų, kurie yra srityje $P_1$.
+Sekančiame žingsnyje $P_0$ yra padaliniama į dvi lygias sritis $P_{00} = [1, 2^{b-1}] \times [1, 2^{b-1}] \times ... \times [1, 2^b]$ ir $P_{01} = [1, 2^{b-1}] \times [2^{b-1}, 2^b] \times ... \times [1, 2^b]$.
+Atitinkamai $P_{00}$ laukeliai yra pirmesni už $P_{01}$.
+Vėliau taip pat padalinama $P_{1}$ ir t.t.
+Šis rekursiškas dalinimas yra vykdomas tol, kol kiekviena erdvės sritis $P_i$ yra nedidesnė negu gardelės laukelio dydis.
 
 \begin{figure}[H]
 \begin{center}
@@ -260,7 +266,6 @@ Kai padaromas padalinimas pagal d-tąją ašį, pradedama vėl nuo pirmosios koo
 \end{center}
 \end{figure}
 
-Tarsime, kad erdvė $E^d$ nėra begalinė, ir $[0, 2^b]$ yra visų šios erdvės koordinačių ašių ribos.
 Formaliai tvarka yra apibrėžiama sąryšio:
 \begin{equation}
 	p_1 < p_2 \text{ jeigu } ZCSFC(p_1) < ZCSFC(p_2)
@@ -321,7 +326,7 @@ Pavyzdžiui Kd-medžio atveju šis parametras apibrėžtų duomenų tipą saugan
 
 \paragraph{KeyType}
 Parametras {\it KeyType} nurodo kokio tipo duomenys yra saugomi duomenų viršūnėse.
-Šiame darbe nagrinėsime tik tuos atvejus, kur šio parametro reikšmė yra taškų erdvėje $E^d$ aibė.
+Šiame darbe nagrinėsime tik tuos atvejus, kur šio parametro reikšmė yra aibė „aibė“ (erdvės $E^d$ taškų aibė).
 
 \paragraph{NumberOfSpacePartitions}
 Parametras {\it NumberOfSpacePartitions} apibrėžia kiek daugiausiai vaikų gali turėti indekso viršūnės.
@@ -332,11 +337,11 @@ Parametras {\it Resolution} apibrėžia maksimalų medžio gylį.
 
 \paragraph{PathShrink}
 Parametras {\it PathShrink} gali turėti tris reikšmes: {\it NeverShrink}, {\it LeafShrink} arba {\it Tree Shrink}.
-Kai kuriais atvejais hierarchiniuose duomenų indeksavimo metoduose dvi ar daugiau indekso viršunių gali būti apjungtos tarpusavyje, šitaip sumažinant medžio gylį, tačiau neprarandant duomenų vientisumo.
+Kai kuriais atvejais hierarchiniuose duomenų indeksavimo metoduose dvi ar daugiau indekso viršunių gali būti apjungtos tarpusavyje, šitaip sumažinant medžio gylį.
 Tačiau šiame darbe šie apjungimo metodai nebus nagrinėjami ir bus daroma prielaida, kad parametro {\it PathSrhink} reikšmė visada bus {\it NeverShrink}, t.y. niekada nebus vykdomi indekso viršūnių apjungimai.
 
 \paragraph{NodeShrink}
-Verta prisiminti, kad hierarchiniai duomenų indeksavimo metodai duomenis laiko grupėmis (žr.: \ref{sec:HierarchicalIndices}).
+Verta prisiminti, kad hierarchiniai duomenų indeksavimo metodai duomenis laiko grupėmis (žr.: \ref{img:KdTreeExample} paveiksliuką).
 Parametras {\it NodeShrink} gali turėti dvi reikšmes: „Įjungta“ arba „Išjungta“.
 Jeigu reikšmė yra „Įjungta“, tuomet tuščios duomenų viršūnės (pavyzdžiui po visų įrašų priklausančių kuriai nors duomenų viršūnei ištrynimo) bus pašalinamos iš medžio.
 Atitinkamai, jeigu indekso viršūnė nebeturi vaikų -- ji irgi bus pašalinta.
